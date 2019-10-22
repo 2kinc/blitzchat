@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Blitzchat</title>
+
+    <link rel="stylesheet" href="./styles/index.css">
 </head>
+
 <body>
-    <header id="header">
-        <span id="name"></span>
-        
-    </header>
+    <div id="app">
+        <header id="header">
+            <span id="name">d</span>
+            <span id="chat-title">d</span>
+        </header>
+
+        <nav id="contacts"></nav>
+
+        <div id="chat-space">
+            <p id="chat-space-message">Tap a chat or drag one into me!</p>
+        </div>
+    </div>
+
 
     <div id="loading"></div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
 </body>
+
 </html>

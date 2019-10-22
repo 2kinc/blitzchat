@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+body {
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #222226;
+    color: white;
+    font-size: 14px;
+}
+
+#header {
+    padding: 16px;
+    color: #77aaff;
+    font-size: 130%;
+}
+
+#name {
+    display: none;
+    text-overflow: clip;
+}
+
+#chat-title {
+    display: inline-block;
+    text-overflow: clip;
+}
+
+#chat-space {
+    height: calc(100vh - 86px);
+    width: calc(100vw - 148px);
+    float: right;
+    margin-right: 16px;
+    margin-top: 16px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#chat-space-message {
+    margin-top: calc(50vh - 50px);
+}
+
+#contacts {
+    width: 60px;
+    background: yellow;
+    height: 10px;
+    margin: 16px;
+    display: inline-block;
+}
+
+@media screen and (min-width: 720px) {
+    #name {
+        width: 220px;
+        display: inline-block;
+    }
+
+    #chat-space {
+        width: calc(100vw - 292px);
+    }
+
+    #contacts {
+        width: 204px;
+    }
+}
