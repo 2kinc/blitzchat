@@ -6,6 +6,7 @@ body {
     background: #222226;
     color: white;
     font-size: 14px;
+    overflow: hidden;
 }
 
 #header {
@@ -25,14 +26,15 @@ body {
 }
 
 #chat-space {
-    height: calc(100vh - 86px);
+    height: calc(100vh - 70px);
     width: calc(100vw - 148px);
     float: right;
     margin-right: 16px;
-    margin-top: 16px;
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
+    background: #ffffff22;
+    border-radius: 10px;
 }
 
 #chat-space-message {
@@ -41,9 +43,10 @@ body {
 
 #contacts {
     width: 60px;
-    background: yellow;
-    height: 10px;
+    height: calc(100vh - 70px);
+    -height: 60px;
     margin: 16px;
+    margin-top: 0;
     display: inline-block;
 }
 
@@ -52,11 +55,9 @@ body {
         width: 220px;
         display: inline-block;
     }
-
     #chat-space {
         width: calc(100vw - 292px);
     }
-
     #contacts {
         width: 204px;
     }
