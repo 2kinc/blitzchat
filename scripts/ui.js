@@ -14,7 +14,7 @@ class UI {
                     openedChats: [],
                     openChat: function (contact) {
                         this.openedChats = [contact];
-                        console.log(contact);
+                        
                     }
                 }),
                 el: this.el

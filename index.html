@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Blitzchat</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./styles/index.css">
 </head>
 
@@ -23,8 +22,7 @@
 
                 <template v-for="contact in contacts">
                     <div v-on:click="openChat(contact)">
-                            <contact-item v-bind:contact="contact"/>
-
+                        <contact-item v-bind:contact="contact" />
                     </div>
                 </template>
             </nav>
@@ -33,7 +31,9 @@
                 <p id="chat-space-message">Tap a chat or drag one into me!</p>
             </div>
 
-            <div id="chat-grid"></div>
+            <div id="chat-grid" v-bind:class="{one: openedChats.length == 1, two: openedChats.length == 2, three: openedChats.length == 3, four: openedChats.length == 4}">
+
+            </div>
         </div>
         <button v-on:click="signIn" class="button primary" v-if="!signedIn">sign in</button>
     </div>
@@ -50,6 +50,22 @@
                 <button class="button"><i class="material-icons">check</i></button>
                 <button class="button warn"><i class="material-icons">delete</i></button>
             </div>
+        </div>
+
+    </template>
+
+    <template id="chatWindowTemplate">
+
+        <div class="chatWindow">
+            <div class="header">
+                <span class="title"></span>
+                <div class="actions">
+                    <i class="material-icons button">close</i>
+                    <i class="material-icons button">more</i>
+                </div>
+            </div>
+            <div class="chat"></div>
+            <div id="sendMessage"></div>
         </div>
 
     </template>
