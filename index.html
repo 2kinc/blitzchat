@@ -6,26 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Blitzchat</title>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
     <link rel="stylesheet" href="./styles/index.css">
 </head>
 
 <body>
     <div id="app">
-        <header id="header">
-            <span id="name">d</span>
-            <span id="chat-title">d</span>
-        </header>
+        <div v-if="signedIn">
+            <header id="header">
+                <span id="name">d</span>
+                <span id="chat-title">{{chatTitle}}</span>
+            </header>
 
-        <nav id="contacts"></nav>
+            <nav id="contacts">
 
-        <div id="chat-space">
-            <p id="chat-space-message">Tap a chat or drag one into me!</p>
+                <template v-for="contact in contacts">
+                    <div v-on:click="openChat(contact)">
+                            <contact-item v-bind:contact="contact"/>
+
+                    </div>
+                </template>
+            </nav>
+
+            <div id="chat-space">
+                <p id="chat-space-message">Tap a chat or drag one into me!</p>
+            </div>
+
+            <div id="chat-grid"></div>
         </div>
+        <button v-on:click="signIn" class="button primary" v-if="!signedIn">sign in</button>
     </div>
 
-
     <div id="loading"></div>
+
+    <template id="contactItemTemplate">
+
+        <div class="contactItem">
+            <img v-bind:src="contact.picture" v-bind:alt="contact.name" width="50" height="50" class="picture">
+            <h3>{{contact.name}}</h3>
+            <p class="lastMessage">{{contact.lastMessage}}</p>
+            <div class="actions">
+                <button class="button"><i class="material-icons">check</i></button>
+                <button class="button warn"><i class="material-icons">delete</i></button>
+            </div>
+        </div>
+
+    </template>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
