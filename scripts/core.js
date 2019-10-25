@@ -13,6 +13,7 @@ window.onload = function () {
         if (user || auth.currentUser) {
             ui.vue.signedIn = true;
             var contactsRef = db.ref('users/' + auth.currentUser.uid + '/blitzchat/contacts');
+            ui.vue.displayName = auth.currentUser.displayName;
             contactsRef.on('child_added', function (snap) {
                 var result = snap.val();
                 if (result.people.length == 1) {

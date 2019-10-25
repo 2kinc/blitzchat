@@ -133,19 +133,17 @@ body {
     height: 50px;
 }
 
-#chat-grid.one, #chat-grid.two {
+#chat-grid.shown {
     background: #222226;
-    width: calc(100vw - 148px);
+    width: calc(100vw - 188px);
     height: calc(100vh - 70px);
     float: right;
-    padding-left: 20px;
-    padding-right: 20px;
     position: absolute;
     right: 16px;
     bottom: 16px;
 }
 
-#chat-grid.one .chat-window {
+#chat-grid .chat-window {
     width: calc(100vw - 148px);
     border: 1px #ffffff66 solid;
     height: calc(100vh - 70px);
@@ -154,6 +152,13 @@ body {
 .chat-window {
     border: 1px #ffffff66 solid;
     display: inline-block;
+    height: calc(100vh - 72px);
+    border-radius: 10px;
+    transition: left 300ms ease, width 300ms ease, height 300ms ease;
+}
+
+#chat-grid.single .chat-window {
+    width: calc(100vw - 190px);
 }
 
 @media screen and (min-width: 720px) {
@@ -191,7 +196,11 @@ body {
         height: 40px;
     }
 
-    #chat-grid.one, #chat-grid.two {
-        width: calc(100vw - 292px);
+    #chat-grid.shown {
+        width: calc(100vw - 252px);
+    }
+
+    #chat-grid.single .chat-window {
+        width: calc(100vw - 254px);
     }
 }

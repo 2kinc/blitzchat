@@ -7,21 +7,29 @@ class UI {
                 data: () => ({
                     signedIn: true,
                     contacts: [],
-                    signIn: function () {
-                        
-                    },
                     chatTitle: 'No chats are open.',
                     openedChats: [],
-                    openChat: function (contact) {
+                    displayName: ''
+                }),
+                methods: {
+                    openChat (contact) {
                         this.openedChats = [contact];
+                        this.$refs.chatGrid.classList.addClass('shown');
+                    },
+                    signIn () {
                         
                     }
-                }),
+                },
                 el: this.el
             });
             this.contactItem = Vue.component('contact-item', {
-                props: {'contact': Object},
-                template: '#contactItemTemplate'
+                props: {'contact': Object, 'openChat': Function},
+                template: '#contactItemTemplate',
+                methods: {
+                    open () {
+                        this.$parent.openChat(this.contact);
+                    }
+                }
             });
             this.chatWindow = Vue.component('chat-window', {
                 props: {'chat': Object},

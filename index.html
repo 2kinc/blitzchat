@@ -14,16 +14,14 @@
     <div id="app">
         <div v-if="signedIn">
             <header id="header">
-                <span id="name">d</span>
+                <span id="name">Hello, {{displayName}}</span>
                 <span id="chat-title">{{chatTitle}}</span>
             </header>
 
             <nav id="contacts">
 
                 <template v-for="contact in contacts">
-                    <div v-on:click="openChat(contact)">
-                        <contact-item v-bind:contact="contact" />
-                    </div>
+                    <contact-item :contact="contact"/>
                 </template>
             </nav>
 
@@ -31,7 +29,8 @@
                 <p id="chat-space-message">Tap a chat or drag one into me!</p>
             </div>
 
-            <div id="chat-grid" v-bind:class="{one: openedChats.length == 1, two: openedChats.length == 2, three: openedChats.length == 3, four: openedChats.length == 4}">
+            <div id="chat-grid" ref="chatGrid"
+                v-bind:class="{shown: openedChats.length > 0, single: openedChats.length == 1}">
                 <template v-for="chat in openedChats">
                     <chat-window v-bind:chat="chat"></chat-window>
                 </template>
@@ -44,13 +43,13 @@
 
     <template id="contactItemTemplate">
 
-        <div class="contactItem">
+        <div class="contactItem" v-on:click="open">
             <img v-bind:src="contact.picture" v-bind:alt="contact.name" width="50" height="50" class="picture">
             <h3>{{contact.name}}</h3>
-            <p class="lastMessage">{{contact.lastMessage}}</p>
+            <p class="last-message">{{contact.lastMessage}}</p>
             <div class="actions">
-                <button class="button"><i class="material-icons">check</i></button>
-                <button class="button warn"><i class="material-icons">delete</i></button>
+                <button class="button" title="Mark as Read"><i class="material-icons">done_all</i></button>
+                <button class="button warn" title="Remove Conversation"><i class="material-icons">delete</i></button>
             </div>
         </div>
 
@@ -58,7 +57,7 @@
 
     <template id="chatWindowTemplate">
 
-        <div class="chatWindow">
+        <div class="chat-window">
             <div class="header">
                 <span class="title"></span>
                 <div class="actions">
@@ -68,7 +67,7 @@
             </div>
             <div class="chat">
 
-                <div v-for="message chat.messages" class="message">
+                <div v-for="message in chat.messages" class="message">
                     {{message.message}}
                 </div>
 
