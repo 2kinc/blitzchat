@@ -151,6 +151,11 @@ body {
     height: calc(100vh - 70px);
 }
 
+.chat-window {
+    border: 1px #ffffff66 solid;
+    display: inline-block;
+}
+
 @media screen and (min-width: 720px) {
     #name {
         width: 220px;

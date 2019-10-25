@@ -21,11 +21,12 @@ class UI {
             });
             this.contactItem = Vue.component('contact-item', {
                 props: {'contact': Object},
-                template: '#contactItemTemplate',
-                created: function () {
-                    console.log(this.contact);
-                }
-            })
+                template: '#contactItemTemplate'
+            });
+            this.chatWindow = Vue.component('chat-window', {
+                props: {'chat': Object},
+                template: '#chatWindowTemplate'
+            });
         }
     }
 }

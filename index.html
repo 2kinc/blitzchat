@@ -32,7 +32,9 @@
             </div>
 
             <div id="chat-grid" v-bind:class="{one: openedChats.length == 1, two: openedChats.length == 2, three: openedChats.length == 3, four: openedChats.length == 4}">
-
+                <template v-for="chat in openedChats">
+                    <chat-window v-bind:chat="chat"></chat-window>
+                </template>
             </div>
         </div>
         <button v-on:click="signIn" class="button primary" v-if="!signedIn">sign in</button>
@@ -64,7 +66,13 @@
                     <i class="material-icons button">more</i>
                 </div>
             </div>
-            <div class="chat"></div>
+            <div class="chat">
+
+                <div v-for="message chat.messages" class="message">
+                    {{message.message}}
+                </div>
+
+            </div>
             <div id="sendMessage"></div>
         </div>
 
