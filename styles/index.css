@@ -88,6 +88,10 @@ body {
     height: 56px;
 }
 
+.contactItem:active {
+    background: #77aaff99;
+}
+
 .contactItem p {
     display: none;
 }
@@ -161,46 +165,71 @@ body {
     width: calc(100vw - 190px);
 }
 
+#add-contact {
+    cursor: pointer;
+    border: 1px #ffffff66 solid;
+    padding: 14px;
+    padding-left: 17px;
+    padding-top: 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    user-select: none;
+    transition: background 100ms;
+}
+
+#add-contact:hover {
+    background: #77aaff66;
+}
+
+#add-contact:active {
+    background: #77aaff99;
+}
+
+#add-contact>span {
+    position: relative;
+    top: -6px;
+    margin-left: 6px;
+    display: none;
+}
+
 @media screen and (min-width: 720px) {
     #name {
         width: 220px;
         display: inline-block;
     }
-
     #chat-space {
         width: calc(100vw - 292px);
     }
-
     #contacts {
         width: 204px;
     }
-
     .contactItem .actions {
         float: right;
         position: relative;
         top: -48px;
     }
-
     .contactItem h3, .contactItem p {
         display: block;
     }
-
     .contactItem:hover .actions {
         display: block;
     }
-
     .contactItem .picture {
         margin: 8px -2px;
         margin-right: 10px;
         width: 40px;
         height: 40px;
     }
-
     #chat-grid.shown {
         width: calc(100vw - 252px);
     }
-
     #chat-grid.single .chat-window {
         width: calc(100vw - 254px);
+    }
+    #add-contact {
+        border-radius: 6px;
+    }
+    #add-contact > span {
+        display: inline;
     }
 }

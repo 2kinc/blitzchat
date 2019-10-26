@@ -19,7 +19,10 @@
             </header>
 
             <nav id="contacts">
-
+                <div id="add-contact">
+                    <i class="material-icons">add</i>
+                    <span>Add Conversation</span>
+                </div>
                 <template v-for="contact in contacts">
                     <contact-item :contact="contact"/>
                 </template>
