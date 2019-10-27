@@ -19,16 +19,16 @@
             </header>
 
             <nav id="contacts">
-                <div id="add-contact">
+                <div id="add-contact" v-if="!newConversationOpen" v-on:click="openNewConversation">
                     <i class="material-icons">add</i>
                     <span>Add Conversation</span>
                 </div>
                 <template v-for="contact in contacts">
-                    <contact-item :contact="contact"/>
+                    <contact-item :contact="contact" />
                 </template>
             </nav>
 
-            <div id="chat-space">
+            <div id="chat-space" v-if="!newConversationOpen">
                 <p id="chat-space-message">Tap a chat or drag one into me!</p>
             </div>
 
@@ -37,6 +37,15 @@
                 <template v-for="chat in openedChats">
                     <chat-window v-bind:chat="chat"></chat-window>
                 </template>
+            </div>
+
+            <div id="new-conversation-form" v-if="newConversationOpen">
+
+                <div v-if="newConversationPhase == 0" v-on:click="toggleGroup" class="active-glow" style="user-select: none;">
+                    <h2>New Conversation</h2>
+                    <span v-if="newConversationForm.group">Group</span>
+                    <span v-else>Contact</span>
+                </div>
             </div>
         </div>
         <button v-on:click="signIn" class="button primary" v-if="!signedIn">sign in</button>

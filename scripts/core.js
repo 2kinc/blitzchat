@@ -16,7 +16,7 @@ window.onload = function () {
             ui.vue.displayName = auth.currentUser.displayName;
             contactsRef.on('child_added', function (snap) {
                 var result = snap.val();
-                if (result.people.length == 1) {
+                /*if (result.people.length == 1) {
                     db.ref('users/' + result.people[0] + '/photoURL').on('value', function (snap) {
                         result.picture = snap.val();
                         db.ref('users/' + result.people[0] + '/displayName').on('value', function (snap) {
@@ -26,10 +26,10 @@ window.onload = function () {
                     });
                 } else {
                     ui.vue.contacts.push(result);
-                }
+                }*/
             });
             contactsRef.on('child_changed', function (snap) {
-                Vue.set(ui.vue.contacts, Number(snap.key), snap.val());
+                /*Vue.set(ui.vue.contacts, Number(snap.key), snap.val());*/
             });
         } else {
             ui.vue.signedIn = false;

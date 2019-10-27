@@ -9,7 +9,15 @@ class UI {
                     contacts: [],
                     chatTitle: 'No chats are open.',
                     openedChats: [],
-                    displayName: ''
+                    displayName: '',
+                    newConversationForm: {
+                        group: false,
+                        name: '',
+                        people: []
+                    },
+                    newConversationPerson: undefined,
+                    newConversationOpen: false,
+                    newConversationPhase: 0
                 }),
                 methods: {
                     openChat (contact) {
@@ -18,6 +26,12 @@ class UI {
                     },
                     signIn () {
                         
+                    },
+                    openNewConversation () {
+                        this.newConversationOpen = true;
+                    },
+                    toggleGroup () {
+                        this.newConversationForm.group = !this.newConversationForm.group;
                     }
                 },
                 el: this.el

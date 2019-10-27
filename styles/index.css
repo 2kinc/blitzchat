@@ -167,14 +167,14 @@ body {
 
 #add-contact {
     cursor: pointer;
-    border: 1px #ffffff66 solid;
     padding: 14px;
-    padding-left: 17px;
-    padding-top: 16px;
+    padding-left: 18px;
+    padding-top: 17px;
     border-radius: 100px;
     margin-bottom: 16px;
     user-select: none;
     transition: background 100ms;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #add-contact:hover {
@@ -190,6 +190,36 @@ body {
     top: -6px;
     margin-left: 6px;
     display: none;
+}
+
+#new-conversation-form {
+    background: #222226;
+    width: calc(100vw - 188px);
+    height: calc(100vh - 70px);
+    float: right;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+#new-conversation-form h2 {
+    font-weight: lighter;
+    color: #77aaff;
+    text-align: center;
+    padding-top: 100px;
+}
+
+#new-conversation-form > div {
+    width: 100%;
+    height: 100%;
+}
+
+.active-glow {
+    transition: background 100ms;
+}
+
+.active-glow:active {
+    background: #77aaff66;
 }
 
 @media screen and (min-width: 720px) {
@@ -228,8 +258,13 @@ body {
     }
     #add-contact {
         border-radius: 6px;
+        padding: 8px;
+        padding-top: 10px;
     }
     #add-contact > span {
         display: inline;
+    }
+    #new-conversation-form {
+        width: calc(100vw - 252px);
     }
 }
