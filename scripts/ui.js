@@ -22,7 +22,6 @@ class UI {
                 methods: {
                     openChat (contact) {
                         this.openedChats = [contact];
-                        this.$refs.chatGrid.classList.addClass('shown');
                     },
                     signIn () {
                         

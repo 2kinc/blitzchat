@@ -34,6 +34,8 @@ window.onload = function () {
         } else {
             ui.vue.signedIn = false;
         }
+    document.querySelector('#loading').style.display = 'none';
+
 
     }).catch(function (error) {
         // Handle Errors here.
@@ -58,5 +60,4 @@ window.onload = function () {
     window.ui = ui;
     window.auth = auth;
 
-    document.querySelector('#loading').style.display = 'none';
 }

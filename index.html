@@ -8,50 +8,68 @@
     <title>Blitzchat</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./styles/index.css">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 </head>
 
 <body>
     <div id="app">
         <div v-if="signedIn">
-            <header id="header">
+            <header id="header" class="no-select">
                 <span id="name">Hello, {{displayName}}</span>
                 <span id="chat-title">{{chatTitle}}</span>
             </header>
 
             <nav id="contacts">
                 <div id="add-contact" v-if="!newConversationOpen" v-on:click="openNewConversation">
-                    <i class="material-icons">add</i>
+                    <i class="material-icons">person_add</i>
                     <span>Add Conversation</span>
                 </div>
                 <template v-for="contact in contacts">
                     <contact-item :contact="contact" />
                 </template>
+                <div v-if="contacts.length == 0" id="no-contacts" class="no-select">
+                    <i class="material-icons">face</i><br>
+                    You have no conversations.
+                </div>
             </nav>
 
-            <div id="chat-space" v-if="!newConversationOpen">
+            <div id="chat-space">
                 <p id="chat-space-message">Tap a chat or drag one into me!</p>
             </div>
 
             <div id="chat-grid" ref="chatGrid"
-                v-bind:class="{shown: openedChats.length > 0, single: openedChats.length == 1}">
+                v-bind:class="{shown: openedChats.length > 0 || newConversationOpen, single: openedChats.length == 1 || (openedChats.length == 0 && newConversationOpen)}">
                 <template v-for="chat in openedChats">
                     <chat-window v-bind:chat="chat"></chat-window>
                 </template>
-            </div>
+                <div id="new-conversation-form" v-if="newConversationOpen" class="chat-window">
+                    <div v-if="newConversationPhase == 0">
+                        <div v-on:click="toggleGroup" class="active-glow"
+                            style="user-select: none; margin-top: -18px; border-radius: 6px; text-align: center; height: 100%;">
+                            <h2><i class="material-icons">person_add</i> <br> New Conversation</h2>
+                            <span v-if="newConversationForm.group">New <span class="blue">Group</span></span>
+                            <span v-else>New <span class="blue">Contact</span></span>
 
-            <div id="new-conversation-form" v-if="newConversationOpen">
+                            <div class="input-hint">
+                                <i class="material-icons">touch_app</i> <br>
+                                <b>tap</b> to toggle
+                            </div>
 
-                <div v-if="newConversationPhase == 0" v-on:click="toggleGroup" class="active-glow" style="user-select: none;">
-                    <h2>New Conversation</h2>
-                    <span v-if="newConversationForm.group">Group</span>
-                    <span v-else>Contact</span>
+
+                        </div>
+                        <button class="button new-conversation-continue" v-on:click.self="console.log('d')">Continue</button>
+                    </div>
+
                 </div>
             </div>
+
+
         </div>
         <button v-on:click="signIn" class="button primary" v-if="!signedIn">sign in</button>
     </div>
 
-    <div id="loading"></div>
+    <div id="loading">loading Blitzchat...</div>
 
     <template id="contactItemTemplate">
 

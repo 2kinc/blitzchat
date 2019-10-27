@@ -57,6 +57,22 @@ body {
     position: absolute;
     left: 0;
     top: 0;
+    text-align: center;
+    padding-top: 50vh;
+}
+
+#no-contacts {
+    color: #ffffff99;
+    text-align: center;
+    position: relative;
+    top: 20vh;
+    width: 100px;
+    left: 50px;
+    display: none;
+}
+
+.no-select {
+    user-select: none;
 }
 
 .button {
@@ -68,6 +84,7 @@ body {
     outline: none!important;
     color: white;
     transition: background 200ms;
+    font-family: 'Rubik', sans-serif;
 }
 
 .button:hover {
@@ -139,7 +156,7 @@ body {
 
 #chat-grid.shown {
     background: #222226;
-    width: calc(100vw - 188px);
+    width: calc(100vw - 108px);
     height: calc(100vh - 70px);
     float: right;
     position: absolute;
@@ -148,7 +165,7 @@ body {
 }
 
 #chat-grid .chat-window {
-    width: calc(100vw - 148px);
+    width: calc(100vw - 108px);
     border: 1px #ffffff66 solid;
     height: calc(100vh - 70px);
 }
@@ -162,7 +179,7 @@ body {
 }
 
 #chat-grid.single .chat-window {
-    width: calc(100vw - 190px);
+    width: calc(100vw - 108px);
 }
 
 #add-contact {
@@ -192,26 +209,24 @@ body {
     display: none;
 }
 
-#new-conversation-form {
-    background: #222226;
-    width: calc(100vw - 188px);
-    height: calc(100vh - 70px);
-    float: right;
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
-}
-
 #new-conversation-form h2 {
     font-weight: lighter;
     color: #77aaff;
     text-align: center;
-    padding-top: 100px;
+    padding-top: 70px;
 }
 
-#new-conversation-form > div {
+#new-conversation-form>div {
     width: 100%;
     height: 100%;
+}
+
+.new-conversation-continue {
+    position: relative;
+    left: calc(50vw - 54px - 2.8em);
+    top: -76px;
+    border: none;
+    color: #77aaff;
 }
 
 .active-glow {
@@ -220,6 +235,66 @@ body {
 
 .active-glow:active {
     background: #77aaff66;
+}
+
+.blue {
+    color: #77aaff;
+}
+
+@keyframes input-hint {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes input-hint {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes input-hint {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes input-hint {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.input-hint {
+    margin-top: 30vh;
+    animation: input-hint 3s infinite;
+    -moz-animation: input-hint 3s infinite;
+    -webkit-animation: input-hint 3s infinite;
+    -o-animation: input-hint 3s infinite;
 }
 
 @media screen and (min-width: 720px) {
@@ -261,10 +336,13 @@ body {
         padding: 8px;
         padding-top: 10px;
     }
-    #add-contact > span {
+    #add-contact>span {
         display: inline;
     }
-    #new-conversation-form {
-        width: calc(100vw - 252px);
+    #no-contacts {
+        display: block;
+    }
+    .new-conversation-continue {
+        left: calc(50vw - 127px - 2.8em);
     }
 }
