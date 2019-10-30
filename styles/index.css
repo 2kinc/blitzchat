@@ -7,6 +7,7 @@ html {
 
 body {
     font-family: 'Rubik', sans-serif;
+    font-size: 14px;
     color: white;
     margin: 0;
     height: 100%;
@@ -67,6 +68,7 @@ body {
     top: 0;
     text-align: center;
     padding-top: 50vh;
+    user-select: none;
 }
 
 #no-contacts {
@@ -96,11 +98,16 @@ body {
 }
 
 .button:hover {
-    background: #77aaff99;
+    background: #676a6e99;
 }
 
 .button:active {
     background: #77aaff;
+}
+
+.button.round {
+    border-radius: 1000px;
+    padding-bottom: 6px;
 }
 
 .contactItem {
@@ -219,7 +226,6 @@ body {
 
 #new-conversation-form h2 {
     font-weight: lighter;
-    color: #77aaff;
     text-align: center;
     padding-top: 70px;
 }
@@ -247,6 +253,13 @@ body {
 
 .blue {
     color: #77aaff;
+}
+
+#new-conversation-form .button.round {
+    width: 46px;
+    margin: auto;
+    display: block;
+    margin-top: 30px;
 }
 
 @keyframes input-hint {
@@ -305,6 +318,49 @@ body {
     -o-animation: input-hint 3s infinite;
 }
 
+.input {
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    outline: none;
+    background: #ffffff33;
+    color: white;
+    font-family: 'Rubik', sans-serif;
+    user-select: text;
+}
+
+.input:focus {
+    background: #ffffff44;
+    border: 1px #ffffff66 solid;
+    padding: 9px;
+}
+
+#new-conversation-form>div {
+    margin-top: -18px;
+    border-radius: 6px;
+    height: 100%;
+    user-select: none;
+}
+
+#new-conversation-form .input {
+    background: transparent;
+    border: none;
+    width: 50vw;
+    -webkit-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.2);
+    margin: auto;
+    display: block;
+    margin-top: 60px;
+    padding: 10px;
+}
+
+#new-conversation-form .input:focus {
+    -webkit-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+}
+
 @media screen and (min-width: 720px) {
     #name {
         width: 220px;
@@ -352,5 +408,10 @@ body {
     }
     .new-conversation-continue {
         left: calc(50vw - 127px - 2.8em);
+    }
+    #new-conversation-form .input {
+        padding: 16px;
+        font-size: 18px;
+        width: 40vw;
     }
 }

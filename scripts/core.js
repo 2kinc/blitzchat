@@ -50,7 +50,7 @@ window.onload = function () {
 
 
 
-    var ui = new UI(db.ref('blitzchat'), '#app');
+    var ui = new UI(db, '#app');
     ui.activate();
     ui.vue.signIn = function () {
         var provider = new firebase.auth.GoogleAuthProvider();

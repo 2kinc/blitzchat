@@ -1,13 +1,13 @@
 class UI {
-    constructor (dbref, el) {
+    constructor(dbref, el) {
         this.dbref = dbref;
         this.el = el;
         this.activate = function () {
             this.vue = new Vue({
                 data: () => ({
+                    dbref: this.dbref,
                     signedIn: true,
                     contacts: [],
-                    chatTitle: 'No chats are open.',
                     openedChats: [],
                     displayName: '',
                     newConversationForm: {
@@ -15,37 +15,66 @@ class UI {
                         name: '',
                         people: []
                     },
+                    usernameSearch: '',
+                    usernameSearchResults: {},
                     newConversationPerson: undefined,
                     newConversationOpen: false,
                     newConversationPhase: 0
                 }),
                 methods: {
-                    openChat (contact) {
+                    openChat(contact) {
                         this.openedChats = [contact];
                     },
-                    signIn () {
-                        
+                    signIn() {
+
                     },
-                    openNewConversation () {
+                    openNewConversation() {
                         this.newConversationOpen = true;
                     },
-                    toggleGroup () {
+                    toggleGroup() {
                         this.newConversationForm.group = !this.newConversationForm.group;
+                    },
+                    nextPhase() {
+                        this.newConversationPhase = (this.newConversationPhase + 1) % 3;
+                        if (!this.newConversationForm.group && this.newConversationPhase == 1)
+                            this.newConversationPhase = 2;
+                    },
+                    searchForProfiles() {
+                        var that = this;
+                        this.dbref.ref('users').orderByChild('displayName').equalTo(this.usernameSearch).once('value').then(function (snap) {
+                            var result = snap.val();
+                            Vue.set(that, 'usernameSearchResults', result);
+                        });
+                    }
+                },
+                computed: {
+                    chatTitle () {
+                        if (this.openedChats.length == 0 && !this.newConversationOpen)
+                            return 'No chats are open.';
+                        if (this.newConversationOpen && this.openedChats.length == 0) 
+                            return 'New Conversation';
+                        var list = [];
+                        for (var chat in this.openedChats) {
+                            list.push(chat.name);
+                        }
+                        if (this.newConversationOpen)
+                            list.push('New Convcersation');
+                        return list.join();
                     }
                 },
                 el: this.el
             });
             this.contactItem = Vue.component('contact-item', {
-                props: {'contact': Object, 'openChat': Function},
+                props: { 'contact': Object, 'openChat': Function },
                 template: '#contactItemTemplate',
                 methods: {
-                    open () {
+                    open() {
                         this.$parent.openChat(this.contact);
                     }
                 }
             });
             this.chatWindow = Vue.component('chat-window', {
-                props: {'chat': Object},
+                props: { 'chat': Object },
                 template: '#chatWindowTemplate'
             });
         }

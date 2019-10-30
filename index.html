@@ -47,9 +47,9 @@
                     <div v-if="newConversationPhase == 0">
                         <div v-on:click="toggleGroup" class="active-glow"
                             style="user-select: none; margin-top: -18px; border-radius: 6px; text-align: center; height: 100%;">
-                            <h2><i class="material-icons">person_add</i> <br> New Conversation</h2>
-                            <span v-if="newConversationForm.group">New <span class="blue">Group</span></span>
-                            <span v-else>New <span class="blue">Contact</span></span>
+                            <h2 class="blue"><i class="material-icons">person_add</i> <br> New Conversation</h2>
+                            <span v-if="newConversationForm.group">Create a <span class="blue">Group</span></span>
+                            <span v-else>Create a <span class="blue">Contact</span></span>
 
                             <div class="input-hint">
                                 <i class="material-icons">touch_app</i> <br>
@@ -58,9 +58,43 @@
 
 
                         </div>
-                        <button class="button new-conversation-continue">Continue</button>
                     </div>
 
+                    <div v-if="newConversationPhase == 1">
+                        <h2><i class="material-icons blue">group</i> <br> New <span class="blue">Group</span></h2>
+
+                        <input type="text" class="input" v-model="newConversationForm.name" placeholder="Group Name"
+                            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    </div>
+
+                    <div v-if="newConversationPhase == 2">
+                        <h2>
+                            <span v-if="newConversationForm.group">
+                                <i class="material-icons blue">group</i> <br>
+                                <span class="blue">Group</span>
+                                Members
+                            </span>
+                            <span v-else>
+                                <i class="material-icons blue">contacts</i> <br>
+                                <span class="blue">Contact </span>
+                                Profile
+                            </span>
+                        </h2>
+
+                        <input type="text" class="input" placeholder="Enter a Username" autocomplete="off"
+                            autocorrect="off" autocapitalize="off" spellcheck="false" v-model="usernameSearch"/>
+
+                        <button class="button round" v-on:click="searchForProfiles">
+                            <i class="material-icons">search</i>
+                        </button>
+
+                        <template v-for="result in usernameSearchResults">
+                            <contact-item :contact="result"></contact-item>
+                        </template>
+                        
+                    </div>
+
+                    <button class="button new-conversation-continue" v-on:click="nextPhase">Continue</button>
                 </div>
             </div>
 
@@ -74,8 +108,8 @@
     <template id="contactItemTemplate">
 
         <div class="contactItem" v-on:click="open">
-            <img v-bind:src="contact.picture" v-bind:alt="contact.name" width="50" height="50" class="picture">
-            <h3>{{contact.name}}</h3>
+            <img v-bind:src="contact.photoURL" v-bind:alt="contact.name" width="50" height="50" class="picture">
+            <h3>{{contact.displayName}}</h3>
             <p class="last-message">{{contact.lastMessage}}</p>
             <div class="actions">
                 <button class="button" title="Mark as Read"><i class="material-icons">done_all</i></button>
