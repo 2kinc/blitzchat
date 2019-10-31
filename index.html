@@ -81,15 +81,16 @@
                             </span>
                         </h2>
 
-                        <input type="text" class="input" placeholder="Enter a Username" autocomplete="off"
-                            autocorrect="off" autocapitalize="off" spellcheck="false" v-model="usernameSearch"/>
+                        <input type="text" class="input" placeholder="Enter a Username" autocomplete="off" v-if="!usernameSearchOpen"
+                            autocorrect="off" autocapitalize="off" spellcheck="false" v-model="usernameSearch" v-on:keyup.enter="searchForProfiles"/>
 
                         <button class="button round" v-on:click="searchForProfiles">
-                            <i class="material-icons">search</i>
+                            <i class="material-icons" v-if="!usernameSearchOpen">search</i>
+                            <i class="material-icons" v-else>close</i>
                         </button>
 
                         <template v-for="result in usernameSearchResults">
-                            <contact-item :contact="result"></contact-item>
+                            <username-search-result :profile="result"/>
                         </template>
                         
                     </div>
@@ -107,7 +108,7 @@
 
     <template id="contactItemTemplate">
 
-        <div class="contactItem" v-on:click="open">
+        <div class="contact-item" v-on:click="open">
             <img v-bind:src="contact.photoURL" v-bind:alt="contact.name" width="50" height="50" class="picture">
             <h3>{{contact.displayName}}</h3>
             <p class="last-message">{{contact.lastMessage}}</p>
@@ -139,6 +140,14 @@
             <div id="sendMessage"></div>
         </div>
 
+    </template>
+
+    <template id="usernameSearchResultTemplate">
+        <div class="username-search-result">
+            <img v-bind:src="profile.photoURL" alt="profile.displayName" width="50" height="50" class="picture">
+
+            <h3>{{profile.displayName}}</h3>
+        </div>
     </template>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->

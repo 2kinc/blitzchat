@@ -19,7 +19,8 @@ class UI {
                     usernameSearchResults: {},
                     newConversationPerson: undefined,
                     newConversationOpen: false,
-                    newConversationPhase: 0
+                    newConversationPhase: 0,
+                    usernameSearchOpen: false
                 }),
                 methods: {
                     openChat(contact) {
@@ -41,17 +42,26 @@ class UI {
                     },
                     searchForProfiles() {
                         var that = this;
-                        this.dbref.ref('users').orderByChild('displayName').equalTo(this.usernameSearch).once('value').then(function (snap) {
-                            var result = snap.val();
-                            Vue.set(that, 'usernameSearchResults', result);
-                        });
+                        if (!this.usernameSearchOpen) {
+                            this.dbref.ref('users').orderByChild('displayName').equalTo(this.usernameSearch).once('value').then(function (snap) {
+                                var result = snap.val();
+                                if (result) {
+                                    that.usernameSearchResults = result;
+                                    that.usernameSearchOpen = true;
+                                }
+                            });
+                        } else {
+                            that.usernameSearchResults = {};
+                            that.usernameSearchOpen = false;
+                        }
+
                     }
                 },
                 computed: {
-                    chatTitle () {
+                    chatTitle() {
                         if (this.openedChats.length == 0 && !this.newConversationOpen)
                             return 'No chats are open.';
-                        if (this.newConversationOpen && this.openedChats.length == 0) 
+                        if (this.newConversationOpen && this.openedChats.length == 0)
                             return 'New Conversation';
                         var list = [];
                         for (var chat in this.openedChats) {
@@ -77,6 +87,10 @@ class UI {
                 props: { 'chat': Object },
                 template: '#chatWindowTemplate'
             });
+            this.usernameSearchResult = Vue.component('username-search-result', {
+                props: { 'profile': Object },
+                template: '#usernameSearchResultTemplate'
+            })
         }
     }
 }
