@@ -81,18 +81,22 @@
                             </span>
                         </h2>
 
-                        <input type="text" class="input" placeholder="Enter a Username" autocomplete="off" v-if="!usernameSearchOpen"
-                            autocorrect="off" autocapitalize="off" spellcheck="false" v-model="usernameSearch" v-on:keyup.enter="searchForProfiles"/>
+                        <div class="bordered shadow fill-window" style="padding: 16px; border-radius: 10px; margin-top: 16px;">
+                            <input type="text" class="input" placeholder="Enter a Username" autocomplete="off"
+                                v-if="!usernameSearchOpen" autocorrect="off" autocapitalize="off" spellcheck="false"
+                                v-model="usernameSearch" v-on:keyup.enter="searchForProfiles" />
 
-                        <button class="button round" v-on:click="searchForProfiles">
-                            <i class="material-icons" v-if="!usernameSearchOpen">search</i>
-                            <i class="material-icons" v-else>close</i>
-                        </button>
+                            <button class="button round shadow" style="margin-top: 16px;" v-on:click="searchForProfiles">
+                                <i class="material-icons" v-if="!usernameSearchOpen">search</i>
+                                <i class="material-icons" v-else>close</i>
+                            </button>
 
-                        <template v-for="result in usernameSearchResults">
-                            <username-search-result :profile="result"/>
-                        </template>
-                        
+                            <template v-for="result in usernameSearchResults">
+                                <username-search-result :profile="result" />
+                            </template>
+                        </div>
+
+
                     </div>
 
                     <button class="button new-conversation-continue" v-on:click="nextPhase">Continue</button>

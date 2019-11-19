@@ -86,7 +86,7 @@ body {
 }
 
 .button {
-    border: 1px #ffffff66 solid;
+    border: none;
     padding: 10px;
     cursor: pointer;
     background: #ffffff22;
@@ -95,10 +95,11 @@ body {
     color: white;
     transition: background 200ms;
     font-family: 'Rubik', sans-serif;
+    backdrop-filter: blur(3px);
 }
 
 .button:hover {
-    background: #676a6e99;
+    background: #ffffff44;
 }
 
 .button:active {
@@ -343,22 +344,32 @@ body {
 }
 
 #new-conversation-form .input {
-    background: transparent;
+    background: #ffffff11;
     border: none;
-    width: 50vw;
-    -webkit-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.2);
-    -moz-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.2);
-    box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 0.2);
-    margin: auto;
+    width: calc(100% - 32px);
+    margin: 0 auto;
     display: block;
-    margin-top: 60px;
     padding: 10px;
+    transition: background 100ms;
+    box-shadow: none;
 }
 
 #new-conversation-form .input:focus {
-    -webkit-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
-    -moz-box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
-    box-shadow: 0px 0px 12px 0px rgba(255, 255, 255, 1);
+    -webkit-box-shadow: 0px 0px 6px 0px #00000066;
+    -moz-box-shadow: 0px 0px 6px 0px #00000066;
+    box-shadow: 0px 0px 6px 0px #00000066;
+    background: #ffffff33;
+}
+
+.shadow {
+    -webkit-box-shadow: 2px 2px 6px 0px #00000066;
+    -moz-box-shadow: 2px 2px 6px 0px #00000066;
+    box-shadow: 2px 2px 6px 0px #00000066;
+}
+
+.fill-window {
+    width: calc(100% - 64px);
+    margin: auto;
 }
 
 .username-search-result {
@@ -398,6 +409,10 @@ body {
     font-weight: lighter;
     color: #77aaff;
     line-height: 10px;
+}
+
+.bordered {
+    border: 1px #ffffff66 solid;
 }
 
 @media screen and (min-width: 720px) {
@@ -451,6 +466,8 @@ body {
     #new-conversation-form .input {
         padding: 16px;
         font-size: 18px;
-        width: 40vw;
+    }
+    .fill-window {
+        width: 50%;
     }
 }
