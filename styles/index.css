@@ -351,8 +351,15 @@ body {
     margin-bottom: 16px;
     display: block;
     padding: 10px;
-    transition: background 100ms;
+    transition: background 100ms, box-shadow 100ms;
     box-shadow: none;
+}
+
+#new-conversation-form .input:hover {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    background: #ffffff22;
 }
 
 #new-conversation-form .input:focus {
@@ -371,6 +378,12 @@ body {
 .fill-window {
     width: calc(100% - 64px);
     margin: auto;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.rounded {
+    border-radius: 10px;
 }
 
 .username-search-result {
@@ -414,6 +427,10 @@ body {
 
 .bordered {
     border: 1px #ffffff66 solid;
+}
+
+.bordered.flat {
+    border: 1px #ffffff44 solid;
 }
 
 @media screen and (min-width: 720px) {

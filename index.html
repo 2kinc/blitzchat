@@ -81,8 +81,8 @@
                             </span>
                         </h2>
 
-                        <div class="bordered shadow fill-window"
-                            style="padding: 16px; border-radius: 10px; margin-top: 16px;">
+                        <div class="bordered shadow fill-window rounded"
+                            style="padding: 16px; margin-top: 16px;">
                             <input type="text" class="input" placeholder="Enter a Username" autocomplete="off"
                                 v-if="!usernameSearchOpen" autocorrect="off" autocapitalize="off" spellcheck="false"
                                 v-model="usernameSearch" v-on:keyup.enter="searchForProfiles" />
@@ -98,6 +98,13 @@
                                 </template>
                             </div>
 
+                        </div>
+
+                        <div class="bordered flat fill-window rounded">
+
+                            <template v-for="person in newConversationForm.people">
+                                <username-search-result :profile="person"/>
+                            </template>
 
                         </div>
 
