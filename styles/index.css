@@ -2,7 +2,6 @@
 html {
     overflow: hidden;
     width: 100%;
-    padding: 0;
 }
 
 body {
@@ -13,9 +12,10 @@ body {
     height: 100%;
     position: fixed;
     /* prevent overscroll bounce*/
-    background-color: #222226;
-    overflow: hidden;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    background-color: #222226;
+    /* iOS velocity scrolling */
 }
 
 #header {
@@ -260,7 +260,7 @@ body {
     width: 46px;
     margin: auto;
     display: block;
-    margin-top: 30px;
+    margin-bottom: 8px;
 }
 
 @keyframes input-hint {
@@ -348,6 +348,7 @@ body {
     border: none;
     width: calc(100% - 32px);
     margin: 0 auto;
+    margin-bottom: 16px;
     display: block;
     padding: 10px;
     transition: background 100ms;
@@ -380,7 +381,7 @@ body {
     transition: background 100ms;
     user-select: none;
     height: 46px;
-    width: 40vw;
+    width: calc(100% - 16px);
     margin: auto;
     margin-top: 8px;
     text-overflow: clip;
@@ -416,6 +417,9 @@ body {
 }
 
 @media screen and (min-width: 720px) {
+    body {
+        overflow-y: hidden;
+    }
     #name {
         width: 220px;
         display: inline-block;
