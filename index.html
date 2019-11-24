@@ -34,7 +34,7 @@
                 </div>
             </nav>
 
-            <div id="chat-space">
+            <div id="chat-space" v-bind:class="{hidden: openedChats.length > 0 || newConversationOpen}">
                 <p id="chat-space-message">Tap a chat or drag one into me!</p>
             </div>
 

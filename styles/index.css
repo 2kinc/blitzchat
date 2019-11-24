@@ -1,21 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
 html {
     overflow: hidden;
-    width: 100%;
+    scrollbar-width: 0px;
 }
 
 body {
     font-family: 'Rubik', sans-serif;
     font-size: 14px;
     color: white;
-    margin: 0;
-    height: 100%;
-    position: fixed;
-    /* prevent overscroll bounce*/
-    -overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     background-color: #222226;
-    /* iOS velocity scrolling */
+    margin: 0;
+}
+
+.hidden {
+    display: none;
 }
 
 #header {
@@ -38,7 +36,6 @@ body {
     height: calc(100vh - 70px);
     width: calc(100vw - 148px);
     float: right;
-    margin-right: 16px;
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
@@ -174,10 +171,9 @@ body {
     background: #222226;
     width: calc(100vw - 108px);
     height: calc(100vh - 70px);
-    float: right;
     position: absolute;
     right: 16px;
-    bottom: 16px;
+    top: 53px;
 }
 
 #chat-grid .chat-window {
@@ -489,5 +485,25 @@ body {
     }
     .fill-window {
         width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    html {
+        overflow: hidden;
+    }
+    body {
+        height: 100%;
+        position: fixed;
+        /* prevent overscroll bounce*/
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        /* iOS velocity scrolling */
+        width: 100%;
+    }
+
+    html ::-webkit-scrollbar {
+        display: none;
+        width: 0;
     }
 }
