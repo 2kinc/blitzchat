@@ -12,7 +12,7 @@ body {
     height: 100%;
     position: fixed;
     /* prevent overscroll bounce*/
-    overflow-y: scroll;
+    -overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     background-color: #222226;
     /* iOS velocity scrolling */
@@ -187,9 +187,8 @@ body {
 }
 
 .chat-window {
-    border: 1px #ffffff66 solid;
-    display: inline-block;
-    height: calc(100vh - 72px);
+    border: 1px #6d656566 solid;
+    height: calc(100% - 72px);
     border-radius: 10px;
     transition: left 300ms ease, width 300ms ease, height 300ms ease;
 }
