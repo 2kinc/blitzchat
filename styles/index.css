@@ -42,6 +42,7 @@ body {
     background: #ffffff22;
     border-radius: 10px;
     user-select: none;
+    margin-right: 16px;
 }
 
 #chat-space-message {
