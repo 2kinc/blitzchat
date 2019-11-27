@@ -1,0 +1,41 @@
+.mdc-elevation--z0 {
+    background: transparent;
+    border: 1px #ffffff66 solid;
+}
+
+.mdc-elevation--z1 {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mdc-elevation--z2 {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.mdc-elevation--z3 {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.mdc-elevation--z4 {
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.mdc-elevation--z6 {
+    background: rgba(255, 255, 255, 0.11);
+}
+
+.mdc-elevation--z8 {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.mdc-elevation--z12 {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.mdc-elevation--z16 {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.mdc-elevation--z24 {
+    background: rgba(255, 255, 255, 0.16);
+}
+

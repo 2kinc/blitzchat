@@ -8,7 +8,7 @@ body {
     font-family: 'Rubik', sans-serif;
     font-size: 14px;
     color: white;
-    background-color: #222226;
+    background-color: #121212;
     margin: 0;
 }
 
@@ -18,7 +18,7 @@ body {
 
 #header {
     padding: 16px;
-    color: #77aaff;
+    color: #2288ff;
     font-size: 130%;
 }
 
@@ -33,16 +33,16 @@ body {
 }
 
 #chat-space {
-    height: calc(100vh - 70px);
-    width: calc(100vw - 148px);
+    height: calc(100vh - 72px);
+    width: calc(100vw - 150px);
     float: right;
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
-    background: #ffffff22;
     border-radius: 10px;
     user-select: none;
     margin-right: 16px;
+    border: 1px #ffffff66 solid;
 }
 
 #chat-space-message {
@@ -60,7 +60,7 @@ body {
 #loading {
     width: 100vw;
     height: 100vh;
-    background: #222226;
+    background: #121212;
     position: absolute;
     left: 0;
     top: 0;
@@ -87,7 +87,7 @@ body {
     border: none;
     padding: 10px;
     cursor: pointer;
-    background: #ffffff22;
+    background: #ffffff16;
     border-radius: 8px;
     outline: none!important;
     color: white;
@@ -97,11 +97,11 @@ body {
 }
 
 .button:hover {
-    background: #ffffff44;
+    background: #ffffff28;
 }
 
 .button:active {
-    background: #77aaff;
+    background: #ffffff44;
 }
 
 .button.round {
@@ -120,7 +120,7 @@ body {
 }
 
 .contact-item:active {
-    background: #77aaff99;
+    background: #2288ff99;
 }
 
 .contact-item p {
@@ -128,13 +128,13 @@ body {
 }
 
 .contact-item:hover {
-    background: #77aaff66;
+    background: #2288ff66;
 }
 
 .contact-item h3 {
     font-size: 14px;
     font-weight: lighter;
-    color: #77aaff;
+    color: #2288ff;
     display: none;
 }
 
@@ -149,7 +149,7 @@ body {
 }
 
 .contact-item .button:hover {
-    color: #77aaff;
+    color: #2288ff;
 }
 
 .contact-item .button.warn:hover {
@@ -169,7 +169,6 @@ body {
 }
 
 #chat-grid.shown {
-    background: #222226;
     width: calc(100vw - 108px);
     height: calc(100vh - 70px);
     position: absolute;
@@ -177,17 +176,14 @@ body {
     top: 53px;
 }
 
-#chat-grid .chat-window {
-    width: calc(100vw - 108px);
-    border: 1px #ffffff66 solid;
-    height: calc(100vh - 70px);
-}
-
 .chat-window {
-    border: 1px #6d656566 solid;
     height: calc(100% - 72px);
     border-radius: 10px;
     transition: left 300ms ease, width 300ms ease, height 300ms ease;
+    width: calc(100vw - 108px);
+    height: calc(100vh - 70px);
+    background: rgba(255, 255, 255, 0.05);
+
 }
 
 #chat-grid.single .chat-window {
@@ -204,14 +200,15 @@ body {
     user-select: none;
     transition: background 100ms;
     -webkit-tap-highlight-color: transparent;
+    background: transparent;
 }
 
 #add-contact:hover {
-    background: #77aaff66;
+    background: #2288ff66;
 }
 
 #add-contact:active {
-    background: #77aaff99;
+    background: #2288ff99;
 }
 
 #add-contact>span {
@@ -237,7 +234,7 @@ body {
     left: calc(50vw - 54px - 2.8em);
     top: -76px;
     border: none;
-    color: #77aaff;
+    color: #2288ff;
 }
 
 .active-glow {
@@ -245,11 +242,11 @@ body {
 }
 
 .active-glow:active {
-    background: #77aaff66;
+    background: #2288ff33;
 }
 
 .blue {
-    color: #77aaff;
+    color: #2288ff;
 }
 
 #new-conversation-form .button.round {
@@ -398,11 +395,11 @@ body {
 }
 
 .username-search-result:active {
-    background: #77aaff99;
+    background: #2288ff99;
 }
 
 .username-search-result:hover {
-    background: #77aaff66;
+    background: #2288ff66;
 }
 
 .username-search-result .picture {
@@ -417,7 +414,7 @@ body {
 .username-search-result h3 {
     font-size: 16px;
     font-weight: lighter;
-    color: #77aaff;
+    color: #2288ff;
     line-height: 10px;
 }
 
@@ -438,7 +435,7 @@ body {
         display: inline-block;
     }
     #chat-space {
-        width: calc(100vw - 292px);
+        width: calc(100vw - 294px);
     }
     #contacts {
         width: 204px;

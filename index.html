@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Blitzchat</title>
+    <!-- Required styles for MDC Web -->
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/mdc-tweaks.css">
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 </head>
@@ -21,7 +24,7 @@
             </header>
 
             <nav id="contacts">
-                <div id="add-contact" v-if="!newConversationOpen" v-on:click="openNewConversation">
+                <div id="add-contact" class="button" v-if="!newConversationOpen" v-on:click="openNewConversation">
                     <i class="material-icons">person_add</i>
                     <span>Add Conversation</span>
                 </div>
@@ -43,10 +46,11 @@
                 <template v-for="chat in openedChats">
                     <chat-window v-bind:chat="chat"></chat-window>
                 </template>
-                <div id="new-conversation-form" v-if="newConversationOpen" class="chat-window">
+
+                <div id="new-conversation-form" v-if="newConversationOpen" class="chat-window mdc-elevation--z1">
                     <div v-if="newConversationPhase == 0">
                         <div v-on:click="toggleGroup" class="active-glow"
-                            style="user-select: none; margin-top: -18px; border-radius: 6px; text-align: center; height: 100%;">
+                            style="user-select: none; margin-top: -18px; border-radius: 10px; text-align: center; height: 100%;">
                             <h2 class="blue"><i class="material-icons">person_add</i> <br> New Conversation</h2>
                             <span v-if="newConversationForm.group">Create a <span class="blue">Group</span></span>
                             <span v-else>Create a <span class="blue">Contact</span></span>
@@ -81,8 +85,7 @@
                             </span>
                         </h2>
 
-                        <div class="bordered shadow fill-window rounded"
-                            style="padding: 16px; margin-top: 16px;">
+                        <div class="mdc-elevation--z1 fill-window rounded" style="padding: 16px; margin-top: 16px;">
                             <input type="text" class="input" placeholder="Enter a Username" autocomplete="off"
                                 v-if="!usernameSearchOpen" autocorrect="off" autocapitalize="off" spellcheck="false"
                                 v-model="usernameSearch" v-on:keyup.enter="searchForProfiles" />
@@ -100,10 +103,10 @@
 
                         </div>
 
-                        <div class="bordered flat fill-window rounded">
+                        <div class="mdc-elevation--z0 fill-window rounded">
 
                             <template v-for="person in newConversationForm.people">
-                                <username-search-result :profile="person"/>
+                                <username-search-result :profile="person" />
                             </template>
 
                         </div>
@@ -113,6 +116,7 @@
 
                     <button class="button new-conversation-continue" v-on:click="nextPhase">Continue</button>
                 </div>
+
             </div>
 
 
@@ -138,7 +142,7 @@
 
     <template id="chatWindowTemplate">
 
-        <div class="chat-window">
+        <div class="chat-window mdc-elevation--z1">
             <div class="header">
                 <span class="title"></span>
                 <div class="actions">
@@ -170,6 +174,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <!-- Required MDC Web JavaScript library -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
     <script src="./scripts/vue.js"></script>
     <script src="./scripts/core.js" type="module"></script>

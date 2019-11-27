@@ -3,6 +3,7 @@ class UI {
         this.dbref = dbref;
         this.el = el;
         this.activate = function () {
+
             this.vue = new Vue({
                 data: () => ({
                     dbref: this.dbref,
@@ -25,12 +26,14 @@ class UI {
                 methods: {
                     openChat(contact) {
                         this.openedChats = [contact];
+                        this.updateMDC();
                     },
                     signIn() {
 
                     },
                     openNewConversation() {
                         this.newConversationOpen = true;
+                        this.updateMDC();
                     },
                     toggleGroup() {
                         this.newConversationForm.group = !this.newConversationForm.group;
@@ -39,6 +42,7 @@ class UI {
                         this.newConversationPhase = (this.newConversationPhase + 1) % 3;
                         if (!this.newConversationForm.group && this.newConversationPhase == 1)
                             this.newConversationPhase = 2;
+                        this.updateMDC();
                     },
                     searchForProfiles() {
                         var that = this;
@@ -55,6 +59,13 @@ class UI {
                             that.usernameSearchOpen = false;
                         }
 
+                        this.updateMDC();
+                    },
+                    updateMDC() {
+                        var buttons = document.querySelectorAll('.button, .mdc-button');
+                        for (const button of buttons) {
+                            mdc.ripple.MDCRipple.attachTo(button);
+                        }
                     }
                 },
                 computed: {
