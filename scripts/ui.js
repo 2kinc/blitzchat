@@ -17,11 +17,12 @@ class UI {
                         people: []
                     },
                     contactSearch: '',
-                    contactSearchResults: {},
+                    contactSearchResults: null,
                     newConversationPerson: undefined,
                     newConversationOpen: false,
                     newConversationPhase: 0,
-                    contactSearchOpen: false
+                    contactSearchOpen: false,
+                    lastContactSearch: undefined
                 }),
                 methods: {
                     openChat(contact) {
@@ -46,16 +47,17 @@ class UI {
                     },
                     searchForProfiles() {
                         var that = this;
-                        if (!this.contactSearchOpen) {
+                        if (this.contactSearch != this.lastContactSearch) {
                             this.dbref.ref('users').orderByChild('email').equalTo(this.contactSearch).once('value').then(function (snap) {
                                 var result = snap.val();
                                 if (result) {
                                     that.contactSearchResults = result;
                                     that.contactSearchOpen = true;
+                                    that.lastContactSearch = that.contactSearch;
                                 }
                             });
                         } else {
-                            that.contactSearchResults = {};
+                            that.contactSearchResults = null;
                             that.contactSearchOpen = false;
                         }
 
@@ -67,6 +69,7 @@ class UI {
                             mdc.ripple.MDCRipple.attachTo(button);
                         }
                     }
+                    
                 },
                 computed: {
                     chatTitle() {
@@ -98,10 +101,20 @@ class UI {
                 props: { 'chat': Object },
                 template: '#chatWindowTemplate'
             });
-            this.contactSearchResult = Vue.component('username-search-result', {
+            this.contactSearchResult = Vue.component('contact-search-result', {
                 props: { 'profile': Object },
-                template: '#contactSearchResultTemplate'
-            })
+                template: '#contactSearchResultTemplate',
+                methods: {
+                    addToConversation() {
+                        var parent = this.$parent;
+                        if (parent.newConversationForm.group) {
+                            parent.newConversationForm.people.push(this.profile);
+                        } else {
+                            parent.newConversationForm.people = [this.profile];
+                        }
+                    }
+                }
+            });
         }
     }
 }

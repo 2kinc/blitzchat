@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    font-family: Anodina, sans-serif !important;
+    font-family: 'Questrial', 'Roboto', 'Sulphur Point', Anodina, sans-serif !important;
     font-size: 14px;
     color: white;
     background-color: #121212;
@@ -91,7 +91,7 @@ body {
     outline: none!important;
     color: white;
     transition: background 200ms;
-    font-family: Anodina, sans-serif;
+    font-family: 'Questrial', 'Roboto', 'Sulphur Point', Anodina, sans-serif !important;
     backdrop-filter: blur(3px);
 }
 
@@ -317,8 +317,8 @@ body {
     padding: 10px;
     outline: none;
     background: #ffffff33;
+    font-family: 'Questrial', 'Roboto', 'Sulphur Point', Anodina, sans-serif !important;
     color: white;
-    font-family: Anodina, sans-serif;
     user-select: text;
 }
 
@@ -336,29 +336,35 @@ body {
 }
 
 #new-conversation-form .input {
-    background: #ffffff11;
+    background: #ffffff99;
     border: none;
     margin: 0 auto;
     display: inline-block;
     padding: 10px;
     transition: background 100ms, box-shadow 100ms;
     box-shadow: none;
-    width: calc(100% - 28px);
+    width: calc(100% - 30px);
     backdrop-filter: blur(6px);
+    color: black;
+    border: 1px #2288ff solid;
+}
+
+#new-conversation-form .input::placeholder {
+    color: #00000066;
 }
 
 #new-conversation-form .input:hover {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    background: #ffffff22;
+    -webkit-box-shadow: 0px 0px 6px 0px #2288ff44;
+    -moz-box-shadow: 0px 0px 6px 0px #2288ff44;
+    box-shadow: 0px 0px 6px 0px #2288ff44;
+    background: #ffffffaa;
 }
 
 #new-conversation-form .input:focus {
-    -webkit-box-shadow: 0px 0px 6px 0px #00000066;
-    -moz-box-shadow: 0px 0px 6px 0px #00000066;
-    box-shadow: 0px 0px 6px 0px #00000066;
-    background: #ffffff33;
+    -webkit-box-shadow: 0px 0px 6px 0px #2288ff66;
+    -moz-box-shadow: 0px 0px 6px 0px #2288ff66;
+    box-shadow: 0px 0px 6px 0px #2288ff66;
+    background: #ffffff;
 }
 
 .shadow {
@@ -378,43 +384,43 @@ body {
     border-radius: 10px;
 }
 
-.username-search-result {
+.contact-search-result {
     padding: 2px 10px;
     cursor: pointer;
     line-height: 6px;
     border-radius: 6px;
     transition: background 100ms;
     user-select: none;
-    height: 46px;
-    width: calc(100% - 16px);
+    height: 36px;
+    width: calc(100% - 84px);
     margin: auto;
-    margin-top: 8px;
+    margin-top: -10px;
     text-overflow: clip;
     margin-bottom: 8px;
 }
 
-.username-search-result:active {
+.contact-search-result:active {
     background: #2288ff99;
 }
 
-.username-search-result:hover {
+.contact-search-result:hover {
     background: #2288ff66;
 }
 
-.username-search-result .picture {
+.contact-search-result .picture {
     margin: 3px -5px;
     border-radius: 100px;
     float: left;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     margin-right: 10px;
 }
 
-.username-search-result h3 {
+.contact-search-result h3 {
     font-size: 16px;
     font-weight: lighter;
     color: #2288ff;
-    line-height: 10px;
+    line-height: 4px;
 }
 
 .bordered {
@@ -482,6 +488,9 @@ body {
     #new-conversation-form .input {
         padding: 12px;
         font-size: 16px;
+    }
+    .contact-search-result {
+        width: calc(70% - 24px);
     }
 }
 

@@ -27,7 +27,7 @@
             <nav id="contacts">
                 <div id="add-contact" class="button" v-if="!newConversationOpen" v-on:click="openNewConversation">
                     <i class="material-icons">person_add</i>
-                    <span>Add Conversation</span>
+                    <span>New Conversation</span>
                 </div>
                 <template v-for="contact in contacts">
                     <contact-item :contact="contact" />
@@ -88,9 +88,9 @@
 
                         <div class="fill-window" style="margin-bottom: 0;">
 
-                            <input type="text" class="input" placeholder="Enter a Username"
-                                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                                v-model="contactSearch" v-on:keyup.enter="searchForProfiles" />
+                            <input type="text" class="input" placeholder="Search" autocomplete="off" autocorrect="off"
+                                autocapitalize="off" spellcheck="false" v-model="contactSearch"
+                                v-on:keyup.enter="searchForProfiles" />
 
                             <button class="button round" style="display: inline-block;
                         background: transparent;
@@ -98,8 +98,9 @@
                         margin-left: -50px;
                         top: 4px;
                         padding: 6px;
-                        backdrop-filter: none;" v-on:click="searchForProfiles">
-                                <i class="material-icons" v-if="!contactSearchOpen" style="font-size: 20px;">search</i>
+                        backdrop-filter: none;
+                        color: #2288ff;" v-on:click="searchForProfiles">
+                                <i class="material-icons" v-if="contactSearch != lastContactSearch" style="font-size: 20px;">search</i>
                                 <i class="material-icons" v-else style="font-size: 20px;">close</i>
                             </button>
 
@@ -109,15 +110,17 @@
 
                         <div style="margin-bottom: -8px;">
                             <template v-for="result in contactSearchResults">
-                                <username-search-result :profile="result" />
+                                <contact-search-result :profile="result" />
                             </template>
+
+                            <div v-if="contactSearchResults == null">No results found</div>
                         </div>
 
 
                         <div class="mdc-elevation--z0 fill-window rounded">
 
                             <template v-for="person in newConversationForm.people">
-                                <username-search-result :profile="person" />
+                                <contact-search-result :profile="person" />
                             </template>
 
                         </div>
@@ -174,7 +177,7 @@
     </template>
 
     <template id="contactSearchResultTemplate">
-        <div class="username-search-result fill-window">
+        <div class="contact-search-result" v-on:click="addToConversation">
             <img v-bind:src="profile.photoURL" alt="profile.displayName" width="50" height="50" class="picture">
 
             <h3>{{profile.displayName}}</h3>
