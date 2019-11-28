@@ -9,6 +9,7 @@
     <!-- Required styles for MDC Web -->
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/mdc-tweaks.css">
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -85,23 +86,33 @@
                             </span>
                         </h2>
 
-                        <div class="mdc-elevation--z1 fill-window rounded" style="padding: 16px; margin-top: 16px;">
-                            <input type="text" class="input" placeholder="Enter a Username" autocomplete="off"
-                                v-if="!usernameSearchOpen" autocorrect="off" autocapitalize="off" spellcheck="false"
-                                v-model="usernameSearch" v-on:keyup.enter="searchForProfiles" />
+                        <div class="fill-window" style="margin-bottom: 0;">
 
-                            <button class="button round shadow" v-on:click="searchForProfiles">
-                                <i class="material-icons" v-if="!usernameSearchOpen">search</i>
-                                <i class="material-icons" v-else>close</i>
+                            <input type="text" class="input" placeholder="Enter a Username"
+                                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                                v-model="contactSearch" v-on:keyup.enter="searchForProfiles" />
+
+                            <button class="button round" style="display: inline-block;
+                        background: transparent;
+                        position: relative;
+                        margin-left: -50px;
+                        top: 4px;
+                        padding: 6px;
+                        backdrop-filter: none;" v-on:click="searchForProfiles">
+                                <i class="material-icons" v-if="!contactSearchOpen" style="font-size: 20px;">search</i>
+                                <i class="material-icons" v-else style="font-size: 20px;">close</i>
                             </button>
 
-                            <div style="margin-bottom: -8px;">
-                                <template v-for="result in usernameSearchResults">
-                                    <username-search-result :profile="result" />
-                                </template>
-                            </div>
-
                         </div>
+
+
+
+                        <div style="margin-bottom: -8px;">
+                            <template v-for="result in contactSearchResults">
+                                <username-search-result :profile="result" />
+                            </template>
+                        </div>
+
 
                         <div class="mdc-elevation--z0 fill-window rounded">
 
@@ -162,8 +173,8 @@
 
     </template>
 
-    <template id="usernameSearchResultTemplate">
-        <div class="username-search-result">
+    <template id="contactSearchResultTemplate">
+        <div class="username-search-result fill-window">
             <img v-bind:src="profile.photoURL" alt="profile.displayName" width="50" height="50" class="picture">
 
             <h3>{{profile.displayName}}</h3>

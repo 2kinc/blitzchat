@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
 html {
     overflow: hidden;
     scrollbar-width: 0px;
 }
 
 body {
-    font-family: 'Rubik', sans-serif;
+    font-family: Anodina, sans-serif !important;
     font-size: 14px;
     color: white;
     background-color: #121212;
@@ -92,7 +91,7 @@ body {
     outline: none!important;
     color: white;
     transition: background 200ms;
-    font-family: 'Rubik', sans-serif;
+    font-family: Anodina, sans-serif;
     backdrop-filter: blur(3px);
 }
 
@@ -319,7 +318,7 @@ body {
     outline: none;
     background: #ffffff33;
     color: white;
-    font-family: 'Rubik', sans-serif;
+    font-family: Anodina, sans-serif;
     user-select: text;
 }
 
@@ -339,13 +338,13 @@ body {
 #new-conversation-form .input {
     background: #ffffff11;
     border: none;
-    width: calc(100% - 32px);
     margin: 0 auto;
-    margin-bottom: 16px;
-    display: block;
+    display: inline-block;
     padding: 10px;
     transition: background 100ms, box-shadow 100ms;
     box-shadow: none;
+    width: calc(100% - 28px);
+    backdrop-filter: blur(6px);
 }
 
 #new-conversation-form .input:hover {
@@ -477,12 +476,12 @@ body {
     .new-conversation-continue {
         left: calc(50vw - 127px - 2.8em);
     }
-    #new-conversation-form .input {
-        padding: 16px;
-        font-size: 18px;
-    }
     .fill-window {
-        width: 50%;
+        width: 70%;
+    }
+    #new-conversation-form .input {
+        padding: 12px;
+        font-size: 16px;
     }
 }
 

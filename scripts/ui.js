@@ -16,12 +16,12 @@ class UI {
                         name: '',
                         people: []
                     },
-                    usernameSearch: '',
-                    usernameSearchResults: {},
+                    contactSearch: '',
+                    contactSearchResults: {},
                     newConversationPerson: undefined,
                     newConversationOpen: false,
                     newConversationPhase: 0,
-                    usernameSearchOpen: false
+                    contactSearchOpen: false
                 }),
                 methods: {
                     openChat(contact) {
@@ -46,17 +46,17 @@ class UI {
                     },
                     searchForProfiles() {
                         var that = this;
-                        if (!this.usernameSearchOpen) {
-                            this.dbref.ref('users').orderByChild('displayName').equalTo(this.usernameSearch).once('value').then(function (snap) {
+                        if (!this.contactSearchOpen) {
+                            this.dbref.ref('users').orderByChild('email').equalTo(this.contactSearch).once('value').then(function (snap) {
                                 var result = snap.val();
                                 if (result) {
-                                    that.usernameSearchResults = result;
-                                    that.usernameSearchOpen = true;
+                                    that.contactSearchResults = result;
+                                    that.contactSearchOpen = true;
                                 }
                             });
                         } else {
-                            that.usernameSearchResults = {};
-                            that.usernameSearchOpen = false;
+                            that.contactSearchResults = {};
+                            that.contactSearchOpen = false;
                         }
 
                         this.updateMDC();
@@ -98,9 +98,9 @@ class UI {
                 props: { 'chat': Object },
                 template: '#chatWindowTemplate'
             });
-            this.usernameSearchResult = Vue.component('username-search-result', {
+            this.contactSearchResult = Vue.component('username-search-result', {
                 props: { 'profile': Object },
-                template: '#usernameSearchResultTemplate'
+                template: '#contactSearchResultTemplate'
             })
         }
     }

@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+@font-face {
+    font-family: Anodina;
+    src: url("../fonts/Anodina-Light.otf");
+    line-height: 12px;
+}
+
+@font-face {
+    font-family: Anodina;
+    font-weight: bold;
+    src: url("../fonts/Anodina-Regular.otf");
+}
+
+@font-face {
+    font-family: Anodina;
+    font-weight: lighter;
+    src: url("../fonts/Anodina-ExtraLight.otf");
+}
+
+@font-face {
+    font-family: Anodina;
+    font-weight: bolder;
+    src: url("../fonts/Anodina-Bold.otf");
+}
