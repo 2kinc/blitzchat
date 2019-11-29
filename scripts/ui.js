@@ -17,12 +17,9 @@ class UI {
                         people: []
                     },
                     contactSearch: '',
-                    contactSearchResults: null,
                     newConversationPerson: undefined,
                     newConversationOpen: false,
                     newConversationPhase: 0,
-                    contactSearchOpen: false,
-                    lastContactSearch: undefined
                 }),
                 methods: {
                     openChat(contact) {
@@ -45,21 +42,24 @@ class UI {
                             this.newConversationPhase = 2;
                         this.updateMDC();
                     },
-                    searchForProfiles() {
+                    addProfile() {
                         var that = this;
-                        if (this.contactSearch != this.lastContactSearch) {
-                            this.dbref.ref('users').orderByChild('email').equalTo(this.contactSearch).once('value').then(function (snap) {
-                                var result = snap.val();
-                                if (result) {
-                                    that.contactSearchResults = result;
-                                    that.contactSearchOpen = true;
-                                    that.lastContactSearch = that.contactSearch;
+                        this.dbref.ref('users').orderByChild('email').equalTo(this.contactSearch).once('value').then(function (snap) {
+                            var result = snap.val();
+                            if (result) {
+                                for (var d in result) {
+                                    var complete = result[d];
+                                    complete.uid = d;
+                                    if (that.newConversationForm.group) {
+                                        if (!that.newConversationForm.people.includes(d) && !that.newConversationForm.people.includes(auth.currentUser.uid))
+                                            that.newConversationForm.people.push(complete);
+                                    } else {
+                                        that.newConversationForm.people = [complete];
+                                    }
                                 }
-                            });
-                        } else {
-                            that.contactSearchResults = null;
-                            that.contactSearchOpen = false;
-                        }
+
+                            }
+                        });
 
                         this.updateMDC();
                     },
@@ -69,7 +69,7 @@ class UI {
                             mdc.ripple.MDCRipple.attachTo(button);
                         }
                     }
-                    
+
                 },
                 computed: {
                     chatTitle() {
@@ -82,7 +82,7 @@ class UI {
                             list.push(chat.name);
                         }
                         if (this.newConversationOpen)
-                            list.push('New Convcersation');
+                            list.push('New Conversation');
                         return list.join();
                     }
                 },
@@ -105,14 +105,7 @@ class UI {
                 props: { 'profile': Object },
                 template: '#contactSearchResultTemplate',
                 methods: {
-                    addToConversation() {
-                        var parent = this.$parent;
-                        if (parent.newConversationForm.group) {
-                            parent.newConversationForm.people.push(this.profile);
-                        } else {
-                            parent.newConversationForm.people = [this.profile];
-                        }
-                    }
+
                 }
             });
         }

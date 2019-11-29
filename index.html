@@ -34,7 +34,7 @@
                 </template>
                 <div v-if="contacts.length == 0" id="no-contacts" class="no-select">
                     <i class="material-icons">face</i><br>
-                    You have no conversations.
+                    <span>You have no conversations.</span>
                 </div>
             </nav>
 
@@ -67,9 +67,11 @@
 
                     <div v-if="newConversationPhase == 1">
                         <h2><i class="material-icons blue">group</i> <br> New <span class="blue">Group</span></h2>
+                        <div class="fill-window">
+                            <input type="text" class="input" v-model="newConversationForm.name" placeholder="Group Name"
+                                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
 
-                        <input type="text" class="input" v-model="newConversationForm.name" placeholder="Group Name"
-                            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                     </div>
 
                     <div v-if="newConversationPhase == 2">
@@ -90,7 +92,7 @@
 
                             <input type="text" class="input" placeholder="Search" autocomplete="off" autocorrect="off"
                                 autocapitalize="off" spellcheck="false" v-model="contactSearch"
-                                v-on:keyup.enter="searchForProfiles" />
+                                v-on:keyup.enter="addProfile" />
 
                             <button class="button round" style="display: inline-block;
                         background: transparent;
@@ -99,28 +101,17 @@
                         top: 4px;
                         padding: 6px;
                         backdrop-filter: none;
-                        color: #2288ff;" v-on:click="searchForProfiles">
-                                <i class="material-icons" v-if="contactSearch != lastContactSearch" style="font-size: 20px;">search</i>
-                                <i class="material-icons" v-else style="font-size: 20px;">close</i>
+                        color: #2288ff;" v-on:click="addProfile">
+                                <i class="material-icons" style="font-size: 20px;">add</i>
                             </button>
 
-                        </div>
-
-
-
-                        <div style="margin-bottom: -8px;">
-                            <template v-for="result in contactSearchResults">
-                                <contact-search-result :profile="result" />
-                            </template>
-
-                            <div v-if="contactSearchResults == null">No results found</div>
                         </div>
 
 
                         <div class="mdc-elevation--z0 fill-window rounded">
 
                             <template v-for="person in newConversationForm.people">
-                                <contact-search-result :profile="person" />
+                                <contact-search-result :profile="person"/>
                             </template>
 
                         </div>
@@ -135,7 +126,13 @@
 
 
         </div>
-        <button v-on:click="signIn" class="button primary" v-if="!signedIn">sign in</button>
+
+        <div id="sign-in" v-if="!signedIn">
+            <h1>Blitzchat</h1>
+
+            <button v-on:click="signIn" class="button primary" id="sign-in-button">SIGN IN</button>
+        </div>
+
     </div>
 
     <div id="loading">loading Blitzchat...</div>
@@ -177,7 +174,7 @@
     </template>
 
     <template id="contactSearchResultTemplate">
-        <div class="contact-search-result" v-on:click="addToConversation">
+        <div class="contact-search-result">
             <img v-bind:src="profile.photoURL" alt="profile.displayName" width="50" height="50" class="picture">
 
             <h3>{{profile.displayName}}</h3>

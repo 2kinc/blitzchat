@@ -15,6 +15,30 @@ body {
     display: none;
 }
 
+#sign-in {
+    text-align: center;
+    user-select: none;
+}
+
+#sign-in-button {
+    width: auto;
+    margin: 10vh auto;
+    display: block;
+    font-size: 24px;
+    padding: 24px;
+    font-family: 'Roboto Mono', monospace!important;
+    border: 2px #ffffff solid;
+}
+
+#sign-in-button:hover {
+    box-shadow: 0px 0px 20px 20px #2288ff11;
+}
+
+#sign-in h1 {
+    font-size: 60px;
+    margin-top: 30vh;
+}
+
 #header {
     padding: 16px;
     color: #2288ff;
@@ -66,6 +90,8 @@ body {
     text-align: center;
     padding-top: 50vh;
     user-select: none;
+    font-size: 20px;
+    font-family: 'Roboto Mono', monospace;
 }
 
 #no-contacts {
@@ -76,6 +102,7 @@ body {
     width: 100px;
     left: 50px;
     display: none;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .no-select {
@@ -182,7 +209,6 @@ body {
     width: calc(100vw - 108px);
     height: calc(100vh - 70px);
     background: rgba(255, 255, 255, 0.05);
-
 }
 
 #chat-grid.single .chat-window {
@@ -309,6 +335,7 @@ body {
     -moz-animation: input-hint 3s infinite;
     -webkit-animation: input-hint 3s infinite;
     -o-animation: input-hint 3s infinite;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .input {
@@ -336,7 +363,7 @@ body {
 }
 
 #new-conversation-form .input {
-    background: #ffffff99;
+    background: transparent;
     border: none;
     margin: 0 auto;
     display: inline-block;
@@ -345,26 +372,26 @@ body {
     box-shadow: none;
     width: calc(100% - 30px);
     backdrop-filter: blur(6px);
-    color: black;
     border: 1px #2288ff solid;
 }
 
 #new-conversation-form .input::placeholder {
-    color: #00000066;
+    color: #ffffff66;
 }
 
 #new-conversation-form .input:hover {
     -webkit-box-shadow: 0px 0px 6px 0px #2288ff44;
     -moz-box-shadow: 0px 0px 6px 0px #2288ff44;
     box-shadow: 0px 0px 6px 0px #2288ff44;
-    background: #ffffffaa;
+    background: #2288ff11;
 }
 
 #new-conversation-form .input:focus {
     -webkit-box-shadow: 0px 0px 6px 0px #2288ff66;
     -moz-box-shadow: 0px 0px 6px 0px #2288ff66;
     box-shadow: 0px 0px 6px 0px #2288ff66;
-    background: #ffffff;
+    background: #2288ff22;
+    border-color: white;
 }
 
 .shadow {
@@ -374,10 +401,11 @@ body {
 }
 
 .fill-window {
-    width: calc(100% - 64px);
-    margin: auto;
+    width: calc(100% - 64px)!important;
+    margin: auto!important;
     padding: 16px;
     margin-bottom: 16px;
+    display: block!important;
 }
 
 .rounded {
@@ -483,7 +511,7 @@ body {
         left: calc(50vw - 127px - 2.8em);
     }
     .fill-window {
-        width: 70%;
+        width: 70%!important;
     }
     #new-conversation-form .input {
         padding: 12px;
@@ -507,7 +535,6 @@ body {
         /* iOS velocity scrolling */
         width: 100%;
     }
-
     html ::-webkit-scrollbar {
         display: none;
         width: 0;
