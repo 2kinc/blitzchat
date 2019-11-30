@@ -88,9 +88,9 @@ body {
     left: 0;
     top: 0;
     text-align: center;
-    padding-top: 50vh;
+    line-height: 100vh;
     user-select: none;
-    font-size: 20px;
+    font-size: 18px;
     font-family: 'Roboto Mono', monospace;
 }
 
@@ -243,6 +243,19 @@ body {
     display: none;
 }
 
+#close-new-conversation {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+}
+
+#close-new-conversation:hover {
+    color: #ff2222;
+}
+
 #new-conversation-form h2 {
     font-weight: lighter;
     text-align: center;
@@ -272,13 +285,6 @@ body {
 
 .blue {
     color: #2288ff;
-}
-
-#new-conversation-form .button.round {
-    width: 46px;
-    margin: auto;
-    display: block;
-    margin-bottom: 8px;
 }
 
 @keyframes input-hint {
@@ -355,7 +361,7 @@ body {
     padding: 9px;
 }
 
-#new-conversation-form>div {
+.new-conversation-phase {
     margin-top: -18px;
     border-radius: 6px;
     height: 100%;
@@ -370,9 +376,10 @@ body {
     padding: 10px;
     transition: background 100ms, box-shadow 100ms;
     box-shadow: none;
-    width: calc(100% - 30px);
+    width: calc(100% - 50px);
     backdrop-filter: blur(6px);
     border: 1px #2288ff solid;
+    padding-right: 30px;
 }
 
 #new-conversation-form .input::placeholder {
@@ -414,25 +421,26 @@ body {
 
 .contact-search-result {
     padding: 2px 10px;
-    cursor: pointer;
     line-height: 6px;
     border-radius: 6px;
-    transition: background 100ms;
+    transition: background 100ms, box-shadow 100ms, opacity 300ms;
     user-select: none;
     height: 36px;
-    width: calc(100% - 84px);
-    margin: auto;
+    width: calc(100% - 26px);
     margin-top: -10px;
     text-overflow: clip;
     margin-bottom: 8px;
+    color: white;
+    opacity: 1;
 }
 
-.contact-search-result:active {
-    background: #2288ff99;
+.contact-search-result.hidden {
+    opacity: 0;
 }
 
 .contact-search-result:hover {
-    background: #2288ff66;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12);
 }
 
 .contact-search-result .picture {
@@ -441,14 +449,62 @@ body {
     float: left;
     width: 30px;
     height: 30px;
-    margin-right: 10px;
+    margin-right: 6px;
 }
 
 .contact-search-result h3 {
     font-size: 16px;
     font-weight: lighter;
-    color: #2288ff;
     line-height: 4px;
+    display: inline-block;
+    margin-top: 16px;
+}
+
+.contact-search-result .button {
+    cursor: pointer;
+    float: right;
+    background: transparent;
+    border: none!important;
+    outline: none!important;
+    -webkit-tap-highlight-color: transparent;
+    color: #ff2222;
+    margin-top: -2px;
+    padding: 6px;
+    padding-top: 8px;
+    padding-bottom: 5px;
+    margin-right: -10px;
+}
+
+.contact-search-result .button:hover {
+    color: white;
+}
+
+.contact-search-result.red {
+    background: #ff2222;
+}
+
+#search-profiles-button {
+    display: inline-block;
+    background: transparent;
+    position: relative;
+    margin-left: -34px;
+    top: 6px;
+    border-radius: 0;
+    padding: 0;
+    color: rgb(34, 136, 255);
+    padding-top: 7px;
+    padding-bottom: 4px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 30px;
+    backdrop-filter: none;
+}
+
+.hint {
+    font-size: 10px;
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    margin: 6px;
 }
 
 .bordered {
@@ -515,10 +571,11 @@ body {
     }
     #new-conversation-form .input {
         padding: 12px;
+        padding-right: 30px;
         font-size: 16px;
     }
-    .contact-search-result {
-        width: calc(70% - 24px);
+    #search-profiles-button {
+        margin-left: -36px;
     }
 }
 

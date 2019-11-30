@@ -49,7 +49,11 @@
                 </template>
 
                 <div id="new-conversation-form" v-if="newConversationOpen" class="chat-window mdc-elevation--z1">
-                    <div v-if="newConversationPhase == 0">
+                    <button class="button" v-on:click="closeNewConversation" id="close-new-conversation">
+                        <i class="material-icons">close</i>
+                    </button>
+                    
+                    <div class="new-conversation-phase" v-if="newConversationPhase == 0">
                         <div v-on:click="toggleGroup" class="active-glow"
                             style="user-select: none; margin-top: -18px; border-radius: 10px; text-align: center; height: 100%;">
                             <h2 class="blue"><i class="material-icons">person_add</i> <br> New Conversation</h2>
@@ -65,16 +69,16 @@
                         </div>
                     </div>
 
-                    <div v-if="newConversationPhase == 1">
+                    <div class="new-conversation-phase" v-if="newConversationPhase == 1">
                         <h2><i class="material-icons blue">group</i> <br> New <span class="blue">Group</span></h2>
                         <div class="fill-window">
-                            <input type="text" class="input" v-model="newConversationForm.name" placeholder="Group Name"
-                                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input type="text" maxlength="100" class="input" v-model="newConversationForm.name" placeholder="Group Name"
+                                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" v-on:keyup.enter="nextPhase">
                         </div>
 
                     </div>
 
-                    <div v-if="newConversationPhase == 2">
+                    <div class="new-conversation-phase" v-if="newConversationPhase == 2">
                         <h2>
                             <span v-if="newConversationForm.group">
                                 <i class="material-icons blue">group</i> <br>
@@ -88,27 +92,22 @@
                             </span>
                         </h2>
 
-                        <div class="fill-window" style="margin-bottom: 0;">
+                        <div class="fill-window" style="margin-bottom: 0; padding-top: 0;">
 
+                            <p class="hint">Type an email address to invite someone.</p>
+                            
                             <input type="text" class="input" placeholder="Search" autocomplete="off" autocorrect="off"
                                 autocapitalize="off" spellcheck="false" v-model="contactSearch"
                                 v-on:keyup.enter="addProfile" />
 
-                            <button class="button round" style="display: inline-block;
-                        background: transparent;
-                        position: relative;
-                        margin-left: -50px;
-                        top: 4px;
-                        padding: 6px;
-                        backdrop-filter: none;
-                        color: #2288ff;" v-on:click="addProfile">
+                            <button class="button round" id="search-profiles-button" v-on:click="addProfile">
                                 <i class="material-icons" style="font-size: 20px;">add</i>
                             </button>
 
                         </div>
 
 
-                        <div class="mdc-elevation--z0 fill-window rounded">
+                        <div class="fill-window" style="padding: 0;">
 
                             <template v-for="person in newConversationForm.people">
                                 <contact-search-result :profile="person"/>
@@ -174,10 +173,13 @@
     </template>
 
     <template id="contactSearchResultTemplate">
-        <div class="contact-search-result">
+        <div class="contact-search-result" v-bind:class="{red: red, hidden: dying}">
+            
             <img v-bind:src="profile.photoURL" alt="profile.displayName" width="50" height="50" class="picture">
 
             <h3>{{profile.displayName}}</h3>
+
+            <button v-on:mouseover="red = true" v-on:mouseleave="red = false" v-on:click="remove" class="button"><i class="material-icons">cancel</i></button>
         </div>
     </template>
 

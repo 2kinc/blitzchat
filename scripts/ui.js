@@ -1,3 +1,5 @@
+import { auth } from "./database.js";
+
 class UI {
     constructor(dbref, el) {
         this.dbref = dbref;
@@ -33,13 +35,33 @@ class UI {
                         this.newConversationOpen = true;
                         this.updateMDC();
                     },
+                    closeNewConversation() {
+                        this.newConversationOpen = false;
+                        this.newConversationForm = {
+                            group: false,
+                            name: '',
+                            people: []
+                        };
+                        this.updateMDC();
+                    },
                     toggleGroup() {
                         this.newConversationForm.group = !this.newConversationForm.group;
                     },
                     nextPhase() {
+                        if (this.newConversationForm.group && this.newConversationPhase == 1) {
+                            if (this.newConversationForm.name == '') {
+                                setTimeout(() => {if (document.querySelector('#new-conversation-form input')) {
+                                    document.querySelector('#new-conversation-form input').focus();
+                                }}, 0);
+                                return;
+                            }
+                        }
                         this.newConversationPhase = (this.newConversationPhase + 1) % 3;
                         if (!this.newConversationForm.group && this.newConversationPhase == 1)
                             this.newConversationPhase = 2;
+                        setTimeout(() => {if (document.querySelector('#new-conversation-form input')) {
+                            document.querySelector('#new-conversation-form input').focus();
+                        }}, 0);
                         this.updateMDC();
                     },
                     addProfile() {
@@ -50,11 +72,15 @@ class UI {
                                 for (var d in result) {
                                     var complete = result[d];
                                     complete.uid = d;
+                                    if (complete.uid == auth.currentUser.uid)
+                                        return;
                                     if (that.newConversationForm.group) {
                                         if (!that.newConversationForm.people.includes(d) && !that.newConversationForm.people.includes(auth.currentUser.uid))
                                             that.newConversationForm.people.push(complete);
+                                        that.contactSearch = '';
                                     } else {
                                         that.newConversationForm.people = [complete];
+                                        that.contactSearch = '';
                                     }
                                 }
 
@@ -65,9 +91,9 @@ class UI {
                     },
                     updateMDC() {
                         var buttons = document.querySelectorAll('.button, .mdc-button');
-                        for (const button of buttons) {
-                            mdc.ripple.MDCRipple.attachTo(button);
-                        }
+                        buttons.forEach(function (node) {
+                            mdc.ripple.MDCRipple.attachTo(node);
+                        });
                     }
 
                 },
@@ -104,10 +130,27 @@ class UI {
             this.contactSearchResult = Vue.component('contact-search-result', {
                 props: { 'profile': Object },
                 template: '#contactSearchResultTemplate',
+                data: () => ({
+                    red: false,
+                    dying: false
+                }),
                 methods: {
-
+                    remove() {
+                        var that = this;
+                        setTimeout(() => this.dying = true, 0);
+                        setTimeout(function () {
+                            var people = that.$parent.newConversationForm.people;
+                            var index = people.indexOf(that.profile.uid);
+                            people.splice(index, 1);
+                        }, 300);
+                    }
+                },
+                created() {
+                    setTimeout(() => {this.$parent.updateMDC();}, 0);
+                    
                 }
             });
+            this.vue.updateMDC();
         }
     }
 }
