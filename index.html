@@ -25,7 +25,7 @@
             </header>
 
             <nav id="contacts">
-                <div id="add-contact" class="button" v-if="!newConversationOpen" v-on:click="openNewConversation">
+                <div id="add-contact" class="button bordered" v-on:click="openNewConversation">
                     <i class="material-icons">person_add</i>
                     <span>New Conversation</span>
                 </div>
@@ -38,88 +38,17 @@
                 </div>
             </nav>
 
-            <div id="chat-space" v-bind:class="{hidden: openedChats.length > 0 || newConversationOpen}">
+            <div id="chat-space" v-bind:class="{hidden: openedChats.length > 0}">
                 <p id="chat-space-message">Tap a chat or drag one into me!</p>
             </div>
 
             <div id="chat-grid" ref="chatGrid"
-                v-bind:class="{shown: openedChats.length > 0 || newConversationOpen, single: openedChats.length == 1 || (openedChats.length == 0 && newConversationOpen)}">
+                v-bind:class="{shown: openedChats.length > 0 , single: openedChats.length == 1 || (openedChats.length == 0)}">
                 <template v-for="chat in openedChats">
-                    <chat-window v-bind:chat="chat"></chat-window>
+                    <window-wrapper v-bind:window="chat"></window-wrapper>
                 </template>
 
-                <div id="new-conversation-form" v-if="newConversationOpen" class="chat-window mdc-elevation--z1">
-                    <button class="button" v-on:click="closeNewConversation" id="close-new-conversation">
-                        <i class="material-icons">close</i>
-                    </button>
-                    
-                    <div class="new-conversation-phase" v-if="newConversationPhase == 0">
-                        <div v-on:click="toggleGroup" class="active-glow"
-                            style="user-select: none; margin-top: -18px; border-radius: 10px; text-align: center; height: 100%;">
-                            <h2 class="blue"><i class="material-icons">person_add</i> <br> New Conversation</h2>
-                            <span v-if="newConversationForm.group">Create a <span class="blue">Group</span></span>
-                            <span v-else>Create a <span class="blue">Contact</span></span>
 
-                            <div class="input-hint">
-                                <i class="material-icons">touch_app</i> <br>
-                                <b>tap</b> to toggle
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="new-conversation-phase" v-if="newConversationPhase == 1">
-                        <h2><i class="material-icons blue">group</i> <br> New <span class="blue">Group</span></h2>
-                        <div class="fill-window">
-                            <input type="text" maxlength="100" class="input" v-model="newConversationForm.name" placeholder="Group Name"
-                                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" v-on:keyup.enter="nextPhase">
-                        </div>
-
-                    </div>
-
-                    <div class="new-conversation-phase" v-if="newConversationPhase == 2">
-                        <h2>
-                            <span v-if="newConversationForm.group">
-                                <i class="material-icons blue">group</i> <br>
-                                <span class="blue">Group</span>
-                                Members
-                            </span>
-                            <span v-else>
-                                <i class="material-icons blue">contacts</i> <br>
-                                <span class="blue">Contact </span>
-                                Profile
-                            </span>
-                        </h2>
-
-                        <div class="fill-window" style="margin-bottom: 0; padding-top: 0;">
-
-                            <p class="hint">Type an email address to invite someone.</p>
-                            
-                            <input type="text" class="input" placeholder="Search" autocomplete="off" autocorrect="off"
-                                autocapitalize="off" spellcheck="false" v-model="contactSearch"
-                                v-on:keyup.enter="addProfile" />
-
-                            <button class="button round" id="search-profiles-button" v-on:click="addProfile">
-                                <i class="material-icons" style="font-size: 20px;">add</i>
-                            </button>
-
-                        </div>
-
-
-                        <div class="fill-window" style="padding: 0;">
-
-                            <template v-for="person in newConversationForm.people">
-                                <contact-search-result :profile="person"/>
-                            </template>
-
-                        </div>
-
-
-                    </div>
-
-                    <button class="button new-conversation-continue" v-on:click="nextPhase">Continue</button>
-                </div>
 
             </div>
 
@@ -174,12 +103,98 @@
 
     <template id="contactSearchResultTemplate">
         <div class="contact-search-result" v-bind:class="{red: red, hidden: dying}">
-            
+
             <img v-bind:src="profile.photoURL" alt="profile.displayName" width="50" height="50" class="picture">
 
-            <h3>{{profile.displayName}}</h3>
+            <div>{{profile.displayName}}</div>
 
-            <button v-on:mouseover="red = true" v-on:mouseleave="red = false" v-on:click="remove" class="button"><i class="material-icons">cancel</i></button>
+            <button v-on:mouseover="red = true" v-on:mouseleave="red = false" v-on:click="remove" class="button"><i
+                    class="material-icons">cancel</i></button>
+        </div>
+    </template>
+
+    <template id="newConversationFormTemplate">
+        <div class="new-conversation-form chat-window mdc-elevation--z1">
+            <button class="button window-left-action" v-on:click="previousPhase" v-bind:class="{disabled: form.phase == 0}">
+                <i class="material-icons">arrow_back</i>
+            </button><button class="button window-left-action" v-on:click="nextPhase" v-bind:class="{disabled: form.phase == 1}">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+
+            <button class="button close-new-conversation" v-on:click="close">
+                <i class="material-icons">close</i>
+            </button>
+
+            <div class="new-conversation-phase" v-if="form.phase == 0">
+                <div v-on:click="toggleGroup" class="active-glow"
+                    style="user-select: none; margin-top: -18px; border-radius: 10px; text-align: center; height: calc(100% - 58px);">
+                    <h2 class="blue"><i class="material-icons">person_add</i> <br> New Conversation</h2>
+                    <span v-if="form.group">Create a <span class="blue">Group</span></span>
+                    <span v-else>Create a <span class="blue">Contact</span></span>
+
+                    <div class="input-hint">
+                        <i class="material-icons">touch_app</i> <br>
+                        <b>tap</b> to toggle
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="new-conversation-phase" v-if="form.phase == 1">
+                <h2>
+                    <span v-if="form.group">
+                        <i class="material-icons blue">group</i> <br>
+                        <span class="blue">Group</span>
+                        Members
+                    </span>
+                    <span v-else>
+                        <i class="material-icons blue">contacts</i> <br>
+                        <span class="blue">Contact </span>
+                        Profile
+                    </span>
+                </h2>
+
+                <div class="fill-window" style="margin-bottom: 0; padding-top: 0;">
+
+                    <div v-if="form.group">
+                        <p class="hint">Optional group name.</p>
+                        <input type="text" maxlength="100" class="input" v-model="form.name" placeholder="Group Name"
+                            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                            v-on:keyup.enter="nextPhase">
+                    </div>
+
+                    <p class="hint">Type an email address to invite someone.</p>
+
+                    <input type="text" class="input" placeholder="Search" autocomplete="off" autocorrect="off"
+                        autocapitalize="off" spellcheck="false" v-model="form.contactSearch"
+                        v-on:keyup.enter="addProfile" ref="contactSearch" />
+
+                    <button class="button round search-profiles-button" v-on:click="addProfile">
+                        <i class="material-icons" style="font-size: 20px;">add</i>
+                    </button>
+
+                </div>
+
+
+                <div class="fill-window" style="padding: 0;">
+
+                    <template v-for="person in form.people">
+                        <contact-search-result :profile="person" />
+                    </template>
+
+                </div>
+
+
+            </div>
+        </div>
+    </template>
+
+    <template id="windowWrapperTemplate">
+        <div class="window-wrapper">
+            <chat-window v-if="window.type == TYPE.CHAT" :content="window.content"></chat-window>
+            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content">
+            </new-conversation-form>
         </div>
     </template>
 
