@@ -232,6 +232,7 @@ body {
     transition: background 100ms;
     -webkit-tap-highlight-color: transparent;
     background: transparent;
+    border-color: #2288ff;
 }
 
 #add-contact:hover {
