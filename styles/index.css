@@ -93,6 +93,12 @@ body {
     user-select: none;
     font-size: 18px;
     font-family: 'Roboto Mono', monospace;
+    transition: opacity 400ms;
+}
+
+#loading.hidden {
+    opacity: 0;
+    pointer-events: none!important;
 }
 
 #no-contacts {
@@ -215,6 +221,22 @@ body {
 .window-wrapper {
     height: calc(100vh - 70px);
     transition: left 300ms ease, width 300ms ease, height 300ms ease;
+    animation: window-wrapper-open 400ms;
+}
+
+@keyframes window-wrapper-open {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    85% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 #chat-grid.single .window-wrapper {
@@ -313,42 +335,6 @@ body {
 }
 
 @keyframes input-hint {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@-moz-keyframes input-hint {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@-o-keyframes input-hint {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes input-hint {
     0% {
         opacity: 1;
     }

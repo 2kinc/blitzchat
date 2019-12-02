@@ -27,7 +27,8 @@ class UI {
 
                     },
                     openNewConversation() {
-                        this.openedChats = [{
+                        this.openedChats = [];
+                        this.openedChats.push({
                             type: TYPE.NEWCHAT,
                             name: 'New Conversation',
                             content: {
@@ -37,7 +38,7 @@ class UI {
                                 contactSearch: '',
                                 phase: 0
                             }
-                        }];
+                        });
                         this.updateMDC();
                     },
                     nextPhase() {
@@ -165,6 +166,20 @@ class UI {
 
                         this.$parent.$parent.updateMDC();
                     },
+                    submit() {
+                        var that = this;
+                        var uids = [];
+                        this.form.people.forEach(function (person) {
+                            uids.push(person.uid);
+                        });
+                        var copied = {
+                            name: this.form.name,
+                            group: this.form.group,
+                            people: uids
+                        };
+                        var ref = this.$parent.$parent.dbref.ref('blitzchat/conversations').push(copied);
+                        this.$parent.$parent.dbref.ref('users/' + auth.currentUser.uid + '/conversations/' + ref.key).set(true);
+                    }
                 },
                 data: () => ({
 
