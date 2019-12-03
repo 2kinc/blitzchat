@@ -7,7 +7,10 @@ class UI {
         this.activate = function () {
             var TYPE = {
                 CHAT: 0,
-                NEWCHAT: 1
+                NEWCHAT: 1,
+                INVITEACCEPTED: 1,
+                INVITEWAITING: 0,
+                INVITEDECLINED: -1
             };
             this.vue = new Vue({
                 data: () => ({
@@ -19,6 +22,14 @@ class UI {
 
                 }),
                 methods: {
+                    getContacts() {
+                        var that = this;
+                        this.dbref.ref('users/' + auth.currentUser.uid + '/conversations').on('child_added', function (snap) {
+                            that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
+                                that.contacts.push(snap1.val());
+                            });
+                        });
+                    },
                     openChat(contact) {
                         this.openedChats = [contact];
                         this.updateMDC();
@@ -168,9 +179,9 @@ class UI {
                     },
                     submit() {
                         var that = this;
-                        var uids = [];
+                        var uids = {};
                         this.form.people.forEach(function (person) {
-                            uids.push(person.uid);
+                            uids[person.uid] = true;
                         });
                         var copied = {
                             name: this.form.name,
@@ -178,7 +189,14 @@ class UI {
                             people: uids
                         };
                         var ref = this.$parent.$parent.dbref.ref('blitzchat/conversations').push(copied);
-                        this.$parent.$parent.dbref.ref('users/' + auth.currentUser.uid + '/conversations/' + ref.key).set(true);
+                        this.$parent.$parent.dbref.ref('users/' + auth.currentUser.uid + '/conversations/' + ref.key).set({
+                            accepted: TYPE.INVITEACCEPTED
+                        });
+                        for (var person in uids) {
+                            this.$parent.$parent.dbref.ref('users/' + person + '/conversations/' + ref.key).set({
+                                accepted: TYPE.INVITEWAITING
+                            });
+                        }
                     }
                 },
                 data: () => ({
