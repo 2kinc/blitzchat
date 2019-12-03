@@ -28,8 +28,9 @@ class UI {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
                                 var chat = snap1.val();
                                 if (!chat.group) {
-                                    that.dbref.ref('users/' + chat.people[0] + '/photoURL').once('value').then(function(snaplike7) {
-                                        chat.photoURL = snaplike7.val();
+                                    that.dbref.ref('users/' + chat.people[0]).once('value').then(function(snaplike7) {
+                                        chat.photoURL = snaplike7.val().photoURL;
+                                        chat.name = snaplike7.val().displayName;
                                         that.contacts.push(chat);
                                     });
                                     return;
@@ -191,10 +192,11 @@ class UI {
                     },
                     submit() {
                         var that = this;
-                        var uids = {};
+                        var uids = [];
                         this.form.people.forEach(function (person) {
-                            uids[person.uid] = true;
+                            uids.push(person.uid);
                         });
+                        uids.push(auth.currentUser.uid);
                         var copied = {
                             name: this.form.name,
                             group: this.form.group,

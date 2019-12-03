@@ -68,8 +68,9 @@
     <template id="contactItemTemplate">
 
         <div class="contact-item" v-on:click="open">
-            <img v-bind:src="contact.photoURL"  v-bind:alt="contact.name" width="50" height="50" class="picture">
-            <h3>{{contact.displayName}}</h3>
+            <img v-if="contact.photoURL" v-bind:src="contact.photoURL"  v-bind:alt="contact.name" width="50" height="50" class="picture">
+            <div v-else class="noimage picture">{{contact.people.length}}</div>
+            <h3>{{contact.name}}</h3>
             <p class="last-message">{{contact.lastMessage}}</p>
             <div class="actions">
                 <button class="button" title="Mark as Read"><i class="material-icons">done_all</i></button>

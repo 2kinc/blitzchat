@@ -202,6 +202,12 @@ body {
     height: 50px;
 }
 
+.contact-item .noimage {
+    text-align: center;
+    line-height: 40px;
+    background: #aaa;
+}
+
 #chat-grid.shown {
     width: calc(100vw - 108px);
     height: calc(100vh - 70px);
