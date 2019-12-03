@@ -68,7 +68,7 @@
     <template id="contactItemTemplate">
 
         <div class="contact-item" v-on:click="open">
-            <img v-bind:src="contact.photoURL" v-bind:alt="contact.name" width="50" height="50" class="picture">
+            <img v-bind:src="contact.photoURL"  v-bind:alt="contact.name" width="50" height="50" class="picture">
             <h3>{{contact.displayName}}</h3>
             <p class="last-message">{{contact.lastMessage}}</p>
             <div class="actions">

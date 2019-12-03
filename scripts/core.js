@@ -15,23 +15,7 @@ window.onload = function () {
             db.ref('users/' + auth.currentUser.uid + '/email').set(auth.currentUser.email);
             var contactsRef = db.ref('users/' + auth.currentUser.uid + '/blitzchat/contacts');
             ui.vue.displayName = auth.currentUser.displayName;
-            contactsRef.on('child_added', function (snap) {
-                var result = snap.val();
-                /*if (result.people.length == 1) {
-                    db.ref('users/' + result.people[0] + '/photoURL').on('value', function (snap) {
-                        result.picture = snap.val();
-                        db.ref('users/' + result.people[0] + '/displayName').on('value', function (snap) {
-                            result.name = snap.val();
-                            ui.vue.contacts.push(result);
-                        });
-                    });
-                } else {
-                    ui.vue.contacts.push(result);
-                }*/
-            });
-            contactsRef.on('child_changed', function (snap) {
-                /*Vue.set(ui.vue.contacts, Number(snap.key), snap.val());*/
-            });
+            ui.vue.signInHandler();
         } else {
             ui.vue.signedIn = false;
         }
@@ -54,10 +38,6 @@ window.onload = function () {
 
     var ui = new UI(db, '#app');
     ui.activate();
-    ui.vue.signIn = function () {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithRedirect(provider);
-    }
 
     window.ui = ui;
     window.auth = auth;

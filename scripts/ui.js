@@ -26,7 +26,15 @@ class UI {
                         var that = this;
                         this.dbref.ref('users/' + auth.currentUser.uid + '/conversations').on('child_added', function (snap) {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
-                                that.contacts.push(snap1.val());
+                                var chat = snap1.val();
+                                if (!chat.group) {
+                                    that.dbref.ref('users/' + chat.people[0] + '/photoURL').once('value').then(function(snaplike7) {
+                                        chat.photoURL = snaplike7.val();
+                                        that.contacts.push(chat);
+                                    });
+                                    return;
+                                }
+                                that.contacts.push(chat);
                             });
                         });
                     },
@@ -35,7 +43,11 @@ class UI {
                         this.updateMDC();
                     },
                     signIn() {
-
+                        var provider = new firebase.auth.GoogleAuthProvider();
+                        auth.signInWithRedirect(provider);
+                    },
+                    signInHandler() {
+                        this.getContacts();
                     },
                     openNewConversation() {
                         this.openedChats = [];
