@@ -555,7 +555,7 @@ body {
     .contact-item .actions {
         float: right;
         position: relative;
-        top: -48px;
+        top: -4px;
     }
     .contact-item h3, .contact-item p {
         display: block;

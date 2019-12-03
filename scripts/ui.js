@@ -27,12 +27,17 @@ class UI {
                         this.dbref.ref('users/' + auth.currentUser.uid + '/conversations').on('child_added', function (snap) {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
                                 var chat = snap1.val();
+
                                 if (!chat.group) {
+
                                     that.dbref.ref('users/' + chat.people[0]).once('value').then(function(snaplike7) {
-                                        chat.photoURL = snaplike7.val().photoURL;
-                                        chat.name = snaplike7.val().displayName;
+
+                                        chat.photoURL = snaplike7.val().photoURL; // change it to contact person's image
+                                        chat.name = snaplike7.val().displayName;  // change name to contact person's username
+
                                         that.contacts.push(chat);
                                     });
+
                                     return;
                                 }
                                 that.contacts.push(chat);
