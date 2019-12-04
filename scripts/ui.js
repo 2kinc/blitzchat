@@ -28,19 +28,28 @@ class UI {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
                                 var chat = snap1.val();
 
-                                if (!chat.group) {
+                                chat.people.forEach(function (person, index) {
+                                    that.dbref.ref('users/' + person).once('value').then(function (snap2) {
+                                        var val = snap2.val();
+                                        chat.people[index] = {};
+                                        chat.people[index].displayName = val.displayName;
+                                        chat.people[index].photoURL = val.photoURL;
 
-                                    that.dbref.ref('users/' + chat.people[0]).once('value').then(function(snaplike7) {
+                                        if (!chat.group && person != auth.currentUser.uid) {
+                                            //other person in contact
+                                            chat.name = chat.people[index].displayName;
+                                            chat.photoURL = chat.people[index].photoURL; //set photourl for contact
+                                        }
 
-                                        chat.photoURL = snaplike7.val().photoURL; // change it to contact person's image
-                                        chat.name = snaplike7.val().displayName;  // change name to contact person's username
-
-                                        that.contacts.push(chat);
+                                        if (index == chat.people.length - 1) {
+                                            that.contacts.push(chat);
+                                        }
                                     });
 
-                                    return;
-                                }
-                                that.contacts.push(chat);
+
+                                });
+
+
                             });
                         });
                     },
@@ -57,6 +66,13 @@ class UI {
                         auth.signInWithRedirect(provider);
                     },
                     signInHandler() {
+                        this.displayName = auth.currentUser.displayName;
+                        this.signedIn = true;
+                        var path = 'users/' + auth.currentUser.uid;
+                        this.dbref.ref(path + '/email').set(auth.currentUser.email);
+                        this.dbref.ref(path + '/displayName').set(auth.currentUser.displayName);
+                        this.dbref.ref(path + '/photoURL').set(auth.currentUser.photoURL);
+
                         this.getContacts();
                     },
                     openNewConversation() {
@@ -122,6 +138,18 @@ class UI {
                 methods: {
                     open() {
                         this.$parent.openChat(this.contact);
+                    }
+                },
+                computed: {
+                    computedName() {
+                        if (this.contact.group && !this.contact.name) {
+                            var people = [];
+                            this.contact.people.forEach(function (person) {
+                                people.push(person.displayName);
+                            });
+                            return people.join();
+                        }
+                        return this.contact.name;
                     }
                 }
             });
@@ -204,6 +232,21 @@ class UI {
                     },
                     submit() {
                         var that = this;
+                        var broken = {};
+                        if (!this.form.group) {
+                            //check if contact exists
+                            var parent = this.$parent.$parent;
+                            parent.contacts.forEach(function (contact) {
+                                if (!contact.group) {
+                                    for (var person in contact.people) {
+                                        if (person.email == this.form.people[0].email) {
+                                            broken.d = true;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        if (broken.d) return;
                         var uids = [];
                         this.form.people.forEach(function (person) {
                             uids.push(person.uid);
@@ -224,6 +267,7 @@ class UI {
                                 accepted: TYPE.INVITEWAITING
                             });
                         }
+                        this.close();
                     }
                 },
                 data: () => ({

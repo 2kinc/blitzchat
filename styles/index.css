@@ -224,6 +224,20 @@ body {
     background: rgba(255, 255, 255, 0.05);
 }
 
+.chat-window .header .actions {
+    float: right;
+}
+
+.chat-window .header .actions .button {
+    float: right;
+    backdrop-filter: none;
+    background: transparent;
+    margin: 16px;
+    margin-right: 14px;
+    margin-left: 0px;
+    padding: 0;
+}
+
 .window-wrapper {
     height: calc(100vh - 70px);
     transition: left 300ms ease, width 300ms ease, height 300ms ease;
