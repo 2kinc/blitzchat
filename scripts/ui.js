@@ -212,7 +212,7 @@ class UI {
                             accepted: TYPE.INVITEACCEPTED
                         });
                         for (var person in uids) {
-                            this.$parent.$parent.dbref.ref('users/' + person + '/conversations/' + ref.key).set({
+                            this.$parent.$parent.dbref.ref('users/' + uids[person] + '/conversations/' + ref.key).set({
                                 accepted: TYPE.INVITEWAITING
                             });
                         }
