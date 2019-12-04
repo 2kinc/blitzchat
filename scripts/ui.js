@@ -24,7 +24,7 @@ class UI {
                 methods: {
                     getContacts() {
                         var that = this;
-                        this.dbref.ref('users/' + auth.currentUser.uid + '/conversations').on('child_added', function (snap) {
+                        this.dbref.ref('users/' + auth.currentUser.uid + '/blitzchat/conversations').on('child_added', function (snap) {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
                                 var chat = snap1.val();
 
@@ -45,7 +45,11 @@ class UI {
                         });
                     },
                     openChat(contact) {
-                        this.openedChats = [contact];
+                        var window = {
+                            content: contact,
+                            type: TYPE.CHAT
+                        };
+                        this.openedChats = [window];
                         this.updateMDC();
                     },
                     signIn() {
@@ -123,7 +127,10 @@ class UI {
             });
             this.chatWindow = Vue.component('chat-window', {
                 props: { 'chat': Object },
-                template: '#chatWindowTemplate'
+                template: '#chatWindowTemplate',
+                data: () => ({
+
+                })
             });
             this.contactSearchResult = Vue.component('contact-search-result', {
                 props: { 'profile': Object },
@@ -205,14 +212,15 @@ class UI {
                         var copied = {
                             name: this.form.name,
                             group: this.form.group,
-                            people: uids
+                            people: uids,
+                            messages: []
                         };
                         var ref = this.$parent.$parent.dbref.ref('blitzchat/conversations').push(copied);
-                        this.$parent.$parent.dbref.ref('users/' + auth.currentUser.uid + '/conversations/' + ref.key).set({
+                        this.$parent.$parent.dbref.ref('users/' + auth.currentUser.uid + '/blitzchat/conversations/' + ref.key).set({
                             accepted: TYPE.INVITEACCEPTED
                         });
                         for (var person in uids) {
-                            this.$parent.$parent.dbref.ref('users/' + uids[person] + '/conversations/' + ref.key).set({
+                            this.$parent.$parent.dbref.ref('users/' + uids[person] + '/blitzchat/conversations/' + ref.key).set({
                                 accepted: TYPE.INVITEWAITING
                             });
                         }

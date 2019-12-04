@@ -68,7 +68,8 @@
     <template id="contactItemTemplate">
 
         <div class="contact-item" v-on:click="open">
-            <img v-if="contact.photoURL" v-bind:src="contact.photoURL"  v-bind:alt="contact.name" width="50" height="50" class="picture">
+            <img v-if="contact.photoURL" v-bind:src="contact.photoURL" v-bind:alt="contact.name" width="50" height="50"
+                class="picture">
             <div v-else class="noimage picture">{{contact.people.length}}</div>
             <h3>{{contact.name}}</h3>
             <p class="last-message">{{contact.lastMessage}}</p>
@@ -92,9 +93,12 @@
             </div>
             <div class="chat">
 
-                <div v-for="message in chat.messages" class="message">
-                    {{message.message}}
-                </div>
+                <template v-for="message in chat.messages">
+                    <div class="message">
+                        {{message.message}}
+                    </div>
+                </template>
+
 
             </div>
             <div id="sendMessage"></div>
@@ -116,11 +120,14 @@
 
     <template id="newConversationFormTemplate">
         <div class="new-conversation-form chat-window mdc-elevation--z1">
-            <button class="button window-left-action" v-on:click="previousPhase" v-bind:class="{disabled: form.phase == 0}">
+            <button class="button window-left-action" v-on:click="previousPhase"
+                v-bind:class="{disabled: form.phase == 0}">
                 <i class="material-icons">arrow_back</i>
-            </button><button class="button window-left-action" v-on:click="nextPhase" v-bind:class="{disabled: form.phase == 1}">
+            </button><button class="button window-left-action" v-on:click="nextPhase"
+                v-bind:class="{disabled: form.phase == 1}">
                 <i class="material-icons">arrow_forward</i>
-            </button><button class="button window-left-action" v-on:click="submit" v-if="form.phase == 1 && form.people.length > 0">
+            </button><button class="button window-left-action" v-on:click="submit"
+                v-if="form.phase == 1 && form.people.length > 0">
                 <i class="material-icons">done</i>
             </button>
 
@@ -195,7 +202,7 @@
 
     <template id="windowWrapperTemplate">
         <div class="window-wrapper">
-            <chat-window v-if="window.type == TYPE.CHAT" :content="window.content"></chat-window>
+            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content"></chat-window>
             <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content">
             </new-conversation-form>
         </div>
