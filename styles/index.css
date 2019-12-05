@@ -224,17 +224,27 @@ body {
     background: rgba(255, 255, 255, 0.05);
 }
 
+.chat-window .header {
+    width: calc(100% - 32px);
+    height: 24px;
+    padding: 8px;
+    z-index: 1;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    border-radius: 4px;
+}
+
 .chat-window .header .actions {
     float: right;
+    margin-right: -2px;
 }
 
 .chat-window .header .actions .button {
     float: right;
     backdrop-filter: none;
     background: transparent;
-    margin: 16px;
-    margin-right: 14px;
-    margin-left: 0px;
+    margin-left: 4px;
     padding: 0;
 }
 

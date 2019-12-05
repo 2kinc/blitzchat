@@ -27,7 +27,7 @@ window.onload = function () {
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
         // ...
-        document.querySelector('#loading').innerText = 'Error! ' + errorCode + '\n' + errorMessage;
+        document.querySelector('#loading').innerText = 'Error! ' + errorCode + ': ' + errorMessage;
     });
 
 

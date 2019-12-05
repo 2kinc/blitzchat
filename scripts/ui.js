@@ -79,13 +79,15 @@ class UI {
                         this.openedChats = [];
                         this.openedChats.push({
                             type: TYPE.NEWCHAT,
-                            name: 'New Conversation',
                             content: {
-                                group: false,
-                                name: '',
-                                people: [],
-                                contactSearch: '',
-                                phase: 0
+                                name: 'New Conversation',
+                                form: {
+                                    group: false,
+                                    name: '',
+                                    people: [],
+                                    contactSearch: '',
+                                    phase: 0,
+                                }
                             }
                         });
                         this.updateMDC();
@@ -125,7 +127,7 @@ class UI {
                             return 'No chats are open.';
                         var list = [];
                         for (var chat of this.openedChats) {
-                            list.push(chat.name);
+                            list.push(chat.content.name);
                         }
                         return list.join();
                     }

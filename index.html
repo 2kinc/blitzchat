@@ -84,13 +84,12 @@
     <template id="chatWindowTemplate">
 
         <div class="chat-window mdc-elevation--z1">
-            <div class="header">
+            <div class="header mdc-elevation--z3">
                 <span class="title"></span>
                 <div class="actions">
                     <button class="button">
                         <i class="material-icons">close</i>
-                    </button>
-                    <button class="button">
+                    </button><button class="button">
                         <i class="material-icons">more_vert</i>
                     </button>
                 </div>
@@ -207,7 +206,7 @@
     <template id="windowWrapperTemplate">
         <div class="window-wrapper">
             <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content"></chat-window>
-            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content">
+            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form">
             </new-conversation-form>
         </div>
     </template>
