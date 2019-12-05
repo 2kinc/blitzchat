@@ -257,7 +257,7 @@ body {
 .send-message .input {
     background: transparent;
     border: none !important;
-    width: calc(100% - 56px);
+    width: calc(100% - 68px);
     height: calc(100% - 16px);
     margin: 0;
     padding: 8px 12px!important;
@@ -283,10 +283,23 @@ body {
 .send-message .send {
     background: transparent;
     margin-left: -10px;
-    padding: 0;
+    padding: 6px;
     position: relative;
-    top: 7px;
-    left: 14px;
+    top: 6px;
+    left: 12px;
+    color: #2288ff;
+    margin-top: -12px;
+    border-radius: 100px;
+    padding-right: 5px;
+    padding-bottom: 4px;
+}
+
+.send-message .send:hover {
+    background: #ffffff33;
+}
+
+.send-message .send:active {
+    background: #2288ff99;
 }
 
 .send-message .send.enabled {

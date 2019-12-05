@@ -162,7 +162,9 @@ class UI {
                 props: { 'chat': Object },
                 template: '#chatWindowTemplate',
                 data: () => ({
-                    messageText: ''
+                    messageText: '',
+                    minimumLength: 1,
+                    maximumLength: 512
                 }),
                 computed: {
                     computedName() {
@@ -174,6 +176,12 @@ class UI {
                             return people.join();
                         }
                         return this.chat.name;
+                    },
+                    sendButtonEnabled() {
+                        if (this.messageText.length >= this.minimumLength && this.messageText.length <= this.maximumLength) {
+                            return true;
+                        }
+                        return false;
                     }
                 },
                 methods: {

@@ -115,7 +115,7 @@
             </div>
             <div class="send-message">
                 <input type="text" class="input" v-model="messageText" placeholder="Send a message...">
-                <button class="button send">
+                <button class="button send" v-bind:class="{disabled: !sendButtonEnabled}">
                     <i class="material-icons">send</i>
                 </button>
             </div>
