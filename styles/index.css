@@ -12,6 +12,17 @@ body {
     touch-action: pan-y;
 }
 
+::selection {
+    background: #2288ff66;
+}
+
+#triple-dots {
+    background: transparent;
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+
 .hidden {
     display: none;
 }
@@ -238,18 +249,21 @@ body {
 
 .send-message {
     top: calc(100% - 48px);
-    transition: box-shadow 150ms, background 150ms;
     padding: 0;
+    width: calc(100% - 18px);
+    height: 40px;
 }
 
 .send-message .input {
     background: transparent;
     border: none !important;
-    width: calc(100% - 8px);
-    height: 100%;
+    width: calc(100% - 56px);
+    height: calc(100% - 16px);
     margin: 0;
     padding: 8px 12px!important;
     border-radius: 4px;
+    transition: box-shadow 150ms, background 150ms;
+    font-size: 16px;
 }
 
 .send-message .input:hover {
@@ -264,6 +278,19 @@ body {
     0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
     0px 1px 18px 0px rgba(0,0,0,.12);
     background: rgba(255, 255, 255, 0.11);
+}
+
+.send-message .send {
+    background: transparent;
+    margin-left: -10px;
+    padding: 0;
+    position: relative;
+    top: 7px;
+    left: 14px;
+}
+
+.send-message .send.enabled {
+    color: #2288ff;
 }
 
 .chat-window .header .title {
@@ -288,7 +315,7 @@ body {
     background: transparent;
     margin-left: 4px;
     padding: 0;
-    color: #ffffff99;
+    color: #ffffff77;
 }
 
 .chat-window .header .actions .button:hover {

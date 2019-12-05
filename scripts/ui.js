@@ -162,7 +162,7 @@ class UI {
                 props: { 'chat': Object },
                 template: '#chatWindowTemplate',
                 data: () => ({
-
+                    messageText: ''
                 }),
                 computed: {
                     computedName() {

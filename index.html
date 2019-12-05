@@ -22,6 +22,10 @@
             <header id="header" class="no-select">
                 <span id="name">Hello, {{displayName}}</span>
                 <span id="chat-title">{{chatTitle}}</span>
+
+                <button class="button" id="triple-dots">
+                    <i class="material-icons">more_vert</i>
+                </button>
             </header>
 
             <nav id="contacts">
@@ -110,7 +114,10 @@
 
             </div>
             <div class="send-message">
-                <input type="text" class="input">
+                <input type="text" class="input" v-model="messageText" placeholder="Send a message...">
+                <button class="button send">
+                    <i class="material-icons">send</i>
+                </button>
             </div>
         </div>
 
