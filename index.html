@@ -84,10 +84,15 @@
     <template id="chatWindowTemplate">
 
         <div class="chat-window mdc-elevation--z1">
-            <div class="header mdc-elevation--z3">
-                <span class="title"></span>
+            <div class="header mdc-elevation--z6">
                 <div class="actions">
                     <button class="button">
+                        <i class="material-icons">fullscreen</i>
+                    </button>
+                </div>
+                <span class="title">{{computedName}}</span>
+                <div class="actions right">
+                    <button class="button close" v-on:click="close">
                         <i class="material-icons">close</i>
                     </button><button class="button">
                         <i class="material-icons">more_vert</i>
@@ -104,7 +109,9 @@
 
 
             </div>
-            <div id="sendMessage"></div>
+            <div class="send-message">
+                <input type="text" class="input">
+            </div>
         </div>
 
     </template>

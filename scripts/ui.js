@@ -127,6 +127,9 @@ class UI {
                             return 'No chats are open.';
                         var list = [];
                         for (var chat of this.openedChats) {
+                            if (chat.group && chat.name == '') {
+                                list.push('Group');
+                            }
                             list.push(chat.content.name);
                         }
                         return list.join();
@@ -160,7 +163,25 @@ class UI {
                 template: '#chatWindowTemplate',
                 data: () => ({
 
-                })
+                }),
+                computed: {
+                    computedName() {
+                        if (this.chat.group && !this.chat.name) {
+                            var people = [];
+                            this.chat.people.forEach(function (person) {
+                                people.push(person.displayName);
+                            });
+                            return people.join();
+                        }
+                        return this.chat.name;
+                    }
+                },
+                methods: {
+                    close() {
+                        var index = this.$parent.$parent.openedChats.indexOf(this.window);
+                        this.$parent.$parent.openedChats.splice(index, 1);
+                    }
+                }
             });
             this.contactSearchResult = Vue.component('contact-search-result', {
                 props: { 'profile': Object },
