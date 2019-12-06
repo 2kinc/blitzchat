@@ -247,6 +247,24 @@ body {
     padding: 8px;
 }
 
+.chat {
+    top: 56px;
+    width:calc(100% - 34px);
+    height:calc(100% - 116px);
+    position:absolute;
+    padding:8px;
+    left:8px;
+}
+
+.chat .message {
+    width:calc(100% - 16px);
+    background:#ffffff11;
+    padding:8px;
+    margin:8px;
+    height:32px;
+    border-radius:4px;
+}
+
 .send-message {
     top: calc(100% - 48px);
     padding: 0;

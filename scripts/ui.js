@@ -205,7 +205,7 @@ class UI {
 
                         this.messageText = ''; // clear
 
-                        this.$parent.$parent.dbref.ref('blitzchat/conversations/-LvDhmOxxKsUsY5tKpY2').child('chat').push(message);
+                        this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
                         
                     }
                 }
