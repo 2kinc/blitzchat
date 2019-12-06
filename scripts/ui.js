@@ -195,7 +195,7 @@ class UI {
                         this.$parent.$parent.openedChats.splice(index, 1);
                     }, 
                     sendMessage() {
-                        
+
                         var d = new Date();
                         var message = {
                             message: this.messageText,
