@@ -14,11 +14,12 @@ class UI {
             };
             this.vue = new Vue({
                 data: () => ({
+
                     dbref: this.dbref,
                     signedIn: true,
                     contacts: [],
                     openedChats: [],
-                    displayName: '',
+                    displayName: ''
 
                 }),
                 methods: {
@@ -27,6 +28,8 @@ class UI {
                         this.dbref.ref('users/' + auth.currentUser.uid + '/blitzchat/conversations').on('child_added', function (snap) {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
                                 var chat = snap1.val();
+
+                                chat.key = snap1.key;
 
                                 chat.people.forEach(function (person, index) {
                                     that.dbref.ref('users/' + person).once('value').then(function (snap2) {
@@ -44,6 +47,7 @@ class UI {
                                         if (index == chat.people.length - 1) {
                                             that.contacts.push(chat);
                                         }
+
                                     });
 
 
@@ -113,6 +117,7 @@ class UI {
                         }, 0);
                         this.updateMDC();
                     },
+
                     updateMDC() {
                         var buttons = document.querySelectorAll('.button, .mdc-button');
                         buttons.forEach(function (node) {
@@ -188,6 +193,20 @@ class UI {
                     close() {
                         var index = this.$parent.$parent.openedChats.indexOf(this.window);
                         this.$parent.$parent.openedChats.splice(index, 1);
+                    }, 
+                    sendMessage() {
+                        
+                        var d = new Date();
+                        var message = {
+                            message: this.messageText,
+                            user: auth.currentUser.uid,
+                            time: d.toLocaleTimeString() + ' ' + d.toLocaleDateString()
+                        };
+
+                        this.messageText = ''; // clear
+
+                        this.$parent.$parent.dbref.ref('blitzchat/conversations/-LvDhmOxxKsUsY5tKpY2').child('chat').push(message);
+                        
                     }
                 }
             });

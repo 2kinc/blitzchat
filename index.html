@@ -114,8 +114,8 @@
 
             </div>
             <div class="send-message">
-                <input type="text" class="input" v-model="messageText" placeholder="Send a message...">
-                <button class="button send" v-bind:class="{disabled: !sendButtonEnabled}">
+                <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength" v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message...">
+                <button class="button send" v-bind:class="{disabled: !sendButtonEnabled}" v-on:click="sendMessage">
                     <i class="material-icons">send</i>
                 </button>
             </div>
