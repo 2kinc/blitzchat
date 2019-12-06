@@ -250,10 +250,11 @@ body {
 .chat {
     top: 56px;
     width:calc(100% - 34px);
-    height:calc(100% - 116px);
+    height:calc(100% - 126px);
     position:absolute;
     padding:8px;
     left:8px;
+    overflow-y:auto;
 }
 
 .chat .message-wrapper {

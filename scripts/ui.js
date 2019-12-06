@@ -30,29 +30,32 @@ class UI {
                             that.dbref.ref('blitzchat/conversations/' + snap.key).once('value').then(function (snap1) {
                                 var chat = snap1.val();
 
-                                chat.key = snap1.key;
+                                if (chat) {
 
-                                chat.people.forEach(function (person, index) {
-                                    that.dbref.ref('users/' + person).once('value').then(function (snap2) {
-                                        var val = snap2.val();
-                                        chat.people[index] = {};
-                                        chat.people[index].displayName = val.displayName;
-                                        chat.people[index].photoURL = val.photoURL;
+                                    chat.key = snap1.key;
 
-                                        if (!chat.group && person != auth.currentUser.uid) {
-                                            //other person in contact
-                                            chat.name = chat.people[index].displayName;
-                                            chat.photoURL = chat.people[index].photoURL; //set photourl for contact
-                                        }
+                                    chat.people.forEach(function (person, index) {
+                                        that.dbref.ref('users/' + person).once('value').then(function (snap2) {
+                                            var val = snap2.val();
+                                            chat.people[index] = {};
+                                            chat.people[index].displayName = val.displayName;
+                                            chat.people[index].photoURL = val.photoURL;
 
-                                        if (index == chat.people.length - 1) {
-                                            that.contacts.push(chat);
-                                        }
+                                            if (!chat.group && person != auth.currentUser.uid) {
+                                                //other person in contact
+                                                chat.name = chat.people[index].displayName;
+                                                chat.photoURL = chat.people[index].photoURL; //set photourl for contact
+                                            }
+
+                                            if (index == chat.people.length - 1) {
+                                                that.contacts.push(chat);
+                                            }
+
+                                        });
+
 
                                     });
-
-
-                                });
+                                }
 
 
                             });
@@ -207,10 +210,19 @@ class UI {
                         this.messageText = ''; // clear
 
                         this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
+                        this.getMessages();
 
                     },
                     getMessages() {
+
+                        var that = this;
                         
+                        this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').once('value').then(function (snap) {
+                            that.chat.messages = snap.val();
+                            var opened = that.$parent.$parent.openedChats.filter(chat => chat.content.key == that.chat.key);
+                            if (opened) opened[0].content.messages;
+                        });
+
                     }
                 }
             });

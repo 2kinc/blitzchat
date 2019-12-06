@@ -36,7 +36,7 @@
                 <template v-for="contact in contacts">
                     <contact-item :contact="contact" />
                 </template>
-                <div v-if="contacts.length == 0" id="no-contacts" class="no-select">
+                <div v-if="contacts.size == 0" id="no-contacts" class="no-select">
                     <i class="material-icons">face</i><br>
                     <span>You have no conversations.</span>
                 </div>
