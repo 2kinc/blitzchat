@@ -193,11 +193,18 @@ class UI {
                         return false;
                     }
                 },
+                mounted() {
+                    var chatEl = document.querySelector('.chat');
+                    chatEl.scrollTop = chatEl.scrollHeight;
+                },
                 methods: {
                     close() {
                         var index = this.$parent.$parent.openedChats.indexOf(this.window);
                         this.$parent.$parent.openedChats.splice(index, 1);
                     },
+                    goDown() {
+
+                    }, 
                     sendMessage() {
 
                         var d = new Date();
@@ -216,11 +223,14 @@ class UI {
                     getMessages() {
 
                         var that = this;
-                        
+
                         this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').once('value').then(function (snap) {
                             that.chat.messages = snap.val();
                             var opened = that.$parent.$parent.openedChats.filter(chat => chat.content.key == that.chat.key);
                             if (opened) opened[0].content.messages;
+                        }).then(function () {
+                            var chatEl = document.querySelector('.chat');
+                            chatEl.scrollTop = chatEl.scrollHeight;
                         });
 
                     }
