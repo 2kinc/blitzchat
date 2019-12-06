@@ -12,6 +12,7 @@ class UI {
                 INVITEWAITING: 0,
                 INVITEDECLINED: -1
             };
+            var loadedUsers = {};
             this.vue = new Vue({
                 data: () => ({
 
@@ -193,19 +194,22 @@ class UI {
                     close() {
                         var index = this.$parent.$parent.openedChats.indexOf(this.window);
                         this.$parent.$parent.openedChats.splice(index, 1);
-                    }, 
+                    },
                     sendMessage() {
 
                         var d = new Date();
                         var message = {
                             message: this.messageText,
                             user: auth.currentUser.uid,
-                            time: d.toLocaleTimeString() + ' ' + d.toLocaleDateString()
+                            time: d.getTime()
                         };
 
                         this.messageText = ''; // clear
 
                         this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
+
+                    },
+                    getMessages() {
                         
                     }
                 }
@@ -332,6 +336,13 @@ class UI {
                     TYPE: TYPE
                 })
 
+            });
+            this.message = Vue.component('message', {
+                template: '#messageTemplate',
+                props: { 'message': Object },
+                data: () => ({
+
+                })
             });
             this.vue.updateMDC();
         }

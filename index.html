@@ -88,7 +88,7 @@
     <template id="chatWindowTemplate">
 
         <div class="chat-window mdc-elevation--z1">
-            <div class="header mdc-elevation--z6">
+            <div class="header mdc-elevation--z2">
                 <div class="actions">
                     <button class="button">
                         <i class="material-icons">fullscreen</i>
@@ -106,9 +106,7 @@
             <div class="chat">
 
                 <template v-for="message in chat.messages">
-                    <div class="message">
-                        {{message.message}}
-                    </div>
+                    <message :message="message"></message>
                 </template>
 
 
@@ -222,6 +220,12 @@
             <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content"></chat-window>
             <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form">
             </new-conversation-form>
+        </div>
+    </template>
+
+    <template id="messageTemplate">
+        <div class="message-wrapper">
+            {{message.message}}
         </div>
     </template>
 
