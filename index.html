@@ -105,13 +105,19 @@
             </div>
             <div class="chat">
 
+                <div class="chat-beginning">
+                    This is the beginning of the conversation <b>{{computedName}}</b>
+                </div>
+
                 <template v-for="message in chat.messages">
                     <message :message="message"></message>
                 </template>
 
             </div>
             <div class="send-message">
-                <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength" v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message..." ref="sendMessageInput">
+                <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength"
+                    v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message..."
+                    ref="sendMessageInput">
                 <button class="button send" v-bind:class="{disabled: !sendButtonEnabled}" v-on:click="sendMessage">
                     <i class="material-icons">send</i>
                 </button>
@@ -223,8 +229,9 @@
     </template>
 
     <template id="messageTemplate">
-        <div class="message-wrapper">
-            {{message.message}}
+        <div class="message-wrapper" v-bind:class="{'sent-by-self': sentBySelf}">
+            <div class="message-body">{{message.message}}</div>
+            <br>
         </div>
     </template>
 

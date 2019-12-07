@@ -197,7 +197,7 @@ class UI {
                     },
                     goDown() {
 
-                    }, 
+                    },
                     sendMessage() {
                         if (!this.sendButtonEnabled) {
                             //sdfadfjlsa;kfj
@@ -378,8 +378,30 @@ class UI {
                 template: '#messageTemplate',
                 props: { 'message': Object },
                 data: () => ({
-
-                })
+                    sentBySelf: false
+                }),
+                created() {
+                    if (this.message.user.uid) return;
+                    if (loadedUsers[this.message.user]) {
+                        var uid = this.message.user;
+                        this.message.user = loadedUsers[this.message.user];
+                        this.message.user.uid = uid;
+                        if (this.message.user.uid == auth.currentUser.uid) {
+                            this.sentBySelf = true;
+                        }
+                    } else {
+                        var that = this;
+                        this.$parent.$parent.$parent.dbref.ref('users/' + this.message.user).once('value').then(function (snap) {
+                            loadedUsers[that.message.user] = snap.val();
+                            var uid = that.message.user;
+                            that.message.user = loadedUsers[that.message.user];
+                            that.message.user.uid = uid;
+                            if (that.message.user.uid == auth.currentUser.uid) {
+                                that.sentBySelf = true;
+                            }
+                        });
+                    }
+                }
             });
             keyListener.simple_combo('ctrl alt n', function () {
                 that.vue.openNewConversation();
@@ -388,11 +410,22 @@ class UI {
                 that.vue.focusedChat.close();
             });
             keyListener.simple_combo('ctrl ,', function () {
-                console.log('tab to the left');
+                that.vue.focusedChat
             });
             keyListener.simple_combo('ctrl .', function () {
                 console.log('tab to the right');
             });
+            function goToInput() {
+                if (document.activeElement.tagName == 'INPUT')
+                    return true;
+                if (that.vue.focusedChat) {
+                    if (that.vue.focusedChat.focusInput) {
+                        that.vue.focusedChat.focusInput();
+                    }
+                }
+            }
+            keyListener.simple_combo('space', goToInput);
+            keyListener.simple_combo('enter', goToInput);
             this.vue.updateMDC();
         }
     }

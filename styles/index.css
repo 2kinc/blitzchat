@@ -13,7 +13,8 @@ body {
 }
 
 ::selection {
-    background: #2288ff66;
+    background: white;
+    color: black;
 }
 
 #triple-dots {
@@ -24,11 +25,12 @@ body {
 }
 
 ::-webkit-scrollbar {
-    background:#121212;
+    background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-    background:#343434;
-    border-radius:5px;
+    background: #343434;
+    border-radius: 5px;
 }
 
 .hidden {
@@ -223,7 +225,7 @@ body {
 
 .contact-item .noimage {
     text-align: center;
-    line-height: 40px;
+    line-height: 50px;
     background: #aaa;
 }
 
@@ -257,29 +259,55 @@ body {
 }
 
 .chat {
-    top: 80px;
-    width:calc(100% - 34px);
-    height:calc(100% - 140px);
-    position:absolute;
-    padding:8px;
-    left:8px;
-    overflow-y:auto;
+    top: 56px;
+    width: calc(100% - 26px);
+    height: calc(100% - 114px);
+    position: absolute;
+    left: 8px;
+    overflow-y: auto;
+    border-radius: 6px;
+    padding-right: 8px;
 }
 
+.chat .message-body {
+    background: #ffffff11;
+    padding: 8px;
+    margin: 8px;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 4px;
+    word-break: break-word;
+    display: inline-block;
+}
 
+.message-wrapper br {
+    user-select: none;
+}
 
-.chat .message-wrapper {
-    width:calc(100% - 32px);
-    background:#ffffff11;
-    padding:8px;
-    margin:8px;
-    height:32px;
-    border-radius:4px;
+.message-wrapper.sent-by-self {
+    width: 100%;
+    min-height: 48px;
+}
+
+.message-wrapper.sent-by-self .message-body{
+    background: #2288ff;
+    float: right;
+}
+
+.message-wrapper.sent-by-self p {
+    float: right;
+}
+
+.chat-beginning {
+    padding: 8px;
+    height: 60px;
+    background: rgb(34, 136, 255);
+    background: linear-gradient(180deg, rgba(34, 136, 255, 0.3) 0%, rgba(9, 9, 121, 0) 50%, rgba(0, 212, 255, 0) 100%);
 }
 
 .toBottom {
-    position:absolute;
-    bottom:24px;
+    position: absolute;
+    bottom: 24px;
     right: 24px;
 }
 
@@ -528,6 +556,10 @@ body {
     user-select: text;
 }
 
+.input::placeholder {
+    user-select: none;
+}
+
 .input:focus {
     background: #ffffff44;
     border: 1px #ffffff66 solid;
@@ -756,6 +788,9 @@ body {
     .chat-window:focus, .chat-window:focus-within {
         box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, .12);
         background: rgba(255, 255, 255, 0.09);
+    }
+    .contact .noimage {
+        line-height: 40px;
     }
 }
 
