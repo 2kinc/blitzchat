@@ -183,6 +183,10 @@ class UI {
                         return false;
                     }
                 },
+                mounted() {
+                    var chatEl = document.querySelector('.chat');
+                    chatEl.scrollTop = chatEl.scrollHeight;
+                },
                 methods: {
                     close() {
                         var index = that.vue.openedChats.indexOf(this.window);
@@ -191,6 +195,9 @@ class UI {
                     focusHandler() {
                         that.vue.focusedChat = this;
                     },
+                    goDown() {
+
+                    }, 
                     sendMessage() {
                         if (!this.sendButtonEnabled) {
                             //sdfadfjlsa;kfj
@@ -218,6 +225,9 @@ class UI {
                             that.chat.messages = snap.val();
                             var opened = that.$parent.$parent.openedChats.filter(chat => chat.content.key == that.chat.key);
                             if (opened) opened[0].content.messages;
+                        }).then(function () {
+                            var chatEl = document.querySelector('.chat');
+                            chatEl.scrollTop = chatEl.scrollHeight;
                         });
 
                         this.focusInput();

@@ -109,7 +109,6 @@
                     <message :message="message"></message>
                 </template>
 
-
             </div>
             <div class="send-message">
                 <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength" v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message..." ref="sendMessageInput">

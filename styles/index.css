@@ -23,6 +23,14 @@ body {
     padding: 0;
 }
 
+::-webkit-scrollbar {
+    background:#121212;
+}
+::-webkit-scrollbar-thumb {
+    background:#343434;
+    border-radius:5px;
+}
+
 .hidden {
     display: none;
 }
@@ -249,22 +257,30 @@ body {
 }
 
 .chat {
-    top: 56px;
-    width: calc(100% - 34px);
-    height: calc(100% - 126px);
-    position: absolute;
-    padding: 8px;
-    left: 8px;
-    overflow-y: auto;
+    top: 80px;
+    width:calc(100% - 34px);
+    height:calc(100% - 140px);
+    position:absolute;
+    padding:8px;
+    left:8px;
+    overflow-y:auto;
 }
 
+
+
 .chat .message-wrapper {
-    width: calc(100% - 16px);
-    background: #ffffff11;
-    padding: 8px;
-    margin: 8px;
-    height: 32px;
-    border-radius: 4px;
+    width:calc(100% - 32px);
+    background:#ffffff11;
+    padding:8px;
+    margin:8px;
+    height:32px;
+    border-radius:4px;
+}
+
+.toBottom {
+    position:absolute;
+    bottom:24px;
+    right: 24px;
 }
 
 .send-message {
