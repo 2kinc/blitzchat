@@ -87,7 +87,7 @@
 
     <template id="chatWindowTemplate">
 
-        <div class="chat-window mdc-elevation--z1">
+        <div class="chat-window mdc-elevation--z1" v-on:focus="focusHandler" tabindex="-1">
             <div class="header mdc-elevation--z2">
                 <div class="actions">
                     <button class="button">
@@ -112,7 +112,7 @@
 
             </div>
             <div class="send-message">
-                <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength" v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message...">
+                <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength" v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message..." ref="sendMessageInput">
                 <button class="button send" v-bind:class="{disabled: !sendButtonEnabled}" v-on:click="sendMessage">
                     <i class="material-icons">send</i>
                 </button>
@@ -134,7 +134,7 @@
     </template>
 
     <template id="newConversationFormTemplate">
-        <div class="new-conversation-form chat-window mdc-elevation--z1">
+        <div class="new-conversation-form chat-window mdc-elevation--z1" tabindex="-1" v-on:focus="focusHandler">
             <button class="button window-left-action" v-on:click="previousPhase"
                 v-bind:class="{disabled: form.phase == 0}">
                 <i class="material-icons">arrow_back</i>
@@ -236,6 +236,7 @@
     <!-- Required MDC Web JavaScript library -->
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
+    <script src="./scripts/keypress.js"></script>
     <script src="./scripts/vue.js"></script>
     <script src="./scripts/core.js" type="module"></script>
 </body>

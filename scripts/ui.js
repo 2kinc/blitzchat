@@ -5,6 +5,7 @@ class UI {
         this.dbref = dbref;
         this.el = el;
         this.activate = function () {
+            var that = this;
             var TYPE = {
                 CHAT: 0,
                 NEWCHAT: 1,
@@ -13,6 +14,7 @@ class UI {
                 INVITEDECLINED: -1
             };
             var loadedUsers = {};
+            var keyListener = new window.keypress.Listener();
             this.vue = new Vue({
                 data: () => ({
 
@@ -20,7 +22,8 @@ class UI {
                     signedIn: true,
                     contacts: [],
                     openedChats: [],
-                    displayName: ''
+                    displayName: '',
+                    focusedChat: undefined
 
                 }),
                 methods: {
@@ -62,12 +65,17 @@ class UI {
                         });
                     },
                     openChat(contact) {
+                        this.openedChats = [];
                         var window = {
                             content: contact,
                             type: TYPE.CHAT
                         };
-                        this.openedChats = [window];
-                        this.updateMDC();
+                        var that = this;
+                        setTimeout(function () {
+                            that.openedChats.push(window);
+                            that.updateMDC();
+
+                        }, 0);
                     },
                     signIn() {
                         var provider = new firebase.auth.GoogleAuthProvider();
@@ -85,43 +93,25 @@ class UI {
                     },
                     openNewConversation() {
                         this.openedChats = [];
-                        this.openedChats.push({
-                            type: TYPE.NEWCHAT,
-                            content: {
-                                name: 'New Conversation',
-                                form: {
-                                    group: false,
-                                    name: '',
-                                    people: [],
-                                    contactSearch: '',
-                                    phase: 0,
-                                }
-                            }
-                        });
-                        this.updateMDC();
-                    },
-                    nextPhase() {
-                        if (this.newConversationForm.group && this.newConversationPhase == 1) {
-                            if (this.newConversationForm.name == '') {
-                                setTimeout(() => {
-                                    if (document.querySelector('#new-conversation-form input')) {
-                                        document.querySelector('#new-conversation-form input').focus();
+                        var that = this;
+                        setTimeout(function () {
+                            that.openedChats.push({
+                                type: TYPE.NEWCHAT,
+                                content: {
+                                    name: 'New Conversation',
+                                    form: {
+                                        group: false,
+                                        name: '',
+                                        people: [],
+                                        contactSearch: '',
+                                        phase: 0,
                                     }
-                                }, 0);
-                                return;
-                            }
-                        }
-                        this.newConversationPhase = (this.newConversationPhase + 1) % 3;
-                        if (!this.newConversationForm.group && this.newConversationPhase == 1)
-                            this.newConversationPhase = 2;
-                        setTimeout(() => {
-                            if (document.querySelector('#new-conversation-form input')) {
-                                document.querySelector('#new-conversation-form input').focus();
-                            }
+                                }
+                            });
+                            that.updateMDC();
                         }, 0);
-                        this.updateMDC();
-                    },
 
+                    },
                     updateMDC() {
                         var buttons = document.querySelectorAll('.button, .mdc-button');
                         buttons.forEach(function (node) {
@@ -195,10 +185,17 @@ class UI {
                 },
                 methods: {
                     close() {
-                        var index = this.$parent.$parent.openedChats.indexOf(this.window);
-                        this.$parent.$parent.openedChats.splice(index, 1);
+                        var index = that.vue.openedChats.indexOf(this.window);
+                        that.vue.openedChats.splice(index, 1);
+                    },
+                    focusHandler() {
+                        that.vue.focusedChat = this;
                     },
                     sendMessage() {
+                        if (!this.sendButtonEnabled) {
+                            //sdfadfjlsa;kfj
+                            return;
+                        }
 
                         var d = new Date();
                         var message = {
@@ -209,21 +206,32 @@ class UI {
 
                         this.messageText = ''; // clear
 
-                        this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
+                        that.vue.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
                         this.getMessages();
 
                     },
                     getMessages() {
 
                         var that = this;
-                        
+
                         this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').once('value').then(function (snap) {
                             that.chat.messages = snap.val();
                             var opened = that.$parent.$parent.openedChats.filter(chat => chat.content.key == that.chat.key);
                             if (opened) opened[0].content.messages;
                         });
 
+                        this.focusInput();
+                    },
+                    focusInput() {
+                        this.$refs.sendMessageInput.focus();
                     }
+                },
+                created() {
+                    var that = this;
+                    setTimeout(function () {
+                        that.$el.focus();
+                        setTimeout(that.focusInput, 0);
+                    }, 0);
                 }
             });
             this.contactSearchResult = Vue.component('contact-search-result', {
@@ -256,6 +264,9 @@ class UI {
                     close() {
                         var index = this.$parent.$parent.openedChats.indexOf(this.window);
                         this.$parent.$parent.openedChats.splice(index, 1);
+                    },
+                    focusHandler() {
+                        that.vue.focusedChat = this;
                     },
                     nextPhase() {
                         this.form.phase = Math.min(this.form.phase + 1, 1);
@@ -339,15 +350,19 @@ class UI {
                 data: () => ({
 
                 }),
-
+                created() {
+                    this.$el.focus();
+                }
             });
             this.windowWrapper = Vue.component('window-wrapper', {
                 template: '#windowWrapperTemplate',
                 props: { 'window': Object },
                 data: () => ({
                     TYPE: TYPE
-                })
+                }),
+                methods: {
 
+                }
             });
             this.message = Vue.component('message', {
                 template: '#messageTemplate',
@@ -355,6 +370,18 @@ class UI {
                 data: () => ({
 
                 })
+            });
+            keyListener.simple_combo('ctrl alt n', function () {
+                that.vue.openNewConversation();
+            });
+            keyListener.simple_combo('ctrl alt w', function () {
+                that.vue.focusedChat.close();
+            });
+            keyListener.simple_combo('ctrl ,', function () {
+                console.log('tab to the left');
+            });
+            keyListener.simple_combo('ctrl .', function () {
+                console.log('tab to the right');
             });
             this.vue.updateMDC();
         }
