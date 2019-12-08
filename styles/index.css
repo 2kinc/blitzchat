@@ -246,6 +246,11 @@ body {
     outline: none !important;
 }
 
+#chat-grid:not(.single) .chat-window:focus, #chat-grid:not(.single) .chat-window:focus-within {
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, .12);
+    background: rgba(255, 255, 255, 0.09);
+}
+
 .chat-window .header, .send-message {
     width: calc(100% - 34px);
     height: 24px;
@@ -277,6 +282,8 @@ body {
     border-radius: 4px;
     word-break: break-word;
     display: inline-block;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .message-wrapper br {
@@ -300,6 +307,7 @@ body {
 }
 
 .chat-beginning {
+    user-select: none;
     padding: 8px;
     height: 60px;
     background: rgb(34, 136, 255);
@@ -322,15 +330,13 @@ body {
 .send-message .input {
     background: transparent;
     border: none !important;
-    width: calc(100% - 68px)!important;
-    line-height:24px;
-    height: calc(100% - 16px)!important;
+    width: calc(100% - 68px);
+    height: calc(100% - 16px);
     margin: 0;
     padding: 8px 12px!important;
     border-radius: 4px;
     transition: box-shadow 150ms, background 150ms;
     font-size: 16px;
-    resize:none;
 }
 
 .send-message .input:hover {
@@ -748,9 +754,6 @@ body {
         position: relative;
         top: -4px;
     }
-    .contact-item .noimage {
-        line-height: 40px;
-    }
     .contact-item h3, .contact-item p {
         display: block;
     }
@@ -791,12 +794,11 @@ body {
         padding-right: 30px;
         font-size: 16px;
     }
-    .chat-window:focus, .chat-window:focus-within {
-        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, .12);
-        background: rgba(255, 255, 255, 0.09);
-    }
     .contact-item .noimage {
         line-height: 42px;
+    }
+    .chat-beginning {
+        font-size: 22px;
     }
 }
 

@@ -13,6 +13,10 @@ class UI {
                 INVITEWAITING: 0,
                 INVITEDECLINED: -1
             };
+            var STATE = {
+                GROUND: 0,
+                FLOATING: 1
+            };
             var loadedUsers = {};
             var keyListener = new window.keypress.Listener();
             this.vue = new Vue({
@@ -23,7 +27,11 @@ class UI {
                     contacts: [],
                     openedChats: [],
                     displayName: '',
-                    focusedChat: undefined
+                    focusedChat: undefined,
+                    display: {
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    }
 
                 }),
                 methods: {
@@ -69,13 +77,12 @@ class UI {
                         var window = {
                             content: contact,
                             type: TYPE.CHAT,
-                            state: 'max'
+                            state: STATE.GROUND
                         };
                         var that = this;
                         setTimeout(function () {
                             that.openedChats.push(window);
                             that.updateMDC();
-
                         }, 0);
                     },
                     signIn() {
@@ -159,12 +166,13 @@ class UI {
                 }
             });
             this.chatWindow = Vue.component('chat-window', {
-                props: { 'chat': Object, 'state': String },
+                props: { 'chat': Object, 'window': Object },
                 template: '#chatWindowTemplate',
                 data: () => ({
                     messageText: '',
                     minimumLength: 1,
-                    maximumLength: 512
+                    maximumLength: 512,
+                    STATE: STATE
                 }),
                 computed: {
                     computedName() {
@@ -202,6 +210,9 @@ class UI {
                     goDown() {
 
                     },
+                    fullscreenHandler() {
+                        this.$root.openChat(this.chat);
+                    },
                     sendMessage() {
                         if (!this.sendButtonEnabled) {
                             //sdfadfjlsa;kfj
@@ -220,10 +231,6 @@ class UI {
                         that.vue.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
                         this.getMessages();
 
-                    },
-                    fullscreenHandler() {
-                        if (this.state == 'max') this.state = 'exited';
-                        if (this.state == 'exited') this.state = 'max';
                     },
                     getMessages() {
 
@@ -382,7 +389,7 @@ class UI {
                 template: '#messageTemplate',
                 props: { 'message': Object },
                 data: () => ({
-
+                    
                 }),
                 methods: {
                     urlify(text) {
@@ -405,6 +412,12 @@ class UI {
                             that.message.user = loadedUsers[that.message.user];
                             that.message.user.uid = uid;
                         });
+                    }
+                },
+                computed: {
+                    sentBySelf() {
+                        var uid = this.message.user.uid || this.message.user;
+                        return uid == auth.currentUser.uid;
                     }
                 }
             });
@@ -446,6 +459,11 @@ class UI {
             }
             keyListener.simple_combo('space', goToInput);
             keyListener.simple_combo('enter', goToInput);
+            function resizeHandler() {
+                that.vue.innerWidth = window.innerWidth;
+                that.vue.innerHeight = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeHandler);
             this.vue.updateMDC();
         }
     }

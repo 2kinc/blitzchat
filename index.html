@@ -91,7 +91,7 @@
             <div class="header mdc-elevation--z2">
                 <div class="actions">
                     <button class="button" v-on:click="fullscreenHandler">
-                        <i class="material-icons">{{state == 'max' ? 'fullscreen_exit' : 'fullscreen'}}</i>
+                        <i class="material-icons">fullscreen</i>
                     </button>
                 </div>
                 <span class="title">{{computedName}}</span>
@@ -222,8 +222,8 @@
 
     <template id="windowWrapperTemplate">
         <div class="window-wrapper">
-            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content" :state="window.state"></chat-window>
-            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form" :state="window.state">
+            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content"></chat-window>
+            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form">
             </new-conversation-form>
         </div>
     </template>
