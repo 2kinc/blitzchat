@@ -321,13 +321,15 @@ body {
 .send-message .input {
     background: transparent;
     border: none !important;
-    width: calc(100% - 68px);
-    height: calc(100% - 16px);
+    width: calc(100% - 68px)!important;
+    line-height:24px;
+    height: calc(100% - 16px)!important;
     margin: 0;
     padding: 8px 12px!important;
     border-radius: 4px;
     transition: box-shadow 150ms, background 150ms;
     font-size: 16px;
+    resize:none;
 }
 
 .send-message .input:hover {
@@ -744,6 +746,9 @@ body {
         float: right;
         position: relative;
         top: -4px;
+    }
+    .contact-item .noimage {
+        line-height: 40px;
     }
     .contact-item h3, .contact-item p {
         display: block;

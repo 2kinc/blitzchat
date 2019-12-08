@@ -68,7 +68,8 @@ class UI {
                         this.openedChats = [];
                         var window = {
                             content: contact,
-                            type: TYPE.CHAT
+                            type: TYPE.CHAT,
+                            state: 'max'
                         };
                         var that = this;
                         setTimeout(function () {
@@ -158,7 +159,7 @@ class UI {
                 }
             });
             this.chatWindow = Vue.component('chat-window', {
-                props: { 'chat': Object },
+                props: { 'chat': Object, 'state': String },
                 template: '#chatWindowTemplate',
                 data: () => ({
                     messageText: '',
@@ -186,6 +187,8 @@ class UI {
                 mounted() {
                     var chatEl = document.querySelector('.chat');
                     chatEl.scrollTop = chatEl.scrollHeight;
+                    this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').on('child_added', this.getMessages);
+
                 },
                 methods: {
                     close() {
@@ -216,6 +219,10 @@ class UI {
                         that.vue.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
                         this.getMessages();
 
+                    },
+                    fullscreenHandler() {
+                        if (this.state == 'max') this.state = 'exited';
+                        if (this.state == 'exited') this.state = 'max';
                     },
                     getMessages() {
 
@@ -361,7 +368,7 @@ class UI {
 
                 }),
                 created() {
-                    this.$el.focus();
+                    if (this.$el) this.$el.focus();
                 }
             });
             this.windowWrapper = Vue.component('window-wrapper', {
@@ -380,6 +387,13 @@ class UI {
                 data: () => ({
                     sentBySelf: false
                 }),
+                methods: {
+                    urlify(text) {
+                        return text.replace(/(https?:\/\/[^\s]+)/g, function (url) {
+                            return '<a href="' + url + '">' + url + '</a>';
+                        })
+                    },
+                },
                 created() {
                     if (this.message.user.uid) return;
                     if (loadedUsers[this.message.user]) {

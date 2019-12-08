@@ -90,8 +90,8 @@
         <div class="chat-window mdc-elevation--z1" v-on:focus="focusHandler" tabindex="-1">
             <div class="header mdc-elevation--z2">
                 <div class="actions">
-                    <button class="button">
-                        <i class="material-icons">fullscreen</i>
+                    <button class="button" v-on:click="fullscreenHandler">
+                        <i class="material-icons">{{state == 'max' ? 'fullscreen_exit' : 'fullscreen'}}</i>
                     </button>
                 </div>
                 <span class="title">{{computedName}}</span>
@@ -115,7 +115,7 @@
 
             </div>
             <div class="send-message">
-                <input type="text" class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength"
+                <input class="input" v-bind:minlength="minimumLength" v-bind:maxlength="maximumLength"
                     v-model="messageText" v-on:keyup.enter="sendMessage" placeholder="Send a message..."
                     ref="sendMessageInput">
                 <button class="button send" v-bind:class="{disabled: !sendButtonEnabled}" v-on:click="sendMessage">
@@ -222,15 +222,15 @@
 
     <template id="windowWrapperTemplate">
         <div class="window-wrapper">
-            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content"></chat-window>
-            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form">
+            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content" :state="window.state"></chat-window>
+            <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form" :state="window.state">
             </new-conversation-form>
         </div>
     </template>
 
     <template id="messageTemplate">
         <div class="message-wrapper" v-bind:class="{'sent-by-self': sentBySelf}">
-            <div class="message-body">{{message.message}}</div>
+            <div class="message-body" v-html="urlify(message.message)"></div>
             <br>
         </div>
     </template>
