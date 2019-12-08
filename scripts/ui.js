@@ -142,7 +142,7 @@ class UI {
                 template: '#contactItemTemplate',
                 methods: {
                     open() {
-                        this.$parent.openChat(this.contact);
+                        this.$root.openChat(this.contact);
                     }
                 },
                 computed: {
@@ -184,11 +184,12 @@ class UI {
                         return false;
                     }
                 },
-                mounted() {
-                    var chatEl = document.querySelector('.chat');
-                    chatEl.scrollTop = chatEl.scrollHeight;
-                    this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').on('child_added', this.getMessages);
-
+                created() {
+                    var that = this;
+                    setTimeout(function () {
+                        var chatEl = that.$refs.messages;
+                        chatEl.scrollTop = chatEl.scrollHeight;
+                    }, 0);
                 },
                 methods: {
                     close() {
@@ -228,9 +229,9 @@ class UI {
 
                         var that = this;
 
-                        this.$parent.$parent.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').once('value').then(function (snap) {
+                        this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').once('value').then(function (snap) {
                             that.chat.messages = snap.val();
-                            var opened = that.$parent.$parent.openedChats.filter(chat => chat.content.key == that.chat.key);
+                            var opened = that.$root.openedChats.filter(chat => chat.content.key == that.chat.key);
                             if (opened) opened[0].content.messages;
                         }).then(function () {
                             var chatEl = document.querySelector('.chat');
@@ -243,12 +244,9 @@ class UI {
                         this.$refs.sendMessageInput.focus();
                     }
                 },
-                created() {
-                    var that = this;
-                    setTimeout(function () {
-                        that.$el.focus();
-                        setTimeout(that.focusInput, 0);
-                    }, 0);
+                mounted() {
+                    this.$el.focus();
+                    setTimeout(this.focusInput, 0);
                 }
             });
             this.contactSearchResult = Vue.component('contact-search-result', {
@@ -269,9 +267,8 @@ class UI {
                         }, 300);
                     }
                 },
-                created() {
-                    setTimeout(() => { this.$parent.$parent.$parent.updateMDC(); }, 0);
-
+                mounted() {
+                    setTimeout(() => { this.$root.updateMDC(); }, 0);
                 }
             });
             this.newConversationForm = Vue.component('new-conversation-form', {
@@ -279,8 +276,8 @@ class UI {
                 props: { 'form': Object, 'window': Object },
                 methods: {
                     close() {
-                        var index = this.$parent.$parent.openedChats.indexOf(this.window);
-                        this.$parent.$parent.openedChats.splice(index, 1);
+                        var index = this.$root.openedChats.indexOf(this.window);
+                        this.$root.openedChats.splice(index, 1);
                     },
                     focusHandler() {
                         that.vue.focusedChat = this;
@@ -290,18 +287,18 @@ class UI {
                         setTimeout(() => {
                             this.$refs.contactSearch.focus();
                         }, 0);
-                        this.$parent.$parent.updateMDC();
+                        this.$root.updateMDC();
                     },
                     previousPhase() {
                         this.form.phase = Math.max(this.form.phase - 1, 0);
-                        this.$parent.$parent.updateMDC();
+                        this.$root.updateMDC();
                     },
                     toggleGroup() {
                         this.form.group = !this.form.group;
                     },
                     addProfile() {
                         var that = this;
-                        this.$parent.$parent.dbref.ref('users').orderByChild('email').equalTo(this.form.contactSearch).once('value').then(function (snap) {
+                        this.$root.dbref.ref('users').orderByChild('email').equalTo(this.form.contactSearch).once('value').then(function (snap) {
                             var result = snap.val();
                             if (result) {
                                 for (var d in result) {
@@ -322,14 +319,14 @@ class UI {
                             }
                         });
 
-                        this.$parent.$parent.updateMDC();
+                        this.$root.updateMDC();
                     },
                     submit() {
                         var that = this;
                         var broken = {};
                         if (!this.form.group) {
                             //check if contact exists
-                            var parent = this.$parent.$parent;
+                            var parent = this.$root;
                             parent.contacts.forEach(function (contact) {
                                 if (!contact.group) {
                                     for (var person in contact.people) {
@@ -352,12 +349,12 @@ class UI {
                             people: uids,
                             messages: []
                         };
-                        var ref = this.$parent.$parent.dbref.ref('blitzchat/conversations').push(copied);
-                        this.$parent.$parent.dbref.ref('users/' + auth.currentUser.uid + '/blitzchat/conversations/' + ref.key).set({
+                        var ref = this.$root.dbref.ref('blitzchat/conversations').push(copied);
+                        this.$root.dbref.ref('users/' + auth.currentUser.uid + '/blitzchat/conversations/' + ref.key).set({
                             accepted: TYPE.INVITEACCEPTED
                         });
                         for (var person in uids) {
-                            this.$parent.$parent.dbref.ref('users/' + uids[person] + '/blitzchat/conversations/' + ref.key).set({
+                            this.$root.dbref.ref('users/' + uids[person] + '/blitzchat/conversations/' + ref.key).set({
                                 accepted: TYPE.INVITEWAITING
                             });
                         }
@@ -367,8 +364,8 @@ class UI {
                 data: () => ({
 
                 }),
-                created() {
-                    if (this.$el) this.$el.focus();
+                mounted() {
+                    this.$el.focus();
                 }
             });
             this.windowWrapper = Vue.component('window-wrapper', {
@@ -385,7 +382,7 @@ class UI {
                 template: '#messageTemplate',
                 props: { 'message': Object },
                 data: () => ({
-                    sentBySelf: false
+
                 }),
                 methods: {
                     urlify(text) {
@@ -394,25 +391,19 @@ class UI {
                         })
                     },
                 },
-                created() {
+                mounted() {
                     if (this.message.user.uid) return;
                     if (loadedUsers[this.message.user]) {
                         var uid = this.message.user;
                         this.message.user = loadedUsers[this.message.user];
                         this.message.user.uid = uid;
-                        if (this.message.user.uid == auth.currentUser.uid) {
-                            this.sentBySelf = true;
-                        }
                     } else {
                         var that = this;
-                        this.$parent.$parent.$parent.dbref.ref('users/' + this.message.user).once('value').then(function (snap) {
+                        this.$root.dbref.ref('users/' + this.message.user).once('value').then(function (snap) {
                             loadedUsers[that.message.user] = snap.val();
                             var uid = that.message.user;
                             that.message.user = loadedUsers[that.message.user];
                             that.message.user.uid = uid;
-                            if (that.message.user.uid == auth.currentUser.uid) {
-                                that.sentBySelf = true;
-                            }
                         });
                     }
                 }
@@ -424,7 +415,22 @@ class UI {
                 that.vue.focusedChat.close();
             });
             keyListener.simple_combo('ctrl ,', function () {
-                that.vue.focusedChat
+                /*
+                if (!that.vue.focusedChat) {
+                    if (that.vue.openedChats.length > 0) {
+                        that.vue.focusedChat = that.vue.openedChats[0];
+                        that.vue.focusedChat.$el.focus();
+                    }
+                } else {
+                    var index = that.vue.openedChats.indexOf(that.vue.focusedChat);
+                    var newIndex = index - 1;
+                    if (newIndex < 0) newIndex = that.vue.openedChats.length - 1;
+                    that.vue.focusedChat = that.vue.openedChats[newIndex];
+                    that.vue.focusedChat.$el.focus();
+                }
+                */
+                //work on this later, need to find way to get vue attached to chat
+                console.log('tab to the left');
             });
             keyListener.simple_combo('ctrl .', function () {
                 console.log('tab to the right');
