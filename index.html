@@ -103,10 +103,10 @@
                     </button>
                 </div>
             </div>
-            <div class="chat">
+            <div class="chat" ref="messages">
 
                 <div class="chat-beginning">
-                    This is the beginning of the conversation <b>{{computedName}}</b>
+                    Your conversation with <b>{{computedName}}</b> starts here.
                 </div>
 
                 <template v-for="message in chat.messages">
@@ -230,8 +230,7 @@
 
     <template id="messageTemplate">
         <div class="message-wrapper" v-bind:class="{'sent-by-self': sentBySelf}">
-            <div class="message-body">{{message.message}}</div>
-            <br>
+            <div class="message-body mdc-elevation--z1">{{message.message}}</div>
         </div>
     </template>
 
