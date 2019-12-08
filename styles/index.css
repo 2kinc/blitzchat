@@ -18,10 +18,25 @@ body {
 }
 
 #triple-dots {
-    background: transparent;
     float: right;
     margin: 0;
     padding: 0;
+    background: transparent;
+}
+
+#triple-dots:hover {
+    background: #ffffff33;
+    color: #2288ff;
+    float: right;
+    margin: 0;
+    padding: 6px;
+    margin: -6px;
+    border-radius: 100px;
+    padding-bottom: 4px;
+}
+
+#triple-dots:active {
+    background: #2288ff33;
 }
 
 ::-webkit-scrollbar {
@@ -288,6 +303,10 @@ body {
 
 .message-wrapper br {
     user-select: none;
+}
+
+.message-wrapper a {
+    color: white;
 }
 
 .message-wrapper.sent-by-self {

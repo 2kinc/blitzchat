@@ -207,9 +207,6 @@ class UI {
                     focusHandler() {
                         that.vue.focusedChat = this;
                     },
-                    goDown() {
-
-                    },
                     fullscreenHandler() {
                         this.$root.openChat(this.chat);
                     },
@@ -394,7 +391,7 @@ class UI {
                 methods: {
                     urlify(text) {
                         return text.replace(/(https?:\/\/[^\s]+)/g, function (url) {
-                            return '<a href="' + url + '">' + url + '</a>';
+                            return '<a href="' + url + '" target="_blank">' + url + '</a>';
                         })
                     },
                 },
