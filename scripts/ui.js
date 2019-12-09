@@ -233,13 +233,17 @@ class UI {
 
                         var that = this;
 
-                        this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').once('value').then(function (snap) {
-                            that.chat.messages = snap.val();
-                            var opened = that.$root.openedChats.filter(chat => chat.content.key == that.chat.key);
-                            if (opened) opened[0].content.messages;
-                        }).then(function () {
-                            var chatEl = document.querySelector('.chat');
+                        this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').on('child_added', function (snap) {
+                            that.chat.messages[snap.key] = snap.val();
+                            var chatEl = that.$refs.messages;
                             chatEl.scrollTop = chatEl.scrollHeight;
+                        });
+
+                        this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').limitToLast(1).on('child_added', function (snap) {
+                            var chatEl = that.$refs.messages;
+                            setTimeout(function () {
+                                chatEl.scrollTop = chatEl.scrollHeight;
+                            }, 0);
                         });
 
                         this.focusInput();
@@ -333,11 +337,11 @@ class UI {
                             var parent = this.$root;
                             parent.contacts.forEach(function (contact) {
                                 if (!contact.group) {
-                                    for (var person in contact.people) {
-                                        if (person.email == this.form.people[0].email) {
+                                    contact.people.forEach(function (person) {
+                                        if (person.email == that.form.people[0].email) {
                                             broken.d = true;
                                         }
-                                    }
+                                    });
                                 }
                             });
                         }
@@ -415,6 +419,10 @@ class UI {
                     sentBySelf() {
                         var uid = this.message.user.uid || this.message.user;
                         return uid == auth.currentUser.uid;
+                    },
+                    computedTime() {
+                        var date = new Date(this.message.time);
+                        return 
                     }
                 }
             });
