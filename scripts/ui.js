@@ -49,7 +49,7 @@ class UI {
                                         that.dbref.ref('users/' + person).once('value').then(function (snap2) {
                                             var val = snap2.val();
                                             chat.people[index] = {};
-                                            chat.people[index].displayName = val.displayName;
+                                            chat.people[index].displayName = val.displayName || val.email;
                                             chat.people[index].photoURL = val.photoURL;
 
                                             if (!chat.group && person != auth.currentUser.uid) {
@@ -135,7 +135,7 @@ class UI {
                         var list = [];
                         for (var chat of this.openedChats) {
                             if (chat.group && chat.name == '') {
-                                list.push('Group');
+                                list.push(chat.content.name || 'Group');
                             }
                             list.push(chat.content.name);
                         }
@@ -295,6 +295,8 @@ class UI {
                         setTimeout(() => {
                             this.$refs.contactSearch.focus();
                         }, 0);
+                        if (this.form.people.length > 1 && !this.form.group)
+                            this.form.people.length = 1;
                         this.$root.updateMDC();
                     },
                     previousPhase() {
@@ -422,7 +424,7 @@ class UI {
                     },
                     computedTime() {
                         var date = new Date(this.message.time);
-                        return 
+                        return date.toLocaleString();
                     }
                 }
             });

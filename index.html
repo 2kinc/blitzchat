@@ -230,8 +230,11 @@
 
     <template id="messageTemplate">
         <div class="message-wrapper" v-bind:class="{'sent-by-self': sentBySelf}">
-            <div class="message-body" v-html="urlify(message.message)"></div>
-            <p class="message-time">{{computedTime}}</p>
+            <div>
+                <div class="message-body" v-html="urlify(message.message)"></div>
+                <br>
+                <p class="message-time">{{computedTime}}</p>
+            </div>
         </div>
     </template>
 

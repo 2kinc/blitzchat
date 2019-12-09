@@ -187,6 +187,7 @@ body {
     transition: background 100ms;
     user-select: none;
     height: 56px;
+    overflow: hidden;
 }
 
 .contact-item:active {
@@ -206,6 +207,7 @@ body {
     font-weight: lighter;
     color: #2288ff;
     display: none;
+    text-overflow: ellipsis;
 }
 
 .contact-item .button {
@@ -291,14 +293,21 @@ body {
 
 .chat .message-body {
     padding: 8px;
-    margin: 8px;
     margin-left: 0;
     margin-right: 0;
     border-radius: 4px;
     word-break: break-word;
-    display: inline-block;
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 4px;
+    margin-bottom: -8px;
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
     background: rgba(255, 255, 255, 0.05);
+}
+
+.message-time {
+    color: #ffffff44;
 }
 
 .message-wrapper br {
@@ -311,11 +320,11 @@ body {
 
 .message-wrapper.sent-by-self {
     width: 100%;
-    display: flex;
     justify-content: flex-end;
 }
 
 .message-wrapper.sent-by-self .message-body {
+    float: right;
     background: #2288ff;
     box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, .12);
 }
@@ -774,7 +783,7 @@ body {
         top: -4px;
     }
     .contact-item h3, .contact-item p {
-        display: block;
+        display: inline-block;
     }
     .contact-item:hover .actions {
         display: block;
