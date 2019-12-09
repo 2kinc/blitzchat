@@ -291,15 +291,13 @@ body {
     padding-right: 8px;
 }
 
-.chat .message-body {
+.message-body {
     padding: 8px;
     margin-left: 0;
     margin-right: 0;
     border-radius: 4px;
     word-break: break-word;
     float: left;
-    display: flex;
-    justify-content: flex-start;
     margin-top: 4px;
     margin-bottom: -8px;
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
@@ -308,6 +306,12 @@ body {
 
 .message-time {
     color: #ffffff44;
+    float: left;
+}
+
+.message-wrapper {
+    display: flex;
+    justify-content: flex-start;
 }
 
 .message-wrapper br {
@@ -329,7 +333,7 @@ body {
     box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, .12);
 }
 
-.message-wrapper.sent-by-self p {
+.message-wrapper.sent-by-self .message-time {
     float: right;
 }
 
