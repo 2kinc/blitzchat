@@ -208,6 +208,7 @@ body {
     color: #2288ff;
     display: none;
     text-overflow: ellipsis;
+    width: 136px;
 }
 
 .contact-item .button {
