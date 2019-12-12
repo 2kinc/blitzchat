@@ -162,6 +162,14 @@ class UI {
                             return people.join();
                         }
                         return this.contact.name;
+                    },
+                    lastMessage() {
+                        var toSort = [];
+                        for (var message in this.contact.messages) {
+                            toSort.push([message, this.contact.messages[message]]);
+                        }
+                        toSort.sort((a, b) => a.time - b.time);
+                        return toSort[toSort.length - 1][1].message;
                     }
                 }
             });

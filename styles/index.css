@@ -208,8 +208,9 @@ body {
     display: none;
     text-overflow: ellipsis;
     width: 136px;
-    height: 10px;
+    height: 15px;
     margin-top: 8px;
+    margin-bottom:-6px;
 }
 
 .contact-item .button {
@@ -786,9 +787,11 @@ body {
     .contact-item .actions {
         float: right;
         position: relative;
-        top: -4px;
+        top: -32px;
     }
     .contact-item h3, .contact-item p {
+        white-space: nowrap;
+        overflow-x: hidden;
         display: block;
     }
     .contact-item:hover .actions {
