@@ -195,6 +195,8 @@ body {
 
 .contact-item p {
     display: none;
+    width: 90px;
+    text-overflow:ellipsis;
 }
 
 .contact-item:hover {
