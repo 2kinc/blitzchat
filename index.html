@@ -23,7 +23,7 @@
                 <span id="name">Hello, {{displayName}}</span>
                 <span id="chat-title">{{chatTitle}}</span>
 
-                <button class="button" id="triple-dots">
+                <button class="button" id="triple-dots" v-on:click="openMoreMenu">
                     <i class="material-icons">more_vert</i>
                 </button>
             </header>
@@ -52,16 +52,9 @@
                     <window-wrapper v-bind:window="chat"></window-wrapper>
                 </template>
 
-
-
             </div>
 
-            <div id="more-menu-wrapper">
-                <ul id="more-menu" class="mdc-elevation--z8">
-                    <ul class="mdc-ripple-surface mdc-ripple-surface--accent">Bruh</ul>
-                    <ul class="mdc-ripple-surface mdc-ripple-surface--accent">DK</ul>
-                </ul>
-            </div>
+            
         </div>
 
         <div id="sign-in" v-if="!signedIn">
@@ -70,8 +63,17 @@
             <button v-on:click="signIn" class="button primary" id="sign-in-button">SIGN IN</button>
         </div>
 
-        
+    </div>
 
+    <div id="more-menu" class="mdc-menu mdc-menu-surface">
+        <ul class="mdc-list" role="menu" aria-hidden="false" aria-orientation="vertical" tabindex="-1">
+            <li class="mdc-list-item" role="menuitem">
+                <span class="mdc-list-item__text">A Menu Item</span>
+            </li>
+            <li class="mdc-list-item" role="menuitem">
+                <span class="mdc-list-item__text">Another Menu Item</span>
+            </li>
+        </ul>
     </div>
 
     <div id="loading">loading Blitzchat...</div>

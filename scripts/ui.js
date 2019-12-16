@@ -1,5 +1,7 @@
 import { auth } from "./database.js";
 
+var MDCMenu = mdc.menu.MDCMenu;
+
 class UI {
     constructor(dbref, el) {
         this.dbref = dbref;
@@ -18,6 +20,8 @@ class UI {
                 FLOATING: 1
             };
             var loadedUsers = {};
+            
+            const moreMenu = new MDCMenu(document.querySelector('#more-menu'));
             var keyListener = new window.keypress.Listener();
             this.vue = new Vue({
                 data: () => ({
@@ -71,6 +75,9 @@ class UI {
 
                             });
                         });
+                    },
+                    openMoreMenu() {
+                        moreMenu.open = true;
                     },
                     openChat(contact) {
                         this.openedChats = [];

@@ -11,7 +11,17 @@ body {
     margin: 0;
     touch-action: pan-y;
     --mdc-theme-primary: #2288ff;
+    --mdc-theme-surface: #121212;
 }
+
+.mdc-menu .mdc-list {
+    color: white!important;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
 
 ::selection {
     background: white;
@@ -811,23 +821,8 @@ body {
 }
 
 #more-menu {
-    width: 120px;
-    border-radius: 6px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    list-style: none;
-    padding: 8px 0;
+    color: white!important;
     background: #1f1f1f;
-    z-index: 2;
-    user-select: none;
-}
-
-#more-menu ul {
-    padding: 16px;
-    height: 16px;
-    cursor: pointer;
 }
 
 @media screen and (min-width: 720px) {
