@@ -111,10 +111,15 @@ body {
 
 #contacts {
     width: 60px;
-    height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
     margin: 16px;
     margin-top: 0;
     display: inline-block;
+}
+
+#contacts::-webkit-scrollbar {
+    display: none;
 }
 
 #loading {
@@ -195,12 +200,16 @@ body {
 
 .contact-item p {
     display: none;
-    width: 90px;
-    text-overflow:ellipsis;
+    width: 136px;
+    text-overflow: ellipsis;
 }
 
 .contact-item:hover {
     background: #2288ff66;
+}
+
+.contact-item:hover p {
+    width: 90px;
 }
 
 .contact-item h3 {
@@ -212,7 +221,7 @@ body {
     width: 136px;
     height: 15px;
     margin-top: 8px;
-    margin-bottom:-6px;
+    margin-bottom: -6px;
 }
 
 .contact-item .button {
@@ -317,6 +326,27 @@ body {
 .message-wrapper {
     display: flex;
     justify-content: flex-start;
+    user-drag: none;
+    -webkit-user-drag: none;
+}
+
+.message-wrapper img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    user-select: none;
+    margin-top: 4px;
+    margin-right: 8px;
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.message-wrapper.sent-by-self img {
+    display: none;
 }
 
 .message-wrapper br {
@@ -770,6 +800,29 @@ body {
 
 .bordered.flat {
     border: 1px #ffffff44 solid;
+}
+
+#more-menu-wrapper {
+    position: absolute;
+    top: 51px;
+    right: 16px;
+}
+
+#more-menu {
+    width: 120px;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    list-style: none;
+    padding: 8px 0;
+    background: #2c2c2c;
+}
+
+#more-menu ul {
+    padding: 9px;
+    height: 16px;
 }
 
 @media screen and (min-width: 720px) {

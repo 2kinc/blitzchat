@@ -65,6 +65,12 @@
             <button v-on:click="signIn" class="button primary" id="sign-in-button">SIGN IN</button>
         </div>
 
+        <div id="more-menu-wrapper">
+            <ul id="more-menu" class="mdc-elevation--z3">
+                <ul>Bruh</ul>
+            </ul>
+        </div>
+
     </div>
 
     <div id="loading">loading Blitzchat...</div>
@@ -230,6 +236,7 @@
 
     <template id="messageTemplate">
         <div class="message-wrapper" v-bind:class="{'sent-by-self': sentBySelf}">
+            <img width="30" height="30" v-bind:src="message.user.photoURL" v-bind:alt="message.user.displayName">
             <div>
                 <div class="message-body" v-html="urlify(message.message)"></div>
                 <br>

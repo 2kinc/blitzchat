@@ -418,7 +418,12 @@ class UI {
                     } else {
                         var that = this;
                         this.$root.dbref.ref('users/' + this.message.user).once('value').then(function (snap) {
-                            loadedUsers[that.message.user] = snap.val();
+                            var val = snap.val();
+                            loadedUsers[that.message.user] = {
+                                displayName: val.displayName,
+                                photoURL: val.photoURL,
+                                email: val.email
+                            };
                             var uid = that.message.user;
                             that.message.user = loadedUsers[that.message.user];
                             that.message.user.uid = uid;
