@@ -121,7 +121,7 @@ class UI {
 
                     },
                     updateMDC() {
-                        var buttons = document.querySelectorAll('.button, .mdc-button');
+                        var buttons = document.querySelectorAll('.button, .mdc-button, .mdc-ripple-surface');
                         buttons.forEach(function (node) {
                             mdc.ripple.MDCRipple.attachTo(node);
                         });

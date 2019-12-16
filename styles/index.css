@@ -10,6 +10,7 @@ body {
     background-color: #121212;
     margin: 0;
     touch-action: pan-y;
+    --mdc-theme-primary: #2288ff;
 }
 
 ::selection {
@@ -488,6 +489,7 @@ body {
     height: calc(100vh - 70px);
     transition: left 300ms ease, width 300ms ease, height 300ms ease;
     animation: window-wrapper-open 400ms;
+    z-index: 0;
 }
 
 @keyframes window-wrapper-open {
@@ -817,12 +819,15 @@ body {
     margin: 0;
     list-style: none;
     padding: 8px 0;
-    background: #2c2c2c;
+    background: #1f1f1f;
+    z-index: 2;
+    user-select: none;
 }
 
 #more-menu ul {
-    padding: 9px;
+    padding: 16px;
     height: 16px;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 720px) {
