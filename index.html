@@ -29,7 +29,7 @@
             </header>
 
             <nav id="contacts">
-                <div id="add-contact" class="button bordered" v-on:click="openNewConversation">
+                <div id="add-contact" class="button bordered mdc-ripple-surface mdc-ripple-surface--primary" v-on:click="openNewConversation">
                     <i class="material-icons">person_add</i>
                     <span>New Conversation</span>
                 </div>
@@ -160,9 +160,7 @@
                 <i class="material-icons">done</i>
             </button>
 
-            <button class="button close-new-conversation" v-on:click="close">
-                <i class="material-icons">close</i>
-            </button>
+            <button class="mdc-icon-button material-icons close-new-conversation" v-on:click="close">close</button>
 
             <div class="new-conversation-phase" v-if="form.phase == 0">
                 <div v-on:click="toggleGroup" class="active-glow"

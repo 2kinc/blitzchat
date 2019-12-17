@@ -12,6 +12,7 @@ body {
     touch-action: pan-y;
     --mdc-theme-primary: #2288ff;
     --mdc-theme-surface: #121212;
+    --mdc-states-base-color: white;
 }
 
 .mdc-menu .mdc-list {
@@ -535,14 +536,6 @@ body {
     border-color: #2288ff;
 }
 
-#add-contact:hover {
-    background: #2288ff66;
-}
-
-#add-contact:active {
-    background: #2288ff99;
-}
-
 #add-contact>span {
     position: relative;
     top: -6px;
@@ -569,12 +562,7 @@ body {
 }
 
 .close-new-conversation {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: transparent!important;
-    backdrop-filter: none;
-    padding: 0;
+    margin: -12px;
 }
 
 .close-new-conversation:hover {

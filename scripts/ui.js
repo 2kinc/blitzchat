@@ -1,6 +1,7 @@
 import { auth } from "./database.js";
 
 var MDCMenu = mdc.menu.MDCMenu;
+var MDCRipple = mdc.ripple.MDCRipple;
 
 class UI {
     constructor(dbref, el) {
@@ -131,8 +132,13 @@ class UI {
                         setTimeout(function () {
                             var buttons = document.querySelectorAll('.button, .mdc-button, .mdc-ripple-surface');
                             buttons.forEach(function (node) {
-                                mdc.ripple.MDCRipple.attachTo(node);
+                                MDCRipple.attachTo(node);
                             });
+                            var iconButtons = document.querySelectorAll('.mdc-icon-button');
+                            iconButtons.forEach(function (node) {
+                                const ripple = new MDCRipple(node);
+                                ripple.unbounded = true;
+                            })
                             moreMenu = new MDCMenu(document.querySelector('#more-menu'));
                         }, 0);
                         
