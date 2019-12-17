@@ -21,7 +21,7 @@ class UI {
             };
             var loadedUsers = {};
             
-            const moreMenu = new MDCMenu(document.querySelector('#more-menu'));
+            var moreMenu = new MDCMenu(document.querySelector('#more-menu'));
             var keyListener = new window.keypress.Listener();
             this.vue = new Vue({
                 data: () => ({
@@ -128,10 +128,14 @@ class UI {
 
                     },
                     updateMDC() {
-                        var buttons = document.querySelectorAll('.button, .mdc-button, .mdc-ripple-surface');
-                        buttons.forEach(function (node) {
-                            mdc.ripple.MDCRipple.attachTo(node);
-                        });
+                        setTimeout(function () {
+                            var buttons = document.querySelectorAll('.button, .mdc-button, .mdc-ripple-surface');
+                            buttons.forEach(function (node) {
+                                mdc.ripple.MDCRipple.attachTo(node);
+                            });
+                            moreMenu = new MDCMenu(document.querySelector('#more-menu'));
+                        }, 0);
+                        
                     }
 
                 },
@@ -209,6 +213,8 @@ class UI {
                 },
                 created() {
                     var that = this;
+                    this.messages = undefined;
+                    this.getMessages();
                     setTimeout(function () {
                         var chatEl = that.$refs.messages;
                         chatEl.scrollTop = chatEl.scrollHeight;
@@ -241,7 +247,6 @@ class UI {
                         this.messageText = ''; // clear
 
                         that.vue.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
-                        this.getMessages();
 
                     },
                     getMessages() {
@@ -250,18 +255,17 @@ class UI {
 
                         this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').on('child_added', function (snap) {
                             that.chat.messages[snap.key] = snap.val();
-                            var chatEl = that.$refs.messages;
-                            chatEl.scrollTop = chatEl.scrollHeight;
                         });
 
                         this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').limitToLast(1).on('child_added', function (snap) {
+                            that.chat.messages[snap.key] = snap.val();
                             var chatEl = that.$refs.messages;
                             setTimeout(function () {
                                 chatEl.scrollTop = chatEl.scrollHeight;
                             }, 0);
                         });
 
-                        this.focusInput();
+                        setTimeout(this.focusInput, 0);
                     },
                     focusInput() {
                         this.$refs.sendMessageInput.focus();
@@ -416,7 +420,7 @@ class UI {
                         })
                     },
                 },
-                mounted() {
+                created() {
                     if (this.message.user.uid) return;
                     if (loadedUsers[this.message.user]) {
                         var uid = this.message.user;
@@ -426,13 +430,13 @@ class UI {
                         var that = this;
                         this.$root.dbref.ref('users/' + this.message.user).once('value').then(function (snap) {
                             var val = snap.val();
-                            loadedUsers[that.message.user] = {
+                            loadedUsers[that.message.user.uid || that.message.user] = {
                                 displayName: val.displayName,
                                 photoURL: val.photoURL,
                                 email: val.email
                             };
                             var uid = that.message.user;
-                            that.message.user = loadedUsers[that.message.user];
+                            that.message.user = loadedUsers[that.message.user.uid || that.message.user];
                             that.message.user.uid = uid;
                         });
                     }
