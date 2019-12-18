@@ -86,6 +86,19 @@ class UI {
                             type: TYPE.CHAT,
                             state: STATE.GROUND
                         };
+                        this.openedChats = [];
+                        var that = this;
+                        setTimeout(function () {
+                            that.openedChats.push(window);
+                            that.updateMDC();
+                        }, 0);
+                    },
+                    pushChat(contact) {
+                        var window = {
+                            content: contact,
+                            type: TYPE.CHAT,
+                            state: STATE.GROUND
+                        };
                         var that = this;
                         setTimeout(function () {
                             that.openedChats.push(window);
@@ -129,7 +142,7 @@ class UI {
                     },
                     updateMDC() {
                         setTimeout(function () {
-                            var buttons = document.querySelectorAll('.button, .mdc-button, .mdc-ripple-surface');
+                            var buttons = document.querySelectorAll('.button, .mdc-button, .mdc-ripple-surface, .mdc-list-item');
                             buttons.forEach(function (node) {
                                 MDCRipple.attachTo(node);
                             });

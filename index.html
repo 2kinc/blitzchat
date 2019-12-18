@@ -23,18 +23,26 @@
                 <span id="name">Hello, {{displayName}}</span>
                 <span id="chat-title">{{chatTitle}}</span>
 
-                <button class="button" id="triple-dots" v-on:click="openMoreMenu">
-                    <i class="material-icons">more_vert</i>
+                <button class="mdc-icon-button material-icons" id="triple-dots" v-on:click="openMoreMenu">
+                    more_vert
                 </button>
 
                 <div class="mdc-menu-surface--anchor" id="more-menu-anchor">
                     <div id="more-menu" class="mdc-menu mdc-menu-surface">
                         <ul class="mdc-list" role="menu" aria-hidden="false" aria-orientation="vertical" tabindex="-1">
                             <li class="mdc-list-item" role="menuitem">
-                                <span class="mdc-list-item__text"><i class="material-icons">settings</i>Settings</span>
-                            </li>
-                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__graphic material-icons">feedback</span>
                                 <span class="mdc-list-item__text">Feedback</span>
+                            </li>
+                            
+                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__graphic material-icons">settings</span>
+                                <span class="mdc-list-item__text">Settings</span>
+                            </li>
+                            
+                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__graphic material-icons">exit_to_app</span>
+                                <span class="mdc-list-item__text">Log out</span>
                             </li>
                         </ul>
                     </div>

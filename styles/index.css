@@ -32,24 +32,7 @@ body {
 
 #triple-dots {
     float: right;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-}
-
-#triple-dots:hover {
-    background: #ffffff33;
-    color: #2288ff;
-    float: right;
-    margin: 0;
-    padding: 6px;
-    margin: -6px;
-    border-radius: 100px;
-    padding-bottom: 4px;
-}
-
-#triple-dots:active {
-    background: #2288ff33;
+    margin: -12px;
 }
 
 ::-webkit-scrollbar {
@@ -809,10 +792,18 @@ body {
     top: 16px;
 }
 
-.mdc-menu {
+.mdc-list-item__graphic {
     color: white!important;
-    background: #1f1f1f!important;
+    margin-right: 16px!important;
+}
+
+.mdc-list-item {
+    color: white!important;
     font-family: 'Sitka Text', Georgia, Cambria, serif !important;
+}
+
+.mdc-menu {
+    background: #1f1f1f!important;
 }
 
 #more-menu-wrapper {
