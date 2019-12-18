@@ -286,6 +286,7 @@ body {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
     outline: none !important;
+    position:relative;
 }
 
 #chat-grid:not(.single) .chat-window:focus, #chat-grid:not(.single) .chat-window:focus-within {
@@ -841,7 +842,7 @@ body {
     }
     .contact-item h3, .contact-item p {
         white-space: nowrap;
-        overflow-x: hidden;
+        overflow: hidden;
         display: block;
     }
     .contact-item:hover .actions {

@@ -49,7 +49,7 @@ class UI {
                                 if (chat) {
 
                                     chat.key = snap1.key;
-
+                                    that.contacts = [];
                                     chat.people.forEach(function (person, index) {
                                         that.dbref.ref('users/' + person).once('value').then(function (snap2) {
                                             var val = snap2.val();
@@ -81,7 +81,6 @@ class UI {
                         moreMenu.open = true;
                     },
                     openChat(contact) {
-                        this.openedChats = [];
                         var window = {
                             content: contact,
                             type: TYPE.CHAT,
@@ -186,6 +185,7 @@ class UI {
                             toSort.push([message, this.contact.messages[message]]);
                         }
                         toSort.sort((a, b) => a.time - b.time);
+                        if (!toSort.length) return '';
                         return toSort[toSort.length - 1][1].message;
                     }
                 }
@@ -253,6 +253,7 @@ class UI {
                         this.messageText = ''; // clear
 
                         that.vue.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
+                        
 
                     },
                     getMessages() {
@@ -361,8 +362,7 @@ class UI {
                         var broken = {};
                         if (!this.form.group) {
                             //check if contact exists
-                            var parent = this.$root;
-                            parent.contacts.forEach(function (contact) {
+                            this.$root.contacts.forEach(function (contact) {
                                 if (!contact.group) {
                                     contact.people.forEach(function (person) {
                                         if (person.email == that.form.people[0].email) {
