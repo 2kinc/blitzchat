@@ -138,7 +138,7 @@ class UI {
                             iconButtons.forEach(function (node) {
                                 const ripple = new MDCRipple(node);
                                 ripple.unbounded = true;
-                            })
+                            });
                             moreMenu = new MDCMenu(document.querySelector('#more-menu'));
                         }, 0);
                         

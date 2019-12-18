@@ -5,6 +5,7 @@ html {
 
 body {
     font-family: 'Questrial', 'Roboto', 'Sulphur Point', Anodina, sans-serif !important;
+    font-family: 'Sitka Text', Georgia, Cambria, serif !important;
     font-size: 14px;
     color: white;
     background-color: #121212;
@@ -75,7 +76,6 @@ body {
     display: block;
     font-size: 24px;
     padding: 24px;
-    font-family: 'Roboto Mono', monospace!important;
     border: 2px #ffffff solid;
 }
 
@@ -145,7 +145,6 @@ body {
     line-height: 100vh;
     user-select: none;
     font-size: 18px;
-    font-family: 'Roboto Mono', monospace;
     transition: opacity 400ms;
 }
 
@@ -162,7 +161,6 @@ body {
     width: 100px;
     left: 50px;
     display: none;
-    font-family: 'Roboto Mono', monospace;
 }
 
 .no-select {
@@ -179,6 +177,7 @@ body {
     color: white;
     transition: background 200ms;
     font-family: 'Questrial', 'Roboto', 'Sulphur Point', Anodina, sans-serif !important;
+    font-family: 'Sitka Text', Georgia, Cambria, serif !important;
     backdrop-filter: blur(3px);
     user-select: none!important;
 }
@@ -268,8 +267,8 @@ body {
 
 .contact-item .noimage {
     text-align: center;
-    line-height: 52px;
-    background: #aaa;
+    line-height: 50px;
+    background: #444;
 }
 
 #chat-grid.shown {
@@ -456,14 +455,12 @@ body {
 
 .chat-window .header .title {
     font-size: 18px;
-    position: relative;
-    top: -2px;
     margin-left: 4px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: calc(100% - 81px);
+    width: calc(100% - 84px);
 }
 
 .chat-window .header .actions.right {
@@ -562,7 +559,7 @@ body {
 }
 
 .close-new-conversation {
-    margin: -12px;
+    float: right;
 }
 
 .close-new-conversation:hover {
@@ -618,7 +615,6 @@ body {
     -moz-animation: input-hint 3s infinite;
     -webkit-animation: input-hint 3s infinite;
     -o-animation: input-hint 3s infinite;
-    font-family: 'Roboto Mono', monospace;
 }
 
 .input {
@@ -628,6 +624,7 @@ body {
     outline: none;
     background: #ffffff33;
     font-family: 'Questrial', 'Roboto', 'Sulphur Point', Anodina, sans-serif !important;
+    font-family: 'Sitka Text', Georgia, Cambria, serif !important;
     color: white;
     user-select: text;
 }
@@ -647,6 +644,10 @@ body {
     border-radius: 6px;
     height: 100%;
     user-select: none;
+}
+
+.new-conversation-form .mdc-icon-button {
+    margin: 4px;
 }
 
 .new-conversation-form .input {
@@ -788,7 +789,6 @@ body {
 
 .hint {
     font-size: 10px;
-    font-family: 'Roboto Mono', monospace;
     text-align: center;
     margin: 4px;
     margin-top: 10px;
@@ -802,15 +802,22 @@ body {
     border: 1px #ffffff44 solid;
 }
 
+#more-menu-anchor {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.mdc-menu {
+    color: white!important;
+    background: #1f1f1f!important;
+    font-family: 'Sitka Text', Georgia, Cambria, serif !important;
+}
+
 #more-menu-wrapper {
     position: absolute;
     top: 51px;
     right: 16px;
-}
-
-#more-menu {
-    color: white!important;
-    background: #1f1f1f;
 }
 
 @media screen and (min-width: 720px) {

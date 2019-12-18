@@ -26,10 +26,24 @@
                 <button class="button" id="triple-dots" v-on:click="openMoreMenu">
                     <i class="material-icons">more_vert</i>
                 </button>
+
+                <div class="mdc-menu-surface--anchor" id="more-menu-anchor">
+                    <div id="more-menu" class="mdc-menu mdc-menu-surface">
+                        <ul class="mdc-list" role="menu" aria-hidden="false" aria-orientation="vertical" tabindex="-1">
+                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__text">A Menu Item</span>
+                            </li>
+                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__text">Another Menu Item</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </header>
 
             <nav id="contacts">
-                <div id="add-contact" class="button bordered mdc-ripple-surface mdc-ripple-surface--primary" v-on:click="openNewConversation">
+                <div id="add-contact" class="button bordered mdc-ripple-surface mdc-ripple-surface--primary"
+                    v-on:click="openNewConversation">
                     <i class="material-icons">person_add</i>
                     <span>New Conversation</span>
                 </div>
@@ -54,7 +68,7 @@
 
             </div>
 
-            
+
         </div>
 
         <div id="sign-in" v-if="!signedIn">
@@ -63,17 +77,8 @@
             <button v-on:click="signIn" class="button primary" id="sign-in-button">SIGN IN</button>
         </div>
 
-    </div>
 
-    <div id="more-menu" class="mdc-menu mdc-menu-surface">
-        <ul class="mdc-list" role="menu" aria-hidden="false" aria-orientation="vertical" tabindex="-1">
-            <li class="mdc-list-item" role="menuitem">
-                <span class="mdc-list-item__text">A Menu Item</span>
-            </li>
-            <li class="mdc-list-item" role="menuitem">
-                <span class="mdc-list-item__text">Another Menu Item</span>
-            </li>
-        </ul>
+
     </div>
 
     <div id="loading">loading Blitzchat...</div>
@@ -149,15 +154,15 @@
 
     <template id="newConversationFormTemplate">
         <div class="new-conversation-form chat-window mdc-elevation--z1" tabindex="-1" v-on:focus="focusHandler">
-            <button class="button window-left-action" v-on:click="previousPhase"
+            <button class="mdc-icon-button material-icons" v-on:click="previousPhase"
                 v-bind:class="{disabled: form.phase == 0}">
-                <i class="material-icons">arrow_back</i>
-            </button><button class="button window-left-action" v-on:click="nextPhase"
+                arrow_back
+            </button><button class="mdc-icon-button material-icons" v-on:click="nextPhase"
                 v-bind:class="{disabled: form.phase == 1}">
-                <i class="material-icons">arrow_forward</i>
-            </button><button class="button window-left-action" v-on:click="submit"
+                arrow_forward
+            </button><button class="mdc-icon-button material-icons" v-on:click="submit"
                 v-if="form.phase == 1 && form.people.length > 0">
-                <i class="material-icons">done</i>
+                done
             </button>
 
             <button class="mdc-icon-button material-icons close-new-conversation" v-on:click="close">close</button>
