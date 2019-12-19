@@ -262,7 +262,7 @@ body {
     top: 52px;
 }
 
-.chat-window {
+.window {
     height: 100%;
     border-radius: 10px;
     transition: left 100ms ease, width 100ms ease, height 100ms ease, box-shadow 100ms ease, background 100ms ease;
@@ -272,12 +272,12 @@ body {
     position:relative;
 }
 
-#chat-grid:not(.single) .chat-window:focus, #chat-grid:not(.single) .chat-window:focus-within {
+#chat-grid:not(.single) .window:focus, #chat-grid:not(.single) .window:focus-within {
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, .12);
     background: rgba(255, 255, 255, 0.09);
 }
 
-.chat-window .header, .send-message {
+.window .header, .send-message {
     width: calc(100% - 34px);
     height: 24px;
     z-index: 1;
@@ -437,7 +437,7 @@ body {
     color: #2288ff;
 }
 
-.chat-window .header .title {
+.window .header .title {
     font-size: 18px;
     margin-left: 4px;
     display: inline-block;
@@ -447,12 +447,12 @@ body {
     width: calc(100% - 84px);
 }
 
-.chat-window .header .actions.right {
+.window .header .actions.right {
     float: right;
     margin-right: -2px;
 }
 
-.chat-window .header .actions .button {
+.window .header .actions .button {
     backdrop-filter: none;
     background: transparent;
     margin-left: 4px;
@@ -460,19 +460,19 @@ body {
     color: #ffffff77;
 }
 
-.chat-window .header .actions .button:hover {
+.window .header .actions .button:hover {
     color: #2288ff;
 }
 
-.chat-window .header .actions .close:hover {
+.window .header .actions .close:hover {
     color: #ff2222;
 }
 
-.chat-window .header .actions.right .button {
+.window .header .actions.right .button {
     float: right;
 }
 
-.chat-window .header .actions {
+.window .header .actions {
     display: inline-block;
     margin-left: -4px;
 }

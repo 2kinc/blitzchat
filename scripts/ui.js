@@ -21,7 +21,7 @@ class UI {
                 FLOATING: 1
             };
             var loadedUsers = {};
-            
+
             var moreMenu = new MDCMenu(document.querySelector('#more-menu'));
             var keyListener = new window.keypress.Listener();
             this.vue = new Vue({
@@ -153,7 +153,11 @@ class UI {
                             });
                             moreMenu = new MDCMenu(document.querySelector('#more-menu'));
                         }, 0);
-                        
+
+                    },
+                    logOut() {
+                        auth.signOut();
+                        location.reload();
                     }
 
                 },
@@ -177,7 +181,10 @@ class UI {
                 props: { 'contact': Object, 'openChat': Function },
                 template: '#contactItemTemplate',
                 methods: {
-                    open() {
+                    open(e) {
+                        if (e.shiftKey) { 
+                            this.$root.pushChat(this.contact) 
+                        };
                         this.$root.openChat(this.contact);
                     }
                 },
@@ -266,7 +273,7 @@ class UI {
                         this.messageText = ''; // clear
 
                         that.vue.dbref.ref('blitzchat/conversations/' + this.chat.key).child('messages').push(message);
-                        
+
 
                     },
                     getMessages() {
@@ -430,7 +437,7 @@ class UI {
                 template: '#messageTemplate',
                 props: { 'message': Object },
                 data: () => ({
-                    
+
                 }),
                 methods: {
                     urlify(text) {

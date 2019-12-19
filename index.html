@@ -40,7 +40,7 @@
                                 <span class="mdc-list-item__text">Settings</span>
                             </li>
                             
-                            <li class="mdc-list-item" role="menuitem">
+                            <li class="mdc-list-item" role="menuitem" v-on:click="logOut">
                                 <span class="mdc-list-item__graphic material-icons">exit_to_app</span>
                                 <span class="mdc-list-item__text">Log out</span>
                             </li>
@@ -93,7 +93,7 @@
 
     <template id="contactItemTemplate">
 
-        <div class="contact-item" v-on:click="open">
+        <div class="contact-item" v-on:click="open($event)">
             <img v-if="contact.photoURL" v-bind:src="contact.photoURL" v-bind:alt="contact.name" width="50" height="50"
                 class="picture">
             <div v-else class="noimage picture">{{contact.people.length}}</div>
@@ -109,7 +109,7 @@
 
     <template id="chatWindowTemplate">
 
-        <div class="chat-window mdc-elevation--z1" v-on:focus="focusHandler" tabindex="-1">
+        <div class="window mdc-elevation--z1" v-on:focus="focusHandler" tabindex="-1">
             <div class="header mdc-elevation--z2">
                 <div class="actions">
                     <button class="button" v-on:click="fullscreenHandler">
@@ -161,7 +161,7 @@
     </template>
 
     <template id="newConversationFormTemplate">
-        <div class="new-conversation-form chat-window mdc-elevation--z1" tabindex="-1" v-on:focus="focusHandler">
+        <div class="new-conversation-form window mdc-elevation--z1" tabindex="-1" v-on:focus="focusHandler">
             <button class="mdc-icon-button material-icons" v-on:click="previousPhase"
                 v-bind:class="{disabled: form.phase == 0}">
                 arrow_back
