@@ -182,10 +182,19 @@ class UI {
                 template: '#contactItemTemplate',
                 methods: {
                     open(e) {
-                        if (e.shiftKey) { 
-                            this.$root.pushChat(this.contact) 
+                        if (e.shiftKey) {
+                            this.$root.pushChat(this.contact);
+                            var that = this;
+                            setTimeout(function() {
+                                var all = document.querySelectorAll('.window-wrapper');
+                                var length = that.$root.openedChats.length;
+                                for (var i = 0; i < all.length; i++) {
+                                    all[i].style.height = 'calc(' + (100 / Math.ceil(length / 2)) + 'vh - ' + (70 / Math.ceil(length / 2)) + 'px)';
+                                }
+                            }, 0);
+                        } else {
+                            this.$root.openChat(this.contact);
                         };
-                        this.$root.openChat(this.contact);
                     }
                 },
                 computed: {
@@ -250,6 +259,14 @@ class UI {
                     close() {
                         var index = that.vue.openedChats.indexOf(this.window);
                         that.vue.openedChats.splice(index, 1);
+                        setTimeout(function() {
+                            var all = document.querySelectorAll('.window-wrapper');
+                            var length = that.vue.openedChats.length;
+                            console.log('calc(' + (100 / Math.ceil(length / 2)) + 'vh - ' + (70 / Math.ceil(length / 2)) + 'px)');
+                            for (var i = 0; i < all.length; i++) {
+                                all[i].style.height = 'calc(' + (100 / Math.ceil(length / 2)) + 'vh - ' + (70 / Math.ceil(length / 2)) + 'px)';
+                            }
+                        }, 0);
                     },
                     focusHandler() {
                         that.vue.focusedChat = this;

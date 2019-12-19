@@ -260,6 +260,8 @@ body {
     position: absolute;
     right: 16px;
     top: 52px;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 .window {
@@ -457,7 +459,7 @@ body {
     background: transparent;
     margin-left: 4px;
     padding: 0;
-    color: #ffffff77;
+    color: #ffffff77; 
 }
 
 .window .header .actions .button:hover {
@@ -479,7 +481,7 @@ body {
 
 .window-wrapper {
     height: calc(100vh - 70px);
-    transition: left 300ms ease, width 300ms ease, height 300ms ease;
+    transition: left 300ms ease, top 300ms ease;
     animation: window-wrapper-open 400ms;
     z-index: 0;
 }

@@ -242,7 +242,7 @@
 
     <template id="windowWrapperTemplate">
         <div class="window-wrapper">
-            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content"></chat-window>
+            <chat-window v-if="window.type == TYPE.CHAT" :chat="window.content" :window="window"></chat-window>
             <new-conversation-form v-if="window.type == TYPE.NEWCHAT" :window="window" :form="window.content.form">
             </new-conversation-form>
         </div>
