@@ -260,8 +260,8 @@ body {
     position: absolute;
     right: 16px;
     top: 52px;
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+    flex-direction: row;
 }
 
 .window {
@@ -318,6 +318,7 @@ body {
 .message-time {
     color: #ffffff44;
     float: left;
+    user-select: none;
 }
 
 .message-wrapper {

@@ -16,9 +16,18 @@ class UI {
                 INVITEWAITING: 0,
                 INVITEDECLINED: -1
             };
-            var STATE = {
-                GROUND: 0,
-                FLOATING: 1
+            var CHAT = {
+                STATE: {
+                    GROUND: 0,
+                    FLOATING: 1
+                },
+                PUSH: {
+                    MODE: {
+                        LEFT: 0,
+                        RIGHT: 1,
+                        EQUAL: 2
+                    }
+                }
             };
             var loadedUsers = {};
 
@@ -84,7 +93,8 @@ class UI {
                         var window = {
                             content: contact,
                             type: TYPE.CHAT,
-                            state: STATE.GROUND
+                            state: CHAT.STATE.GROUND,
+                            width: 0
                         };
                         this.openedChats = [];
                         var that = this;
@@ -93,13 +103,26 @@ class UI {
                             that.updateMDC();
                         }, 0);
                     },
-                    pushChat(contact) {
+                    pushChat(contact, mode) {
+                        var that = this;
+                        var chatSpaceWidth = innerWidth - 108
                         var window = {
                             content: contact,
                             type: TYPE.CHAT,
-                            state: STATE.GROUND
+                            state: CHAT.STATE.GROUND,
+                            width: 0
                         };
-                        var that = this;
+                        switch (mode) {
+                            case CHAT.PUSH.MODE.LEFT:
+                                break;
+                            case CHAT.PUSH.MODE.RIGHT:
+                                break;
+                            case CHAT.PUSH.MODE.EQUAL:
+                                that.openedChats.forEach(function (window) {
+                                    window.width = chatSpaceWidth / (that.openedChats.length + 1);
+                                });
+                                window.width = chatSpaceWidth / (that.openedChats.length + 1);
+                        }
                         setTimeout(function () {
                             that.openedChats.push(window);
                             that.updateMDC();
@@ -172,7 +195,7 @@ class UI {
                             }
                             list.push(chat.content.name);
                         }
-                        return list.join();
+                        return list.join(', ');
                     }
                 },
                 el: this.el
@@ -183,9 +206,9 @@ class UI {
                 methods: {
                     open(e) {
                         if (e.shiftKey) {
-                            this.$root.pushChat(this.contact);
+                            this.$root.pushChat(this.contact, CHAT.PUSH.MODE.EQUAL);
                             var that = this;
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 var all = document.querySelectorAll('.window-wrapper');
                                 var length = that.$root.openedChats.length;
                                 for (var i = 0; i < all.length; i++) {
@@ -226,7 +249,7 @@ class UI {
                     messageText: '',
                     minimumLength: 1,
                     maximumLength: 512,
-                    STATE: STATE
+                    CHAT: CHAT
                 }),
                 computed: {
                     computedName() {
@@ -259,7 +282,7 @@ class UI {
                     close() {
                         var index = that.vue.openedChats.indexOf(this.window);
                         that.vue.openedChats.splice(index, 1);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             var all = document.querySelectorAll('.window-wrapper');
                             var length = that.vue.openedChats.length;
                             console.log('calc(' + (100 / Math.ceil(length / 2)) + 'vh - ' + (70 / Math.ceil(length / 2)) + 'px)');
@@ -498,7 +521,7 @@ class UI {
             keyListener.simple_combo('ctrl alt n', function () {
                 that.vue.openNewConversation();
             });
-            keyListener.simple_combo('ctrl alt w', function () {
+            keyListener.simple_combo('esc', function () {
                 that.vue.focusedChat.close();
             });
             keyListener.simple_combo('ctrl ,', function () {
