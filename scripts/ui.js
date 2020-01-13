@@ -123,8 +123,8 @@ class UI {
                                 });
                                 window.width = chatSpaceWidth / (that.openedChats.length + 1);
                         }
+                        that.openedChats.push(window);
                         setTimeout(function () {
-                            that.openedChats.push(window);
                             that.updateMDC();
                         }, 0);
                     },
@@ -272,8 +272,8 @@ class UI {
                 created() {
                     var that = this;
                     this.messages = undefined;
-                    this.getMessages();
                     setTimeout(function () {
+                        that.getMessages();
                         var chatEl = that.$refs.messages;
                         chatEl.scrollTop = chatEl.scrollHeight;
                     }, 0);
@@ -321,11 +321,49 @@ class UI {
                         var that = this;
 
                         this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').on('child_added', function (snap) {
-                            that.chat.messages[snap.key] = snap.val();
+                            var message = snap.val();
+                            if (message.user.uid) return;
+                            if (loadedUsers[message.user]) {
+                                var uid = message.user;
+                                message.user = loadedUsers[message.user];
+                                message.user.uid = uid;
+                            } else {
+                                that.$root.dbref.ref('users/' + message.user).once('value').then(function (snap1) {
+                                    var val = snap1.val();
+                                    loadedUsers[message.user.uid || message.user] = {
+                                        displayName: val.displayName,
+                                        photoURL: val.photoURL,
+                                        email: val.email
+                                    };
+                                    var uid = message.user;
+                                    message.user = loadedUsers[message.user.uid || message.user];
+                                    message.user.uid = uid;
+                                });
+                            }
+                            that.chat.messages[snap.key] = message;
                         });
 
                         this.$root.dbref.ref('blitzchat/conversations/' + this.chat.key + '/messages').limitToLast(1).on('child_added', function (snap) {
-                            that.chat.messages[snap.key] = snap.val();
+                            var message = snap.val();
+                            if (message.user.uid) return;
+                            if (loadedUsers[message.user]) {
+                                var uid = message.user;
+                                message.user = loadedUsers[message.user];
+                                message.user.uid = uid;
+                            } else {
+                                that.$root.dbref.ref('users/' + message.user).once('value').then(function (snap1) {
+                                    var val = snap1.val();
+                                    loadedUsers[message.user.uid || message.user] = {
+                                        displayName: val.displayName,
+                                        photoURL: val.photoURL,
+                                        email: val.email
+                                    };
+                                    var uid = message.user;
+                                    message.user = loadedUsers[message.user.uid || message.user];
+                                    message.user.uid = uid;
+                                });
+                            }
+                            that.chat.messages[snap.key] = message;
                             var chatEl = that.$refs.messages;
                             setTimeout(function () {
                                 chatEl.scrollTop = chatEl.scrollHeight;
@@ -469,8 +507,22 @@ class UI {
                 data: () => ({
                     TYPE: TYPE
                 }),
+                mounted() {
+                    this.updateDimensions();
+                },
                 methods: {
-
+                    updateDimensions() {
+                        var that = this;
+                        setTimeout(function () {
+                            if (that.window.width)
+                                that.$el.style.width = that.window.width + 'px';
+                        }, 0);
+                    }
+                },
+                watch: {
+                    width: function (val) {
+                        this.updateDimensions();
+                    }
                 }
             });
             this.message = Vue.component('message', {
@@ -487,25 +539,7 @@ class UI {
                     },
                 },
                 created() {
-                    if (this.message.user.uid) return;
-                    if (loadedUsers[this.message.user]) {
-                        var uid = this.message.user;
-                        this.message.user = loadedUsers[this.message.user];
-                        this.message.user.uid = uid;
-                    } else {
-                        var that = this;
-                        this.$root.dbref.ref('users/' + this.message.user).once('value').then(function (snap) {
-                            var val = snap.val();
-                            loadedUsers[that.message.user.uid || that.message.user] = {
-                                displayName: val.displayName,
-                                photoURL: val.photoURL,
-                                email: val.email
-                            };
-                            var uid = that.message.user;
-                            that.message.user = loadedUsers[that.message.user.uid || that.message.user];
-                            that.message.user.uid = uid;
-                        });
-                    }
+
                 },
                 computed: {
                     sentBySelf() {
