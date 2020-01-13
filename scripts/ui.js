@@ -516,11 +516,13 @@ class UI {
                         setTimeout(function () {
                             if (that.window.width)
                                 that.$el.style.width = that.window.width + 'px';
+                            else
+                                that.$el.style.width = '';
                         }, 0);
                     }
                 },
                 watch: {
-                    width: function (val) {
+                    'window.width': function (val) {
                         this.updateDimensions();
                     }
                 }
