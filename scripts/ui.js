@@ -118,10 +118,10 @@ class UI {
                             case CHAT.PUSH.MODE.RIGHT:
                                 break;
                             case CHAT.PUSH.MODE.EQUAL:
-                                that.openedChats.forEach(function (window) {
-                                    window.width = chatSpaceWidth / (that.openedChats.length + 1);
+                                that.openedChats.forEach(function (dwindow) {
+                                    dwindow.width = chatSpaceWidth / (that.openedChats.length + 1) - (that.openedChats.length - 1) * 10;
                                 });
-                                window.width = chatSpaceWidth / (that.openedChats.length + 1);
+                                window.width = chatSpaceWidth / (that.openedChats.length + 1) - (that.openedChats.length - 1) * 10;
                         }
                         that.openedChats.push(window);
                         setTimeout(function () {
@@ -208,13 +208,6 @@ class UI {
                         if (e.shiftKey) {
                             this.$root.pushChat(this.contact, CHAT.PUSH.MODE.EQUAL);
                             var that = this;
-                            setTimeout(function () {
-                                var all = document.querySelectorAll('.window-wrapper');
-                                var length = that.$root.openedChats.length;
-                                for (var i = 0; i < all.length; i++) {
-                                    all[i].style.height = 'calc(' + (100 / Math.ceil(length / 2)) + 'vh - ' + (70 / Math.ceil(length / 2)) + 'px)';
-                                }
-                            }, 0);
                         } else {
                             this.$root.openChat(this.contact);
                         };
