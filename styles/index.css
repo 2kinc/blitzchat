@@ -37,6 +37,7 @@ body {
 
 ::-webkit-scrollbar {
     background: transparent;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
